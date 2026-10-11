@@ -21,6 +21,19 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
+sourceSets {
+    // In-game tests, only added to the mod in development runs (never shipped in the jar)
+    gametest {
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
+}
+
+configurations {
+    gametestImplementation.extendsFrom implementation
+    gametestRuntimeOnly.extendsFrom runtimeOnly
+}
+
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
 
@@ -35,6 +48,7 @@ minecraft {
             mods {
                 "${mod_id}" {
                     source sourceSets.main
+                    source sourceSets.gametest
                 }
             }
         }
@@ -47,6 +61,11 @@ minecraft {
             workingDirectory project.file('run_server')
             property 'forge.enabledGameTestNamespaces', mod_id
             args '--nogui'
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run_gametest')
+            property 'forge.enabledGameTestNamespaces', mod_id
         }
 
         data {
@@ -63,6 +82,14 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test', Test).configure {
+    useJUnitPlatform()
 }
 
 tasks.named('processResources', ProcessResources).configure {

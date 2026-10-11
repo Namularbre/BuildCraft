@@ -43,3 +43,4 @@ logs
 #forge 1.20
 run-data
 sub_projects/expression/src/autogen
+run_gametest
