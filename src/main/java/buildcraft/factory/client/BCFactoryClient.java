@@ -17,6 +17,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import buildcraft.BuildCraft;
 import buildcraft.factory.BCFactoryBlocks;
 import buildcraft.factory.BCFactoryMenus;
+import buildcraft.factory.client.gui.GuiAutoCraftItems;
 import buildcraft.factory.client.gui.GuiChute;
 import buildcraft.factory.client.render.RenderDistiller;
 import buildcraft.factory.client.render.RenderHeatExchange;
@@ -29,7 +30,10 @@ public final class BCFactoryClient {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> MenuScreens.register(BCFactoryMenus.CHUTE.get(), GuiChute::new));
+        event.enqueueWork(() -> {
+            MenuScreens.register(BCFactoryMenus.CHUTE.get(), GuiChute::new);
+            MenuScreens.register(BCFactoryMenus.AUTO_WORKBENCH_ITEMS.get(), GuiAutoCraftItems::new);
+        });
     }
 
     @SubscribeEvent

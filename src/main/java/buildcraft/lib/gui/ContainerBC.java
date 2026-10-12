@@ -8,19 +8,21 @@ package buildcraft.lib.gui;
 
 import javax.annotation.Nullable;
 
+import io.netty.buffer.Unpooled;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 import net.minecraftforge.fml.LogicalSide;
 
-import io.netty.buffer.Unpooled;
-
+import buildcraft.lib.gui.slot.SlotPhantom;
 import buildcraft.lib.misc.data.IdAllocator;
 import buildcraft.lib.net.IPayloadWriter;
 import buildcraft.lib.net.MessageContainer;
@@ -65,6 +67,19 @@ public abstract class ContainerBC extends AbstractContainerMenu {
 
     protected void addFullPlayerInventory(int startY) {
         addFullPlayerInventory(8, startY);
+    }
+
+    @Override
+    public void clicked(int slotId, int button, ClickType clickType, Player player) {
+        if (slotId >= 0 && slotId < slots.size() && slots.get(slotId) instanceof SlotPhantom phantom) {
+            if (clickType == ClickType.PICKUP) {
+                phantom.setPhantom(getCarried());
+            } else if (clickType == ClickType.QUICK_MOVE) {
+                phantom.setPhantom(ItemStack.EMPTY);
+            }
+            return;
+        }
+        super.clicked(slotId, button, clickType, player);
     }
 
     @Override

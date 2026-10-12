@@ -44,6 +44,7 @@ public class BCItemModelProvider extends ItemModelProvider {
         withExistingParent("pump", modLoc("block/pump"));
         withExistingParent("mining_well", modLoc("block/mining_well"));
         withExistingParent("chute", modLoc("block/chute"));
+        withExistingParent("autoworkbench_item", modLoc("block/autoworkbench_item"));
         withExistingParent("flood_gate", modLoc("block/flood_gate_d_n_s_w_e"));
 
         if (BCCoreBlocks.POWER_TESTER != null) {

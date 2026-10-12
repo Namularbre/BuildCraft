@@ -13,12 +13,18 @@ import net.minecraftforge.registries.RegistryObject;
 
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.factory.container.ContainerAutoCraftItems;
 import buildcraft.factory.container.ContainerChute;
 
 public final class BCFactoryMenus {
     public static final RegistryObject<MenuType<ContainerChute>> CHUTE = BCRegistries.MENU_TYPES.register(
         "chute", () -> IForgeMenuType.create(ContainerChute::new)
     );
+
+    public static final RegistryObject<MenuType<ContainerAutoCraftItems>> AUTO_WORKBENCH_ITEMS =
+        BCRegistries.MENU_TYPES.register(
+            "autoworkbench_item", () -> IForgeMenuType.create(ContainerAutoCraftItems::new)
+        );
 
     private BCFactoryMenus() {}
 

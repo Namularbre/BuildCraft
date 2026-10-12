@@ -1,4 +1,5 @@
-// 1.20.1	2026-10-12T21:26:26.9555985	Recipes
+// 1.20.1	2026-10-12T21:44:04.5397694	Recipes
+2e2a97af27918323b4060658a3d91af618935769 data/buildcraft/advancements/recipes/misc/autoworkbench_item.json
 b789e01849761cdb4cdce786ae811ce93e1ffda9 data/buildcraft/advancements/recipes/misc/chute.json
 5e0f8f09821304c052e739eba3f19e284a068f16 data/buildcraft/advancements/recipes/misc/diamond_gear.json
 74bf8e9bdcc913f42546ed088b64600b247c809a data/buildcraft/advancements/recipes/misc/distiller.json
@@ -52,6 +53,7 @@ a05c80e2e4796a27ff6e06f2c0432708cee0c3c9 data/buildcraft/advancements/recipes/tr
 d94decc56de38c9b624a1699f5b8a3e2f3dafa3b data/buildcraft/advancements/recipes/transportation/wood_item_pipe.json
 c31c1c68648d002ea05d38a4603a686b2b0e2140 data/buildcraft/advancements/recipes/transportation/wood_power_pipe.json
 f4326c3aab2810705b26e64ad52fd40a465d152f data/buildcraft/advancements/recipes/transportation/wood_power_pipe_undo.json
+2012bd9b518ff3c648f241dc6047fb2efa3e419c data/buildcraft/recipes/autoworkbench_item.json
 42fec4ec0c8cb36cdb588302dbd5a1f5be7569c9 data/buildcraft/recipes/chute.json
 dbacee2e01b928f8276e52986611fabf22329997 data/buildcraft/recipes/cobblestone_fluid_pipe.json
 1c360bddee28291bf9d3273c54b5295be1b8da6d data/buildcraft/recipes/cobblestone_fluid_pipe_undo.json

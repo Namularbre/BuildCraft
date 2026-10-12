@@ -18,6 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.factory.block.BlockAutoWorkbenchItems;
 import buildcraft.factory.block.BlockChute;
 import buildcraft.factory.block.BlockDistiller;
 import buildcraft.factory.block.BlockFloodGate;
@@ -26,6 +27,7 @@ import buildcraft.factory.block.BlockMiningWell;
 import buildcraft.factory.block.BlockPump;
 import buildcraft.factory.block.BlockTank;
 import buildcraft.factory.block.BlockTube;
+import buildcraft.factory.tile.TileAutoWorkbenchItems;
 import buildcraft.factory.tile.TileChute;
 import buildcraft.factory.tile.TileDistiller;
 import buildcraft.factory.tile.TileFloodGate;
@@ -117,6 +119,19 @@ public final class BCFactoryBlocks {
             "flood_gate", () -> BlockEntityType.Builder.of(TileFloodGate::new, FLOOD_GATE.get()).build(null)
         );
 
+    public static final RegistryObject<BlockAutoWorkbenchItems> AUTO_WORKBENCH_ITEMS = BCRegistries.BLOCKS.register(
+        "autoworkbench_item", () -> new BlockAutoWorkbenchItems(
+            BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.5f).sound(SoundType.WOOD)
+        )
+    );
+
+    @SuppressWarnings("ConstantConditions")
+    public static final RegistryObject<BlockEntityType<TileAutoWorkbenchItems>> AUTO_WORKBENCH_ITEMS_TILE =
+        BCRegistries.BLOCK_ENTITY_TYPES.register(
+            "autoworkbench_item",
+            () -> BlockEntityType.Builder.of(TileAutoWorkbenchItems::new, AUTO_WORKBENCH_ITEMS.get()).build(null)
+        );
+
     /** Unbreakable: it is removed with the machine above it. */
     public static final RegistryObject<BlockTube> TUBE = BCRegistries.BLOCKS.register(
         "tube", () -> new BlockTube(
@@ -131,6 +146,9 @@ public final class BCFactoryBlocks {
         BCRegistries.ITEMS.register("mining_well", () -> new BlockItem(MINING_WELL.get(), new Item.Properties()));
         BCRegistries.ITEMS.register("distiller", () -> new BlockItem(DISTILLER.get(), new Item.Properties()));
         BCRegistries.ITEMS.register("chute", () -> new BlockItem(CHUTE.get(), new Item.Properties()));
+        BCRegistries.ITEMS.register(
+            "autoworkbench_item", () -> new BlockItem(AUTO_WORKBENCH_ITEMS.get(), new Item.Properties())
+        );
         BCRegistries.ITEMS.register("flood_gate", () -> new BlockItem(FLOOD_GATE.get(), new Item.Properties()));
         BCRegistries.ITEMS.register(
             "heat_exchange", () -> new BlockItem(HEAT_EXCHANGE.get(), new Item.Properties())

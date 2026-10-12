@@ -1,5 +1,6 @@
 {
   "values": [
-    "buildcraft:redstone_engine"
+    "buildcraft:redstone_engine",
+    "buildcraft:autoworkbench_item"
   ]
 }

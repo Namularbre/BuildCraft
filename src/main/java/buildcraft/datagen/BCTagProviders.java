@@ -35,7 +35,8 @@ public final class BCTagProviders {
 
         @Override
         protected void addTags(HolderLookup.Provider provider) {
-            tag(BlockTags.MINEABLE_WITH_AXE).add(BCCoreBlocks.ENGINE_REDSTONE.get());
+            tag(BlockTags.MINEABLE_WITH_AXE).add(BCCoreBlocks.ENGINE_REDSTONE.get())
+                .add(BCFactoryBlocks.AUTO_WORKBENCH_ITEMS.get());
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BCEnergyBlocks.ENGINE_STONE.get())
                 .add(BCEnergyBlocks.ENGINE_IRON.get()).add(BCFactoryBlocks.PUMP.get())
                 .add(BCFactoryBlocks.MINING_WELL.get()).add(BCFactoryBlocks.DISTILLER.get())

@@ -80,6 +80,13 @@ public class BCBlockStateProvider extends BlockStateProvider {
             .build());
         heatExchange();
         chute();
+        // Like in 1.12, the top texture is used for the bottom too
+        simpleBlock(BCFactoryBlocks.AUTO_WORKBENCH_ITEMS.get(), models().cube(
+            "block/autoworkbench_item", modLoc("block/auto_workbench_item/top"),
+            modLoc("block/auto_workbench_item/top"), modLoc("block/auto_workbench_item/side"),
+            modLoc("block/auto_workbench_item/side"), modLoc("block/auto_workbench_item/side"),
+            modLoc("block/auto_workbench_item/side")
+        ).texture("particle", modLoc("block/auto_workbench_item/side")));
         floodGate();
         // Drawn by the machine above it: the model is only used for particles
         simpleBlock(BCFactoryBlocks.TUBE.get(), models().getBuilder("block/tube")
