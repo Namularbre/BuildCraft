@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "forge:glass/colorless"
+    },
+    "g": {
+      "tag": "forge:gears/iron"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "igi",
+    "###",
+    "igi"
+  ],
+  "result": {
+    "item": "buildcraft:heat_exchange"
+  },
+  "show_notification": true
+}

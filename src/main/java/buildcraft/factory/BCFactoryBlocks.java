@@ -19,11 +19,13 @@ import net.minecraftforge.registries.RegistryObject;
 import buildcraft.lib.registry.BCRegistries;
 
 import buildcraft.factory.block.BlockDistiller;
+import buildcraft.factory.block.BlockHeatExchange;
 import buildcraft.factory.block.BlockMiningWell;
 import buildcraft.factory.block.BlockPump;
 import buildcraft.factory.block.BlockTank;
 import buildcraft.factory.block.BlockTube;
 import buildcraft.factory.tile.TileDistiller;
+import buildcraft.factory.tile.TileHeatExchange;
 import buildcraft.factory.tile.TileMiningWell;
 import buildcraft.factory.tile.TilePump;
 import buildcraft.factory.tile.TileTank;
@@ -75,6 +77,18 @@ public final class BCFactoryBlocks {
             "distiller", () -> BlockEntityType.Builder.of(TileDistiller::new, DISTILLER.get()).build(null)
         );
 
+    public static final RegistryObject<BlockHeatExchange> HEAT_EXCHANGE = BCRegistries.BLOCKS.register(
+        "heat_exchange", () -> new BlockHeatExchange(
+            BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 10.0f).sound(SoundType.METAL)
+        )
+    );
+
+    @SuppressWarnings("ConstantConditions")
+    public static final RegistryObject<BlockEntityType<TileHeatExchange>> HEAT_EXCHANGE_TILE =
+        BCRegistries.BLOCK_ENTITY_TYPES.register(
+            "heat_exchange", () -> BlockEntityType.Builder.of(TileHeatExchange::new, HEAT_EXCHANGE.get()).build(null)
+        );
+
     /** Unbreakable: it is removed with the machine above it. */
     public static final RegistryObject<BlockTube> TUBE = BCRegistries.BLOCKS.register(
         "tube", () -> new BlockTube(
@@ -88,6 +102,9 @@ public final class BCFactoryBlocks {
         BCRegistries.ITEMS.register("pump", () -> new BlockItem(PUMP.get(), new Item.Properties()));
         BCRegistries.ITEMS.register("mining_well", () -> new BlockItem(MINING_WELL.get(), new Item.Properties()));
         BCRegistries.ITEMS.register("distiller", () -> new BlockItem(DISTILLER.get(), new Item.Properties()));
+        BCRegistries.ITEMS.register(
+            "heat_exchange", () -> new BlockItem(HEAT_EXCHANGE.get(), new Item.Properties())
+        );
     }
 
     private BCFactoryBlocks() {}

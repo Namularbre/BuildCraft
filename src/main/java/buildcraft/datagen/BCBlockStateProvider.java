@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import buildcraft.api.enums.EnumPowerStage;
@@ -26,6 +27,8 @@ import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.energy.BCEnergyFluids;
 import buildcraft.factory.BCFactoryBlocks;
 import buildcraft.factory.block.BlockDistiller;
+import buildcraft.factory.block.BlockHeatExchange.EnumExchangePart;
+import buildcraft.factory.block.BlockHeatExchange;
 import buildcraft.factory.block.BlockTank;
 import buildcraft.transport.BCTransportBlocks;
 
@@ -70,12 +73,41 @@ public class BCBlockStateProvider extends BlockStateProvider {
             .modelFile(models().getExistingFile(modLoc("block/distiller")))
             .rotationY(BlockDistiller.modelRotation(state.getValue(BlockDistiller.FACING)))
             .build());
+        heatExchange();
         // Drawn by the machine above it: the model is only used for particles
         simpleBlock(BCFactoryBlocks.TUBE.get(), models().getBuilder("block/tube")
             .texture("particle", modLoc("block/pump/tube")));
 
         // A placeholder: the real model is generated from the pipe at runtime
         simpleBlock(BCTransportBlocks.PIPE_HOLDER.get(), models().getExistingFile(modLoc("block/pipe_holder")));
+    }
+
+    /** Built from parts: the inner pipe always shows, and the rest depends on which part of a heat exchanger the
+     * block is. The models face west, like in 1.12. */
+    private void heatExchange() {
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(BCFactoryBlocks.HEAT_EXCHANGE.get());
+        for (Direction facing : Direction.Plane.HORIZONTAL) {
+            int rotation = BlockHeatExchange.modelRotation(facing);
+            heatExchangePart(builder, "inner", rotation).condition(BlockHeatExchange.FACING, facing);
+            heatExchangePart(builder, "middle", rotation).condition(BlockHeatExchange.FACING, facing)
+                .condition(BlockHeatExchange.PART, EnumExchangePart.MIDDLE);
+            heatExchangePart(builder, "cap_left", rotation).condition(BlockHeatExchange.FACING, facing)
+                .condition(BlockHeatExchange.PART, EnumExchangePart.MIDDLE)
+                .condition(BlockHeatExchange.CONNECTED_LEFT, false);
+            heatExchangePart(builder, "cap_right", rotation).condition(BlockHeatExchange.FACING, facing)
+                .condition(BlockHeatExchange.PART, EnumExchangePart.MIDDLE)
+                .condition(BlockHeatExchange.CONNECTED_RIGHT, false);
+            heatExchangePart(builder, "start", rotation).condition(BlockHeatExchange.FACING, facing)
+                .condition(BlockHeatExchange.PART, EnumExchangePart.START);
+            heatExchangePart(builder, "end", rotation).condition(BlockHeatExchange.FACING, facing)
+                .condition(BlockHeatExchange.PART, EnumExchangePart.END);
+        }
+    }
+
+    private MultiPartBlockStateBuilder.PartBuilder heatExchangePart(MultiPartBlockStateBuilder builder, String part,
+        int rotation) {
+        return builder.part().modelFile(models().getExistingFile(modLoc("block/heat_exchange_" + part)))
+            .rotationY(rotation).addModel();
     }
 
     /** One model per heat stage, rotated so that the engine's trunk points in the direction it faces. */

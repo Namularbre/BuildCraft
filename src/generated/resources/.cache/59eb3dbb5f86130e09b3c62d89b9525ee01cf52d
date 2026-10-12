@@ -1,6 +1,7 @@
-// 1.20.1	2026-10-12T20:17:42.8617251	Loot Tables
+// 1.20.1	2026-10-12T20:34:49.7017454	Loot Tables
 c21809addc58ab140075c66b458cd9dfd4662000 data/buildcraft/loot_tables/blocks/combustion_engine.json
 a35f68d388243b10c956b2599972b2b1bfeab8a6 data/buildcraft/loot_tables/blocks/distiller.json
+7374c9f2bbf22684b79110973372017562d93d4f data/buildcraft/loot_tables/blocks/heat_exchange.json
 2889b6a29ab4e8d1e105edea100741c1949cb1ea data/buildcraft/loot_tables/blocks/mining_well.json
 98904efe9f73db2978ae89b49ce67e00a90e478d data/buildcraft/loot_tables/blocks/power_tester.json
 8fdd081b07f00c98c1daec846094a03934f2804f data/buildcraft/loot_tables/blocks/pump.json

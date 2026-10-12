@@ -5,6 +5,7 @@
     "buildcraft:pump",
     "buildcraft:mining_well",
     "buildcraft:distiller",
+    "buildcraft:heat_exchange",
     {
       "id": "buildcraft:power_tester",
       "required": false

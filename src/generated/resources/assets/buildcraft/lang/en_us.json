@@ -1,6 +1,7 @@
 {
   "block.buildcraft.combustion_engine": "Combustion Engine",
   "block.buildcraft.distiller": "Distiller",
+  "block.buildcraft.heat_exchange": "Heat Exchanger",
   "block.buildcraft.mining_well": "Mining Well",
   "block.buildcraft.pipe_holder": "Pipe",
   "block.buildcraft.power_tester": "Power Tester (Debug)",
