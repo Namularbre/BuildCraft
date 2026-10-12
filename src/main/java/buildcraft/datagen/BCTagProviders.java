@@ -22,6 +22,7 @@ import buildcraft.lib.BCTags;
 
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
+import buildcraft.energy.BCEnergyBlocks;
 
 public final class BCTagProviders {
     private BCTagProviders() {}
@@ -34,6 +35,7 @@ public final class BCTagProviders {
         @Override
         protected void addTags(HolderLookup.Provider provider) {
             tag(BlockTags.MINEABLE_WITH_AXE).add(BCCoreBlocks.ENGINE_REDSTONE.get());
+            tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BCEnergyBlocks.ENGINE_STONE.get());
             if (BCCoreBlocks.POWER_TESTER != null) {
                 // Optional: the tester only exists in development, and a missing entry would break the whole tag
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).addOptional(BCCoreBlocks.POWER_TESTER.getId());

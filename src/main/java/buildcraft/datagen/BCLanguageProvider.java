@@ -14,6 +14,7 @@ import buildcraft.BuildCraft;
 
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
+import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.transport.BCTransportBlocks;
 import buildcraft.transport.BCTransportItems;
 
@@ -38,6 +39,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCCoreItems.GEAR_GOLD.get(), "Gold Gear");
             add(BCCoreItems.GEAR_DIAMOND.get(), "Diamond Gear");
             add(BCCoreBlocks.ENGINE_REDSTONE.get(), "Redstone Engine");
+            add(BCEnergyBlocks.ENGINE_STONE.get(), "Stirling Engine");
             if (BCCoreBlocks.POWER_TESTER != null) {
                 add(BCCoreBlocks.POWER_TESTER.get(), "Power Tester (Debug)");
             }
@@ -83,6 +85,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCCoreItems.GEAR_GOLD.get(), "Engrenage d'or");
             add(BCCoreItems.GEAR_DIAMOND.get(), "Engrenage de diamant");
             add(BCCoreBlocks.ENGINE_REDSTONE.get(), "Moteur de redstone");
+            add(BCEnergyBlocks.ENGINE_STONE.get(), "Moteur à vapeur");
             if (BCCoreBlocks.POWER_TESTER != null) {
                 add(BCCoreBlocks.POWER_TESTER.get(), "Testeur de puissance (debug)");
             }

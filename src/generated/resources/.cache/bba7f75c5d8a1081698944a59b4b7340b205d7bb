@@ -1,11 +1,18 @@
-// 1.20.1	2026-10-12T15:15:40.8560043	Block States: buildcraft
+// 1.20.1	2026-10-12T15:53:03.9355911	Block States: buildcraft
 0c59025f03cb6dba5827fbde5d11784890c78858 assets/buildcraft/blockstates/pipe_holder.json
 617afc34c4fb05dafe04c8113f879760e4d559ed assets/buildcraft/blockstates/power_tester.json
 5ae261cd18f251c337def62533e7e79d29a67068 assets/buildcraft/blockstates/redstone_engine.json
+d0c5279a670287a62f4955a04f3aac7f2cf3546d assets/buildcraft/blockstates/stirling_engine.json
 b83103a5f1c754428d70dc32e97680696d3982af assets/buildcraft/models/block/engine/redstone_black.json
 d960c1f9e431a0f52ac754c29e30e238f3acbb1e assets/buildcraft/models/block/engine/redstone_blue.json
 87c68fa2907b07047cbb937872f4aa1d5548ee8f assets/buildcraft/models/block/engine/redstone_green.json
 e0d0ca0fefb2004a20a763bf8772d4aa184713e8 assets/buildcraft/models/block/engine/redstone_overheat.json
 111999d8144883d3e391e7350b2e3c56f47329a4 assets/buildcraft/models/block/engine/redstone_red.json
 4c7e2991124a832c7bc24d4a5d6e8ba495ef580e assets/buildcraft/models/block/engine/redstone_yellow.json
+cfbca6dc9e811e08e7c5ac6fb5dba7144e16d5fb assets/buildcraft/models/block/engine/stone_black.json
+3441519bff581840f818df51208f80bb1a6f6c2b assets/buildcraft/models/block/engine/stone_blue.json
+0ac4635248a9058db6b0dc2eace337b5eea56da2 assets/buildcraft/models/block/engine/stone_green.json
+3313ae014597c15c17b563b7b706d33f42d9a1d4 assets/buildcraft/models/block/engine/stone_overheat.json
+ff7e0439d0d6f4b989314c1d382ef876b062cdcd assets/buildcraft/models/block/engine/stone_red.json
+cf2eaf069231bd187bec9da178c265d770413f44 assets/buildcraft/models/block/engine/stone_yellow.json
 92f4a3b4cda910f1aa301401f2ab0145bce3e795 assets/buildcraft/models/block/power_tester.json

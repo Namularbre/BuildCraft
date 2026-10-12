@@ -28,6 +28,7 @@ import buildcraft.lib.BCTags;
 
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
+import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.transport.BCTransportItems;
 
 /** Crafting recipes, ported from the 1.12 recipe JSONs (ore dictionary entries became tags). */
@@ -69,6 +70,17 @@ public class BCRecipeProvider extends RecipeProvider {
             .define('G', BCTags.Items.GEARS_WOOD)
             .define('p', Items.PISTON)
             .unlockedBy("has_gear", has(BCTags.Items.GEARS_WOOD))
+            .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BCEnergyBlocks.ENGINE_STONE.get())
+            .pattern("www")
+            .pattern(" g ")
+            .pattern("GpG")
+            .define('w', Tags.Items.COBBLESTONE)
+            .define('g', Tags.Items.GLASS_COLORLESS)
+            .define('G', BCTags.Items.GEARS_STONE)
+            .define('p', Items.PISTON)
+            .unlockedBy("has_gear", has(BCTags.Items.GEARS_STONE))
             .save(out);
 
         pipe(out, BCTransportItems.PIPE_WOOD_ITEM.get(), Ingredient.of(ItemTags.PLANKS));

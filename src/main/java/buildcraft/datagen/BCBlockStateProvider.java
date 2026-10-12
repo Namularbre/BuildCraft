@@ -19,6 +19,7 @@ import buildcraft.api.enums.EnumPowerStage;
 import buildcraft.lib.engine.BlockEngineBase;
 
 import buildcraft.core.BCCoreBlocks;
+import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.transport.BCTransportBlocks;
 
 public class BCBlockStateProvider extends BlockStateProvider {
@@ -29,6 +30,7 @@ public class BCBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         engine(BCCoreBlocks.ENGINE_REDSTONE.get(), "redstone");
+        engine(BCEnergyBlocks.ENGINE_STONE.get(), "stone");
 
         if (BCCoreBlocks.POWER_TESTER != null) {
             simpleBlock(BCCoreBlocks.POWER_TESTER.get());

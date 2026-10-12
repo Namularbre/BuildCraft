@@ -2,6 +2,7 @@
   "block.buildcraft.pipe_holder": "Tuyau",
   "block.buildcraft.power_tester": "Testeur de puissance (debug)",
   "block.buildcraft.redstone_engine": "Moteur de redstone",
+  "block.buildcraft.stirling_engine": "Moteur à vapeur",
   "item.buildcraft.cobblestone_fluid_pipe": "Tuyau à fluide en pierre",
   "item.buildcraft.cobblestone_item_pipe": "Tuyau de transport en pierre",
   "item.buildcraft.cobblestone_power_pipe": "Tuyau cinétique en pierre",

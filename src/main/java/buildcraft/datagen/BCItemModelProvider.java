@@ -16,6 +16,7 @@ import buildcraft.BuildCraft;
 
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
+import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.transport.BCTransportItems;
 
 public class BCItemModelProvider extends ItemModelProvider {
@@ -34,6 +35,7 @@ public class BCItemModelProvider extends ItemModelProvider {
         basicItem(BCTransportItems.PIPE_SEALANT.get());
 
         engine(BCCoreBlocks.ENGINE_REDSTONE.getId(), "redstone");
+        engine(BCEnergyBlocks.ENGINE_STONE.getId(), "stone");
 
         if (BCCoreBlocks.POWER_TESTER != null) {
             withExistingParent(BCCoreBlocks.POWER_TESTER.getId().getPath(), modLoc("block/power_tester"));

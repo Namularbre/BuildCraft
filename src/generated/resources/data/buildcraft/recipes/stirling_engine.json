@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": {
+      "tag": "forge:gears/stone"
+    },
+    "g": {
+      "tag": "forge:glass/colorless"
+    },
+    "p": {
+      "item": "minecraft:piston"
+    },
+    "w": {
+      "tag": "forge:cobblestone"
+    }
+  },
+  "pattern": [
+    "www",
+    " g ",
+    "GpG"
+  ],
+  "result": {
+    "item": "buildcraft:stirling_engine"
+  },
+  "show_notification": true
+}

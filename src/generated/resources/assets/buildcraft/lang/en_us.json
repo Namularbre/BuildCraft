@@ -2,6 +2,7 @@
   "block.buildcraft.pipe_holder": "Pipe",
   "block.buildcraft.power_tester": "Power Tester (Debug)",
   "block.buildcraft.redstone_engine": "Redstone Engine",
+  "block.buildcraft.stirling_engine": "Stirling Engine",
   "item.buildcraft.cobblestone_fluid_pipe": "Cobblestone Fluid Pipe",
   "item.buildcraft.cobblestone_item_pipe": "Cobblestone Transport Pipe",
   "item.buildcraft.cobblestone_power_pipe": "Cobblestone Kinesis Pipe",

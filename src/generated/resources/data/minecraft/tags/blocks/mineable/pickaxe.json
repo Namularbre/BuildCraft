@@ -1,5 +1,6 @@
 {
   "values": [
+    "buildcraft:stirling_engine",
     {
       "id": "buildcraft:power_tester",
       "required": false
