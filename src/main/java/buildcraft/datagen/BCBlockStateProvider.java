@@ -92,6 +92,8 @@ public class BCBlockStateProvider extends BlockStateProvider {
         frame();
         laser();
         simpleBlock(BCSiliconBlocks.ASSEMBLY_TABLE.get(), models().getExistingFile(modLoc("block/assembly_table")));
+        simpleBlock(BCSiliconBlocks.ADVANCED_CRAFTING_TABLE.get(),
+            models().getExistingFile(modLoc("block/advanced_crafting_table")));
         getVariantBuilder(BCFactoryBlocks.WATER_GEL.get()).forAllStates(state -> {
             String stage = state.getValue(BlockWaterGel.STAGE).getSerializedName();
             return ConfiguredModel.builder()

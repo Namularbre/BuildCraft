@@ -36,6 +36,8 @@ import buildcraft.energy.BCEnergyFluids;
 import buildcraft.factory.BCFactoryBlocks;
 import buildcraft.factory.BCFactoryItems;
 import buildcraft.silicon.BCSiliconBlocks;
+import buildcraft.silicon.BCSiliconItems;
+import buildcraft.silicon.EnumRedstoneChipset;
 import buildcraft.transport.BCTransportItems;
 
 /** Crafting recipes, ported from the 1.12 recipe JSONs (ore dictionary entries became tags). */
@@ -137,6 +139,17 @@ public class BCRecipeProvider extends RecipeProvider {
             .define('d', Tags.Items.GEMS_DIAMOND)
             .define('o', Items.OBSIDIAN)
             .unlockedBy("has_diamond", has(Tags.Items.GEMS_DIAMOND))
+            .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCSiliconBlocks.ADVANCED_CRAFTING_TABLE.get())
+            .pattern("OtO")
+            .pattern("OcO")
+            .pattern("OrO")
+            .define('O', Items.OBSIDIAN)
+            .define('t', Items.CRAFTING_TABLE)
+            .define('c', Tags.Items.CHESTS_WOODEN)
+            .define('r', BCSiliconItems.chipset(EnumRedstoneChipset.RED))
+            .unlockedBy("has_chipset", has(BCSiliconItems.chipset(EnumRedstoneChipset.RED)))
             .save(out);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCSiliconBlocks.ASSEMBLY_TABLE.get())

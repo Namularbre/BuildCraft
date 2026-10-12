@@ -13,11 +13,17 @@ import net.minecraftforge.registries.RegistryObject;
 
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.silicon.container.ContainerAdvancedCraftingTable;
 import buildcraft.silicon.container.ContainerAssemblyTable;
 
 public final class BCSiliconMenus {
     public static final RegistryObject<MenuType<ContainerAssemblyTable>> ASSEMBLY_TABLE =
         BCRegistries.MENU_TYPES.register("assembly_table", () -> IForgeMenuType.create(ContainerAssemblyTable::new));
+
+    public static final RegistryObject<MenuType<ContainerAdvancedCraftingTable>> ADVANCED_CRAFTING_TABLE =
+        BCRegistries.MENU_TYPES.register(
+            "advanced_crafting_table", () -> IForgeMenuType.create(ContainerAdvancedCraftingTable::new)
+        );
 
     private BCSiliconMenus() {}
 

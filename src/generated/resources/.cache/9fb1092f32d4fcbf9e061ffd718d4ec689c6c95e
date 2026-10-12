@@ -1,4 +1,5 @@
-// 1.20.1	2026-10-12T23:55:47.6942754	Recipes
+// 1.20.1	2026-10-13T00:03:22.015541	Recipes
+4b98a241bbf735254a8a8a160cabb08b0980f83b data/buildcraft/advancements/recipes/misc/advanced_crafting_table.json
 7e4ba0562e562bee61c3567c9a77fedfbfd77300 data/buildcraft/advancements/recipes/misc/assembly_table.json
 2e2a97af27918323b4060658a3d91af618935769 data/buildcraft/advancements/recipes/misc/autoworkbench_item.json
 b789e01849761cdb4cdce786ae811ce93e1ffda9 data/buildcraft/advancements/recipes/misc/chute.json
@@ -62,6 +63,7 @@ a05c80e2e4796a27ff6e06f2c0432708cee0c3c9 data/buildcraft/advancements/recipes/tr
 d94decc56de38c9b624a1699f5b8a3e2f3dafa3b data/buildcraft/advancements/recipes/transportation/wood_item_pipe.json
 c31c1c68648d002ea05d38a4603a686b2b0e2140 data/buildcraft/advancements/recipes/transportation/wood_power_pipe.json
 f4326c3aab2810705b26e64ad52fd40a465d152f data/buildcraft/advancements/recipes/transportation/wood_power_pipe_undo.json
+040c58aa0771816ffb9dce1c5e61d74005948862 data/buildcraft/recipes/advanced_crafting_table.json
 7fea31aff4ba213ffb0046518a523dc8e8777736 data/buildcraft/recipes/assembly_table.json
 2012bd9b518ff3c648f241dc6047fb2efa3e419c data/buildcraft/recipes/autoworkbench_item.json
 42fec4ec0c8cb36cdb588302dbd5a1f5be7569c9 data/buildcraft/recipes/chute.json

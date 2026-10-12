@@ -56,6 +56,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCCoreBlocks.MARKER_VOLUME.get(), "Volume Marker");
             add(BCBuildersBlocks.FRAME.get(), "Frame");
             add(BCSiliconBlocks.ASSEMBLY_TABLE.get(), "Assembly Table");
+            add(BCSiliconBlocks.ADVANCED_CRAFTING_TABLE.get(), "Advanced Crafting Table");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.RED), "Redstone Chipset");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.IRON), "Iron Chipset");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.GOLD), "Gold Chipset");
@@ -151,6 +152,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCCoreBlocks.MARKER_VOLUME.get(), "Marqueur de volume");
             add(BCBuildersBlocks.FRAME.get(), "Cadre");
             add(BCSiliconBlocks.ASSEMBLY_TABLE.get(), "Table d'assemblage");
+            add(BCSiliconBlocks.ADVANCED_CRAFTING_TABLE.get(), "Table de fabrication avancée");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.RED), "Circuit en redstone");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.IRON), "Circuit en fer");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.GOLD), "Circuit en or");

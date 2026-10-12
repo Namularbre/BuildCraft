@@ -45,6 +45,7 @@ public final class BCTagProviders {
                 .add(BCFactoryBlocks.HEAT_EXCHANGE.get()).add(BCFactoryBlocks.CHUTE.get())
                 .add(BCFactoryBlocks.FLOOD_GATE.get())
                 .add(BCSiliconBlocks.LASER.get()).add(BCSiliconBlocks.ASSEMBLY_TABLE.get())
+                .add(BCSiliconBlocks.ADVANCED_CRAFTING_TABLE.get())
                 .add(BCBuildersBlocks.QUARRY.get()).add(BCBuildersBlocks.FRAME.get());
             if (BCCoreBlocks.POWER_TESTER != null) {
                 // Optional: the tester only exists in development, and a missing entry would break the whole tag

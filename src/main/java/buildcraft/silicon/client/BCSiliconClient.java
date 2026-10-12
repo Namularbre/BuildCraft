@@ -17,6 +17,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import buildcraft.BuildCraft;
 import buildcraft.silicon.BCSiliconBlocks;
 import buildcraft.silicon.BCSiliconMenus;
+import buildcraft.silicon.client.gui.GuiAdvancedCraftingTable;
 import buildcraft.silicon.client.gui.GuiAssemblyTable;
 import buildcraft.silicon.client.render.RenderLaser;
 
@@ -26,7 +27,10 @@ public final class BCSiliconClient {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> MenuScreens.register(BCSiliconMenus.ASSEMBLY_TABLE.get(), GuiAssemblyTable::new));
+        event.enqueueWork(() -> {
+            MenuScreens.register(BCSiliconMenus.ASSEMBLY_TABLE.get(), GuiAssemblyTable::new);
+            MenuScreens.register(BCSiliconMenus.ADVANCED_CRAFTING_TABLE.get(), GuiAdvancedCraftingTable::new);
+        });
     }
 
     @SubscribeEvent

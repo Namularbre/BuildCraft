@@ -19,6 +19,7 @@ import buildcraft.lib.registry.BCRegistries;
 
 import buildcraft.silicon.block.BlockLaser;
 import buildcraft.silicon.block.BlockLaserTable;
+import buildcraft.silicon.tile.TileAdvancedCraftingTable;
 import buildcraft.silicon.tile.TileAssemblyTable;
 import buildcraft.silicon.tile.TileLaser;
 
@@ -44,10 +45,25 @@ public final class BCSiliconBlocks {
             () -> BlockEntityType.Builder.of(TileAssemblyTable::new, ASSEMBLY_TABLE.get()).build(null)
         );
 
+    public static final RegistryObject<BlockLaserTable> ADVANCED_CRAFTING_TABLE = BCRegistries.BLOCKS.register(
+        "advanced_crafting_table", () -> new BlockLaserTable(machine(), TileAdvancedCraftingTable::new)
+    );
+
+    @SuppressWarnings("ConstantConditions")
+    public static final RegistryObject<BlockEntityType<TileAdvancedCraftingTable>> ADVANCED_CRAFTING_TABLE_TILE =
+        BCRegistries.BLOCK_ENTITY_TYPES.register(
+            "advanced_crafting_table", () -> BlockEntityType.Builder.of(
+                TileAdvancedCraftingTable::new, ADVANCED_CRAFTING_TABLE.get()
+            ).build(null)
+        );
+
     static {
         BCRegistries.ITEMS.register("laser", () -> new BlockItem(LASER.get(), new Item.Properties()));
         BCRegistries.ITEMS.register(
             "assembly_table", () -> new BlockItem(ASSEMBLY_TABLE.get(), new Item.Properties())
+        );
+        BCRegistries.ITEMS.register(
+            "advanced_crafting_table", () -> new BlockItem(ADVANCED_CRAFTING_TABLE.get(), new Item.Properties())
         );
     }
 

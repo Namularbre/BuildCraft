@@ -108,7 +108,7 @@ public class WorkbenchCrafting {
         if (currentRecipe == null || isBlueprintDirty) {
             return false;
         }
-        if (!invResult.insertItem(0, assumedResult, true).isEmpty()) {
+        if (!ItemHandlerHelper.insertItemStacked(invResult, assumedResult, true).isEmpty()) {
             return false;
         }
         if (areMaterialsDirty) {
@@ -188,7 +188,7 @@ public class WorkbenchCrafting {
             emptyGrid();
             return false;
         }
-        expel(invResult.insertItem(0, result, false));
+        expel(ItemHandlerHelper.insertItemStacked(invResult, result, false));
 
         NonNullList<ItemStack> remaining = currentRecipe.getRemainingItems(grid);
         for (int s = 0; s < grid.getContainerSize(); s++) {
