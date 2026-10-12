@@ -13,11 +13,16 @@ import net.minecraftforge.registries.RegistryObject;
 
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.energy.container.ContainerEngineIron;
 import buildcraft.energy.container.ContainerEngineStone;
 
 public final class BCEnergyMenus {
     public static final RegistryObject<MenuType<ContainerEngineStone>> ENGINE_STONE = BCRegistries.MENU_TYPES.register(
         "stirling_engine", () -> IForgeMenuType.create(ContainerEngineStone::new)
+    );
+
+    public static final RegistryObject<MenuType<ContainerEngineIron>> ENGINE_IRON = BCRegistries.MENU_TYPES.register(
+        "combustion_engine", () -> IForgeMenuType.create(ContainerEngineIron::new)
     );
 
     private BCEnergyMenus() {}

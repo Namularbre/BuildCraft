@@ -34,6 +34,7 @@ public class BCBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         engine(BCCoreBlocks.ENGINE_REDSTONE.get(), "redstone");
         engine(BCEnergyBlocks.ENGINE_STONE.get(), "stone");
+        engine(BCEnergyBlocks.ENGINE_IRON.get(), "iron");
 
         if (BCCoreBlocks.POWER_TESTER != null) {
             simpleBlock(BCCoreBlocks.POWER_TESTER.get());

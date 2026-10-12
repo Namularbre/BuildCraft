@@ -1,4 +1,5 @@
 {
+  "block.buildcraft.combustion_engine": "Combustion Engine",
   "block.buildcraft.pipe_holder": "Pipe",
   "block.buildcraft.power_tester": "Power Tester (Debug)",
   "block.buildcraft.redstone_engine": "Redstone Engine",
@@ -6,6 +7,11 @@
   "buildcraft.fluid.heat_0": "%s (§bCool§r)",
   "buildcraft.fluid.heat_1": "%s (§6Hot§r)",
   "buildcraft.fluid.heat_2": "%s (§cSearing§r)",
+  "buildcraft.gui.tank.amount": "%s / %s mB",
+  "buildcraft.gui.tank.coolant": "Coolant",
+  "buildcraft.gui.tank.empty": "Empty",
+  "buildcraft.gui.tank.fuel": "Fuel",
+  "buildcraft.gui.tank.residue": "Residue",
   "fluid.buildcraft.fuel_dense": "Dense Fuel",
   "fluid.buildcraft.fuel_gaseous": "Gaseous Fuel",
   "fluid.buildcraft.fuel_light": "Light Fuel",

@@ -20,6 +20,7 @@ import buildcraft.lib.client.render.RenderEngine;
 
 import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.energy.BCEnergyMenus;
+import buildcraft.energy.client.gui.GuiEngineIron;
 import buildcraft.energy.client.gui.GuiEngineStone;
 
 @Mod.EventBusSubscriber(modid = BuildCraft.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -28,7 +29,10 @@ public final class BCEnergyClient {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> MenuScreens.register(BCEnergyMenus.ENGINE_STONE.get(), GuiEngineStone::new));
+        event.enqueueWork(() -> {
+            MenuScreens.register(BCEnergyMenus.ENGINE_STONE.get(), GuiEngineStone::new);
+            MenuScreens.register(BCEnergyMenus.ENGINE_IRON.get(), GuiEngineIron::new);
+        });
     }
 
     @SubscribeEvent
@@ -36,6 +40,13 @@ public final class BCEnergyClient {
         event.registerBlockEntityRenderer(
             BCEnergyBlocks.ENGINE_STONE_TILE.get(), context -> new RenderEngine<>(
                 context, texture("block/engine/stone_back"), texture("block/engine/stone_side"), texture(
+                    "block/engine/chamber"
+                )
+            )
+        );
+        event.registerBlockEntityRenderer(
+            BCEnergyBlocks.ENGINE_IRON_TILE.get(), context -> new RenderEngine<>(
+                context, texture("block/engine/iron_back"), texture("block/engine/iron_side"), texture(
                     "block/engine/chamber"
                 )
             )

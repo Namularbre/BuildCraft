@@ -83,6 +83,17 @@ public class BCRecipeProvider extends RecipeProvider {
             .unlockedBy("has_gear", has(BCTags.Items.GEARS_STONE))
             .save(out);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BCEnergyBlocks.ENGINE_IRON.get())
+            .pattern("www")
+            .pattern(" g ")
+            .pattern("GpG")
+            .define('w', Tags.Items.INGOTS_IRON)
+            .define('g', Tags.Items.GLASS_COLORLESS)
+            .define('G', BCTags.Items.GEARS_IRON)
+            .define('p', Items.PISTON)
+            .unlockedBy("has_gear", has(BCTags.Items.GEARS_IRON))
+            .save(out);
+
         pipe(out, BCTransportItems.PIPE_WOOD_ITEM.get(), Ingredient.of(ItemTags.PLANKS));
         pipe(out, BCTransportItems.PIPE_COBBLESTONE_ITEM.get(), Ingredient.of(Tags.Items.COBBLESTONE));
         pipe(out, BCTransportItems.PIPE_STONE_ITEM.get(), Ingredient.of(Items.STONE));

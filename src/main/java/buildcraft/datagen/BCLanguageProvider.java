@@ -40,6 +40,12 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCCoreItems.GEAR_DIAMOND.get(), "Diamond Gear");
             add(BCCoreBlocks.ENGINE_REDSTONE.get(), "Redstone Engine");
             add(BCEnergyBlocks.ENGINE_STONE.get(), "Stirling Engine");
+            add(BCEnergyBlocks.ENGINE_IRON.get(), "Combustion Engine");
+            add("buildcraft.gui.tank.fuel", "Fuel");
+            add("buildcraft.gui.tank.coolant", "Coolant");
+            add("buildcraft.gui.tank.residue", "Residue");
+            add("buildcraft.gui.tank.empty", "Empty");
+            add("buildcraft.gui.tank.amount", "%s / %s mB");
             if (BCCoreBlocks.POWER_TESTER != null) {
                 add(BCCoreBlocks.POWER_TESTER.get(), "Power Tester (Debug)");
             }
@@ -101,6 +107,12 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCCoreItems.GEAR_DIAMOND.get(), "Engrenage de diamant");
             add(BCCoreBlocks.ENGINE_REDSTONE.get(), "Moteur de redstone");
             add(BCEnergyBlocks.ENGINE_STONE.get(), "Moteur à vapeur");
+            add(BCEnergyBlocks.ENGINE_IRON.get(), "Moteur à combustion");
+            add("buildcraft.gui.tank.fuel", "Combustible");
+            add("buildcraft.gui.tank.coolant", "Refroidissant");
+            add("buildcraft.gui.tank.residue", "Résidu");
+            add("buildcraft.gui.tank.empty", "Vide");
+            add("buildcraft.gui.tank.amount", "%s / %s mB");
             if (BCCoreBlocks.POWER_TESTER != null) {
                 add(BCCoreBlocks.POWER_TESTER.get(), "Testeur de puissance (debug)");
             }

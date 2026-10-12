@@ -1,7 +1,8 @@
-// 1.20.1	2026-10-12T16:01:39.2522586	Item Models: buildcraft
+// 1.20.1	2026-10-12T16:27:53.5931601	Item Models: buildcraft
 cf0c0a207b01646a7ff4f97cae2b5758148e907d assets/buildcraft/models/item/cobblestone_fluid_pipe.json
 3c81600c442df01f43096805a373fc208b478473 assets/buildcraft/models/item/cobblestone_item_pipe.json
 a7e89f443758502b0ec9588475021dc0c5ac39f6 assets/buildcraft/models/item/cobblestone_power_pipe.json
+359bcbc597d992d8abfc56b7a1e8e50261224278 assets/buildcraft/models/item/combustion_engine.json
 41335712397375917a9add5a1582bc85e7292b6b assets/buildcraft/models/item/diamond_gear.json
 87624ad8b708ac2bff04e016b73dc121baaf7039 assets/buildcraft/models/item/fuel_dense_bucket.json
 c538bc850aa02379c0d7c7e941da0cc94008a415 assets/buildcraft/models/item/fuel_dense_heat_1_bucket.json

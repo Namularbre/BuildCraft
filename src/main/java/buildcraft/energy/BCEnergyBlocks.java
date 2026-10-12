@@ -18,6 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 import buildcraft.lib.engine.BlockEngineBase;
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.energy.tile.TileEngineIron;
 import buildcraft.energy.tile.TileEngineStone;
 
 public final class BCEnergyBlocks {
@@ -35,8 +36,25 @@ public final class BCEnergyBlocks {
             "stirling_engine", () -> BlockEntityType.Builder.of(TileEngineStone::new, ENGINE_STONE.get()).build(null)
         );
 
+    public static final RegistryObject<BlockEngineBase> ENGINE_IRON = BCRegistries.BLOCKS.register(
+        "combustion_engine", () -> new BlockEngineBase(
+            BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5f).sound(SoundType.METAL)
+                .requiresCorrectToolForDrops(),
+            BCEnergyBlocks.ENGINE_IRON_TILE
+        )
+    );
+
+    @SuppressWarnings("ConstantConditions")
+    public static final RegistryObject<BlockEntityType<TileEngineIron>> ENGINE_IRON_TILE =
+        BCRegistries.BLOCK_ENTITY_TYPES.register(
+            "combustion_engine", () -> BlockEntityType.Builder.of(TileEngineIron::new, ENGINE_IRON.get()).build(null)
+        );
+
     static {
         BCRegistries.ITEMS.register("stirling_engine", () -> new BlockItem(ENGINE_STONE.get(), new Item.Properties()));
+        BCRegistries.ITEMS.register(
+            "combustion_engine", () -> new BlockItem(ENGINE_IRON.get(), new Item.Properties())
+        );
     }
 
     private BCEnergyBlocks() {}

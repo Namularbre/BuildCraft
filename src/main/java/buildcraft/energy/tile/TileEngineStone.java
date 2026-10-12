@@ -129,6 +129,9 @@ public class TileEngineStone extends TileEngineBase {
 
     @Override
     public InteractionResult onActivated(Player player, InteractionHand hand, BlockHitResult hit) {
+        if (isHoldingTool(player, hand)) {
+            return InteractionResult.PASS;
+        }
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             openMenu(serverPlayer, Component.translatable(getBlockState().getBlock().getDescriptionId()),
                 (id, inventory, p) -> new ContainerEngineStone(id, p, this));

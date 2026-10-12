@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": {
+      "tag": "forge:gears/iron"
+    },
+    "g": {
+      "tag": "forge:glass/colorless"
+    },
+    "p": {
+      "item": "minecraft:piston"
+    },
+    "w": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "www",
+    " g ",
+    "GpG"
+  ],
+  "result": {
+    "item": "buildcraft:combustion_engine"
+  },
+  "show_notification": true
+}
