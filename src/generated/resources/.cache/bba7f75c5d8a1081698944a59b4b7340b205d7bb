@@ -1,5 +1,6 @@
-// 1.20.1	2026-10-12T19:55:44.0145396	Block States: buildcraft
+// 1.20.1	2026-10-12T20:17:42.8585236	Block States: buildcraft
 e409775c2174c4fc4bc9d0ab06360ea312b1c24d assets/buildcraft/blockstates/combustion_engine.json
+fcf1f18e0ccf7049739cdcb26a37c333a809785a assets/buildcraft/blockstates/distiller.json
 7f40c8ceafe66c241101361a9097bed6875b3b83 assets/buildcraft/blockstates/fuel_dense.json
 186c5532a1916485219242f3764f97be41feb58c assets/buildcraft/blockstates/fuel_dense_heat_1.json
 3fb52c2d63b03791276c25a9d6dcb5731d2bf430 assets/buildcraft/blockstates/fuel_dense_heat_2.json

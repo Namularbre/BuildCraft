@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -37,6 +36,7 @@ import buildcraft.api.mj.IMjReceiver;
 import buildcraft.api.mj.MjAPI;
 
 import buildcraft.lib.fluid.FluidUtilBC;
+import buildcraft.lib.fluid.RestrictedFluidHandler;
 import buildcraft.lib.mj.MjRedstoneBatteryReceiver;
 
 import buildcraft.factory.BCFactoryBlocks;
@@ -67,8 +67,6 @@ public class TilePump extends TileMiner {
             setChanged();
         }
     };
-    /** What other blocks see: they can only drain the pump. */
-    private final IFluidHandler drainOnly = new DrainOnlyHandler();
 
     private boolean queueBuilt = false;
     private final Map<BlockPos, FluidPath> paths = new HashMap<>();
@@ -82,7 +80,10 @@ public class TilePump extends TileMiner {
 
     public TilePump(BlockPos pos, BlockState state) {
         super(BCFactoryBlocks.PUMP_TILE.get(), pos, state);
-        caps.addCapabilityInstance(ForgeCapabilities.FLUID_HANDLER, drainOnly, EnumPipePart.VALUES);
+        // Other blocks can only drain the pump
+        caps.addCapabilityInstance(
+            ForgeCapabilities.FLUID_HANDLER, RestrictedFluidHandler.drainOnly(tank), EnumPipePart.VALUES
+        );
     }
 
     @Override
@@ -282,45 +283,5 @@ public class TilePump extends TileMiner {
     public void load(CompoundTag nbt) {
         super.load(nbt);
         tank.readFromNBT(nbt.getCompound("tank"));
-    }
-
-    private class DrainOnlyHandler implements IFluidHandler {
-        @Override
-        public int getTanks() {
-            return 1;
-        }
-
-        @Nonnull
-        @Override
-        public FluidStack getFluidInTank(int index) {
-            return tank.getFluid();
-        }
-
-        @Override
-        public int getTankCapacity(int index) {
-            return tank.getCapacity();
-        }
-
-        @Override
-        public boolean isFluidValid(int index, @Nonnull FluidStack stack) {
-            return false;
-        }
-
-        @Override
-        public int fill(FluidStack resource, FluidAction action) {
-            return 0;
-        }
-
-        @Nonnull
-        @Override
-        public FluidStack drain(FluidStack resource, FluidAction action) {
-            return tank.drain(resource, action);
-        }
-
-        @Nonnull
-        @Override
-        public FluidStack drain(int maxDrain, FluidAction action) {
-            return tank.drain(maxDrain, action);
-        }
     }
 }

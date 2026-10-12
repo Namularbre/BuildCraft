@@ -15,15 +15,17 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import buildcraft.BuildCraft;
 import buildcraft.api.enums.EnumPowerStage;
+
 import buildcraft.lib.engine.BlockEngineBase;
 import buildcraft.lib.fluid.BCFluid;
 
+import buildcraft.BuildCraft;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.energy.BCEnergyFluids;
 import buildcraft.factory.BCFactoryBlocks;
+import buildcraft.factory.block.BlockDistiller;
 import buildcraft.factory.block.BlockTank;
 import buildcraft.transport.BCTransportBlocks;
 
@@ -64,6 +66,10 @@ public class BCBlockStateProvider extends BlockStateProvider {
             modLoc("block/mining_well/front"), modLoc("block/mining_well/back"), modLoc("block/mining_well/side"),
             modLoc("block/mining_well/side")
         ).texture("particle", modLoc("block/mining_well/side")));
+        getVariantBuilder(BCFactoryBlocks.DISTILLER.get()).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(models().getExistingFile(modLoc("block/distiller")))
+            .rotationY(BlockDistiller.modelRotation(state.getValue(BlockDistiller.FACING)))
+            .build());
         // Drawn by the machine above it: the model is only used for particles
         simpleBlock(BCFactoryBlocks.TUBE.get(), models().getBuilder("block/tube")
             .texture("particle", modLoc("block/pump/tube")));

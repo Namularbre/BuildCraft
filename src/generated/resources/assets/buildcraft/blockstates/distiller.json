@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "buildcraft:block/distiller",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "buildcraft:block/distiller",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "buildcraft:block/distiller",
+      "y": 270
+    },
+    "facing=west": {
+      "model": "buildcraft:block/distiller"
+    }
+  }
+}

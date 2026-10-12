@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import buildcraft.BuildCraft;
 import buildcraft.factory.BCFactoryBlocks;
+import buildcraft.factory.client.render.RenderDistiller;
 import buildcraft.factory.client.render.RenderMiner;
 import buildcraft.factory.client.render.RenderTank;
 
@@ -25,5 +26,6 @@ public final class BCFactoryClient {
         event.registerBlockEntityRenderer(BCFactoryBlocks.TANK_TILE.get(), RenderTank::new);
         event.registerBlockEntityRenderer(BCFactoryBlocks.PUMP_TILE.get(), RenderMiner::pump);
         event.registerBlockEntityRenderer(BCFactoryBlocks.MINING_WELL_TILE.get(), RenderMiner::miningWell);
+        event.registerBlockEntityRenderer(BCFactoryBlocks.DISTILLER_TILE.get(), RenderDistiller::new);
     }
 }

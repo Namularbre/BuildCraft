@@ -15,10 +15,12 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import buildcraft.api.fuels.BuildcraftFuelRegistry;
 import buildcraft.api.mj.IMjToRfStatus;
 import buildcraft.api.mj.MjAPI;
+import buildcraft.api.recipes.BuildcraftRecipeRegistry;
 
 import buildcraft.lib.fluid.CoolantRegistry;
 import buildcraft.lib.fluid.FuelRegistry;
 import buildcraft.lib.net.MessageManager;
+import buildcraft.lib.recipe.RefineryRecipeRegistry;
 import buildcraft.lib.registry.BCRegistries;
 
 /** Sets up the shared library code that every other BuildCraft module builds on. */
@@ -35,6 +37,7 @@ public final class BCLib {
         IMjToRfStatus.set(new BCLibConfig.MjToRfStatus());
         BuildcraftFuelRegistry.fuel = FuelRegistry.INSTANCE;
         BuildcraftFuelRegistry.coolant = CoolantRegistry.INSTANCE;
+        BuildcraftRecipeRegistry.refineryRecipes = RefineryRecipeRegistry.INSTANCE;
 
         BCRegistries.register(modBus);
         modBus.addListener(MjAPI::registerCapabilities);
