@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "buildcraft:wood_power_pipe"
+    }
+  ],
+  "result": {
+    "item": "buildcraft:wood_item_pipe"
+  }
+}

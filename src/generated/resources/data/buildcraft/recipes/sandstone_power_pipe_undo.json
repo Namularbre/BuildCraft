@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "buildcraft:sandstone_power_pipe"
+    }
+  ],
+  "result": {
+    "item": "buildcraft:sandstone_item_pipe"
+  }
+}

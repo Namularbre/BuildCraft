@@ -33,6 +33,14 @@ public final class BCTransportItems {
     public static final RegistryObject<ItemPipeHolder> PIPE_IRON_ITEM = pipe(BCTransportPipes.IRON_ITEM);
     public static final RegistryObject<ItemPipeHolder> PIPE_VOID_ITEM = pipe(BCTransportPipes.VOID_ITEM);
 
+    public static final RegistryObject<ItemPipeHolder> PIPE_WOOD_POWER = pipe(BCTransportPipes.WOOD_POWER);
+    public static final RegistryObject<ItemPipeHolder> PIPE_COBBLESTONE_POWER =
+        pipe(BCTransportPipes.COBBLESTONE_POWER);
+    public static final RegistryObject<ItemPipeHolder> PIPE_STONE_POWER = pipe(BCTransportPipes.STONE_POWER);
+    public static final RegistryObject<ItemPipeHolder> PIPE_QUARTZ_POWER = pipe(BCTransportPipes.QUARTZ_POWER);
+    public static final RegistryObject<ItemPipeHolder> PIPE_GOLD_POWER = pipe(BCTransportPipes.GOLD_POWER);
+    public static final RegistryObject<ItemPipeHolder> PIPE_SANDSTONE_POWER = pipe(BCTransportPipes.SANDSTONE_POWER);
+
     private BCTransportItems() {}
 
     /** Registers the item of a pipe, named after its definition (for example "wood_item_pipe"). */

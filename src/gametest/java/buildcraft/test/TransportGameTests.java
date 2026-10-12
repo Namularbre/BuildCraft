@@ -116,21 +116,30 @@ public class TransportGameTests {
         });
     }
 
-    /** A pipe, and the items inside it, survive being saved and loaded. */
+    /** A pipe survives being saved and loaded, including the direction of a directional pipe (which is loaded before
+     * the block entity has a level). */
     @GameTest(template = EMPTY)
     public static void pipeSavesItsDefinition(GameTestHelper helper) {
         BlockPos pos = new BlockPos(1, 1, 1);
-        placePipe(helper, pos, BCTransportItems.PIPE_IRON_ITEM.get());
-        TilePipeHolder tile = (TilePipeHolder) helper.getBlockEntity(pos);
-        CompoundTag saved = tile.saveWithoutMetadata();
+        helper.setBlock(pos.west(), Blocks.CHEST);
+        placePipe(helper, pos, BCTransportItems.PIPE_WOOD_ITEM.get());
 
-        TilePipeHolder copy = new TilePipeHolder(helper.absolutePos(pos), tile.getBlockState());
-        copy.load(saved);
-        helper.assertTrue(copy.getPipe() != null, "The pipe should have been loaded");
-        helper.assertTrue(
-            copy.getPipe().getDefinition() == tile.getPipe().getDefinition(), "The pipe definition should match"
-        );
-        helper.succeed();
+        helper.runAfterDelay(2, () -> {
+            TilePipeHolder tile = (TilePipeHolder) helper.getBlockEntity(pos);
+            CompoundTag saved = tile.saveWithoutMetadata();
+            helper.assertTrue(
+                saved.getCompound("pipe").getCompound("beh").contains("currentDir"),
+                "The wooden pipe should have saved the direction it faces"
+            );
+
+            TilePipeHolder copy = new TilePipeHolder(helper.absolutePos(pos), tile.getBlockState());
+            copy.load(saved);
+            helper.assertTrue(copy.getPipe() != null, "The pipe should have been loaded");
+            helper.assertTrue(
+                copy.getPipe().getDefinition() == tile.getPipe().getDefinition(), "The pipe definition should match"
+            );
+            helper.succeed();
+        });
     }
 
     /** Places a pipe holder containing the given pipe, as if a player had placed it. */

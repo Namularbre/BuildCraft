@@ -13,6 +13,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -21,6 +22,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import buildcraft.lib.BCTags;
 
@@ -80,6 +82,31 @@ public class BCRecipeProvider extends RecipeProvider {
             out, BCTransportItems.PIPE_VOID_ITEM.get(), Ingredient.of(Tags.Items.DYES_BLACK),
             Ingredient.of(Tags.Items.DUSTS_REDSTONE)
         );
+
+        Ingredient redstone = Ingredient.of(Tags.Items.DUSTS_REDSTONE);
+        pipeUpgrade(out, BCTransportItems.PIPE_WOOD_ITEM.get(), BCTransportItems.PIPE_WOOD_POWER.get(), redstone);
+        pipeUpgrade(
+            out, BCTransportItems.PIPE_COBBLESTONE_ITEM.get(), BCTransportItems.PIPE_COBBLESTONE_POWER.get(), redstone
+        );
+        pipeUpgrade(out, BCTransportItems.PIPE_STONE_ITEM.get(), BCTransportItems.PIPE_STONE_POWER.get(), redstone);
+        pipeUpgrade(out, BCTransportItems.PIPE_QUARTZ_ITEM.get(), BCTransportItems.PIPE_QUARTZ_POWER.get(), redstone);
+        pipeUpgrade(out, BCTransportItems.PIPE_GOLD_ITEM.get(), BCTransportItems.PIPE_GOLD_POWER.get(), redstone);
+        pipeUpgrade(
+            out, BCTransportItems.PIPE_SANDSTONE_ITEM.get(), BCTransportItems.PIPE_SANDSTONE_POWER.get(), redstone
+        );
+    }
+
+    /** Turns a pipe into another by adding an item, and back again (losing the item). */
+    private static void pipeUpgrade(Consumer<FinishedRecipe> out, ItemLike from, ItemLike to, Ingredient additional) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, to)
+            .requires(from)
+            .requires(additional)
+            .unlockedBy("has_pipe", has(from))
+            .save(out);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, from)
+            .requires(to)
+            .unlockedBy("has_pipe", has(to))
+            .save(out, ForgeRegistries.ITEMS.getKey(to.asItem()) + "_undo");
     }
 
     /** 8 pipes from a piece of colourless glass between two of the material. */

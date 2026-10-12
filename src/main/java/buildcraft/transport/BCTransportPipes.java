@@ -7,7 +7,9 @@
 package buildcraft.transport;
 
 import buildcraft.BuildCraft;
+import buildcraft.api.mj.MjAPI;
 import buildcraft.api.transport.pipe.PipeApi;
+import buildcraft.api.transport.pipe.PipeApi.PowerTransferInfo;
 import buildcraft.api.transport.pipe.PipeDefinition;
 import buildcraft.api.transport.pipe.PipeDefinition.IPipeCreator;
 import buildcraft.api.transport.pipe.PipeDefinition.IPipeLoader;
@@ -23,7 +25,9 @@ import buildcraft.transport.pipe.behaviour.PipeBehaviourSandstone;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourStone;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourVoid;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourWood;
+import buildcraft.transport.pipe.behaviour.PipeBehaviourWoodPower;
 import buildcraft.transport.pipe.flow.PipeFlowItems;
+import buildcraft.transport.pipe.flow.PipeFlowPower;
 
 /** Every pipe definition. Must be loaded while BuildCraft is the active mod, as definitions take their namespace from
  * it. */
@@ -31,6 +35,7 @@ public final class BCTransportPipes {
     static {
         PipeApi.pipeRegistry = PipeRegistry.INSTANCE;
         PipeApi.flowItems = new PipeFlowType(PipeFlowItems::new, PipeFlowItems::new);
+        PipeApi.flowPower = new PipeFlowType(PipeFlowPower::new, PipeFlowPower::new);
     }
 
     public static final PipeDefinition WOOD_ITEM = itemPipe(
@@ -58,6 +63,25 @@ public final class BCTransportPipes {
         "void_item", PipeBehaviourVoid::new, PipeBehaviourVoid::new
     );
 
+    public static final PipeDefinition WOOD_POWER = powerPipe(
+        "wood_power", PipeBehaviourWoodPower::new, PipeBehaviourWoodPower::new, 16, 128, true, "_clear", "_filled"
+    );
+    public static final PipeDefinition COBBLESTONE_POWER = powerPipe(
+        "cobblestone_power", PipeBehaviourCobble::new, PipeBehaviourCobble::new, 4, 16, false
+    );
+    public static final PipeDefinition STONE_POWER = powerPipe(
+        "stone_power", PipeBehaviourStone::new, PipeBehaviourStone::new, 8, 32, false
+    );
+    public static final PipeDefinition QUARTZ_POWER = powerPipe(
+        "quartz_power", PipeBehaviourQuartz::new, PipeBehaviourQuartz::new, 32, 32, false
+    );
+    public static final PipeDefinition GOLD_POWER = powerPipe(
+        "gold_power", PipeBehaviourGold::new, PipeBehaviourGold::new, 64, 32, false
+    );
+    public static final PipeDefinition SANDSTONE_POWER = powerPipe(
+        "sandstone_power", PipeBehaviourSandstone::new, PipeBehaviourSandstone::new, 16, 32, false
+    );
+
     private BCTransportPipes() {}
 
     private static PipeDefinition itemPipe(String id, IPipeCreator creator, IPipeLoader loader,
@@ -66,6 +90,23 @@ public final class BCTransportPipes {
         builder.logic(creator, loader);
         builder.enableColouring();
         return builder.id(id).tex(id, textureSuffixes).flowItem().define();
+    }
+
+    /** @param mjPerTick The maximum power the pipe can move each tick, in MJ.
+     * @param resistanceDivisor The pipe's resistance is 1 MJ divided by this, per MJ moved.
+     * @param receiver True if the pipe accepts power from engines. */
+    private static PipeDefinition powerPipe(String id, IPipeCreator creator, IPipeLoader loader, int mjPerTick,
+        int resistanceDivisor, boolean receiver, String... textureSuffixes) {
+        PipeDefinitionBuilder builder = new PipeDefinitionBuilder(BuildCraft.MODID);
+        builder.logic(creator, loader);
+        builder.enableColouring();
+        PipeDefinition definition = builder.id(id).tex(id, textureSuffixes).flowPower().define();
+        PipeApi.powerTransferData.put(
+            definition, PowerTransferInfo.createFromResistance(
+                MjAPI.MJ * mjPerTick, MjAPI.MJ / resistanceDivisor, receiver
+            )
+        );
+        return definition;
     }
 
     /** Loads this class, so that every pipe is defined. */

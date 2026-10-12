@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "buildcraft:cobblestone_power_pipe"
+    }
+  ],
+  "result": {
+    "item": "buildcraft:cobblestone_item_pipe"
+  }
+}

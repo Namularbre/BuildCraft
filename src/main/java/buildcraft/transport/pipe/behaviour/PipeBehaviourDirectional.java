@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 
 import net.minecraftforge.fml.LogicalSide;
@@ -129,7 +130,9 @@ public abstract class PipeBehaviourDirectional extends PipeBehaviour {
             return;
         }
         this.currentDir = EnumPipePart.fromFacing(setTo);
-        if (!pipe.getHolder().getPipeWorld().isClientSide) {
+        // The level is null while the pipe is being loaded
+        Level level = pipe.getHolder().getPipeWorld();
+        if (level != null && !level.isClientSide) {
             pipe.getHolder().scheduleNetworkUpdate(PipeMessageReceiver.BEHAVIOUR);
         }
     }
