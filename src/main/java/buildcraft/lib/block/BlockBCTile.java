@@ -12,22 +12,27 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 
 import buildcraft.lib.tile.ITickable;
 import buildcraft.lib.tile.TileBC;
 
 /** Base class for every BuildCraft block that has a {@link TileBC}. Forwards block events to the tile. */
-public abstract class BlockBCTile extends BaseEntityBlock {
+public abstract class BlockBCTile extends BaseEntityBlock implements LiquidBlockContainer {
     public BlockBCTile(Properties properties) {
         super(properties);
     }
@@ -100,5 +105,17 @@ public abstract class BlockBCTile extends BaseEntityBlock {
         if (level.getBlockEntity(pos) instanceof TileBC tile) {
             tile.onNeighbourBlockChanged(block, fromPos);
         }
+    }
+
+    // Fluids flowing into most BuildCraft blocks (which aren't full blocks) would destroy them
+
+    @Override
+    public boolean canPlaceLiquid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+        return false;
+    }
+
+    @Override
+    public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluid) {
+        return false;
     }
 }

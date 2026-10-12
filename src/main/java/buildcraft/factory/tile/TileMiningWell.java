@@ -18,10 +18,13 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.items.wrapper.EmptyHandler;
 
+import buildcraft.api.core.EnumPipePart;
 import buildcraft.api.mj.IMjReceiver;
 import buildcraft.api.mj.MjAPI;
 
@@ -40,6 +43,8 @@ public class TileMiningWell extends TileMiner {
 
     public TileMiningWell(BlockPos pos, BlockState state) {
         super(BCFactoryBlocks.MINING_WELL_TILE.get(), pos, state);
+        // Nothing can be taken out or put in, but item pipes connect to it (to get what it mines)
+        caps.addCapabilityInstance(ForgeCapabilities.ITEM_HANDLER, EmptyHandler.INSTANCE, EnumPipePart.VALUES);
     }
 
     @Override

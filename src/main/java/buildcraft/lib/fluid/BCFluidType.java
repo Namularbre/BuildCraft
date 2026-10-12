@@ -10,7 +10,11 @@ import java.util.function.Consumer;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.Vec3;
 
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
@@ -67,6 +71,27 @@ public class BCFluidType extends FluidType {
                 return flowingTexture;
             }
         });
+    }
+
+    /** Moves entities like water does, but slower in thicker fluids (like oil), where they also sink. */
+    @Override
+    public boolean move(FluidState state, LivingEntity entity, Vec3 movementVector, double gravity) {
+        // Water (viscosity 1000) keeps 80% of the speed each tick
+        double drag = Math.max(0.3, Math.min(0.8, 800.0 / getViscosity()));
+        double startY = entity.getY();
+        entity.moveRelative((float) (0.02 * drag / 0.8), movementVector);
+        entity.move(MoverType.SELF, entity.getDeltaMovement());
+        Vec3 motion = entity.getDeltaMovement().multiply(drag, drag, drag);
+        if (!entity.isNoGravity()) {
+            motion = motion.add(0, -gravity / 4, 0);
+        }
+        entity.setDeltaMovement(motion);
+        // Lets entities climb out at the edge, like in water
+        if (entity.horizontalCollision
+            && entity.isFree(motion.x, motion.y + 0.6 - entity.getY() + startY, motion.z)) {
+            entity.setDeltaMovement(motion.x, 0.3, motion.z);
+        }
+        return true;
     }
 
     /** @return The heat of the given fluid, or 0 if it isn't a heatable BuildCraft fluid. */

@@ -96,6 +96,8 @@ public final class BCEnergyFluids {
                 .descriptionId("fluid." + BuildCraft.MODID + "." + name)
                 .density(adjustedDensity)
                 .viscosity(viscosity)
+                // Flowing thick fluids push entities less than water
+                .motionScale(0.014 * Math.min(1, 1000.0 / viscosity))
                 .temperature(300 + 20 * heat)
                 .canConvertToSource(false)
                 .canExtinguish(false)
