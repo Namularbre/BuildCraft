@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T23:02:13.1392423	Recipes
+// 1.20.1	2026-10-12T23:20:08.1742473	Recipes
 7e4ba0562e562bee61c3567c9a77fedfbfd77300 data/buildcraft/advancements/recipes/misc/assembly_table.json
 2e2a97af27918323b4060658a3d91af618935769 data/buildcraft/advancements/recipes/misc/autoworkbench_item.json
 b789e01849761cdb4cdce786ae811ce93e1ffda9 data/buildcraft/advancements/recipes/misc/chute.json
@@ -12,6 +12,7 @@ e4843fea6d528499445e418dea26ee22523f0761 data/buildcraft/advancements/recipes/mi
 f59461e212e9372406a2be64752f47004c79239f data/buildcraft/advancements/recipes/misc/mining_well.json
 d913d04e71e05c6d4106949f0fb6cf542e5dafa6 data/buildcraft/advancements/recipes/misc/pipe_sealant.json
 1637072eb07eea0b114ac256f27552e0122e80ef data/buildcraft/advancements/recipes/misc/pump.json
+5e48d4dc2d0250dfb74cf1c9f0dc347d76385c17 data/buildcraft/advancements/recipes/misc/quarry.json
 b40cdc6b9ca5bd95dcc224aab027a90d79a9fc98 data/buildcraft/advancements/recipes/misc/stone_gear.json
 4bf904b44b8ba7236b4e63489f3eb67d27735c7b data/buildcraft/advancements/recipes/misc/tank.json
 3fa068c6d7df4e8936ff0e833c663f37d6606513 data/buildcraft/advancements/recipes/misc/water_gel_spawn.json
@@ -90,6 +91,7 @@ cf41c1403132d45d7bb29028a1cd633439510389 data/buildcraft/recipes/laser.json
 a135cf7eaca9e57d05dfde83f2f69915bfbe7f8d data/buildcraft/recipes/mining_well.json
 5e1599a04186defdfb4c32ff2cf7df06db35a8c3 data/buildcraft/recipes/pipe_sealant.json
 2a3331410399fe0801c27627a7392908790883a8 data/buildcraft/recipes/pump.json
+ec640c63b9db20b97b39144afdf29416998393eb data/buildcraft/recipes/quarry.json
 505fbef1a82a76bc128ebab4b31515123c51ef65 data/buildcraft/recipes/quartz_fluid_pipe.json
 85890074b94f26345f834dcbc823c486bfef3a4d data/buildcraft/recipes/quartz_fluid_pipe_undo.json
 dc4a80c98d394b3c190e0f0b1b08ced530f9da61 data/buildcraft/recipes/quartz_item_pipe.json

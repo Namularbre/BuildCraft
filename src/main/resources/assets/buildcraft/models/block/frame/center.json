@@ -1,0 +1,88 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "buildcraft:block/frame/default",
+    "particle": "buildcraft:block/frame/default"
+  },
+  "elements": [
+    {
+      "from": [4, 4, 4],
+      "to": [12, 12, 12],
+      "faces": {
+        "down": {
+          "texture": "#all"
+        },
+        "up": {
+          "texture": "#all"
+        },
+        "north": {
+          "texture": "#all"
+        },
+        "south": {
+          "texture": "#all"
+        },
+        "west": {
+          "texture": "#all"
+        },
+        "east": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [4, 4, 4],
+      "to": [12, 4, 12],
+      "faces": {
+        "up": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [4, 12, 4],
+      "to": [12, 12, 12],
+      "faces": {
+        "down": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [4, 4, 4],
+      "to": [12, 12, 4],
+      "faces": {
+        "south": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [4, 4, 12],
+      "to": [12, 12, 12],
+      "faces": {
+        "north": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [4, 4, 4],
+      "to": [4, 12, 12],
+      "faces": {
+        "east": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [12, 4, 4],
+      "to": [12, 12, 12],
+      "faces": {
+        "west": {
+          "texture": "#all"
+        }
+      }
+    }
+  ]
+}

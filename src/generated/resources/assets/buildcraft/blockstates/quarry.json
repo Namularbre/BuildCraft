@@ -1,0 +1,964 @@
+{
+  "variants": {
+    "down=false,east=false,facing=east,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_w",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_w",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_s",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_s_w",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_s",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_s_w",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_w",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_w",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_s",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_s_w",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s",
+      "y": 90
+    },
+    "down=false,east=false,facing=east,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_w",
+      "y": 90
+    },
+    "down=false,east=false,facing=north,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry"
+    },
+    "down=false,east=false,facing=north,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_w"
+    },
+    "down=false,east=false,facing=north,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u"
+    },
+    "down=false,east=false,facing=north,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_w"
+    },
+    "down=false,east=false,facing=north,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_s"
+    },
+    "down=false,east=false,facing=north,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_s_w"
+    },
+    "down=false,east=false,facing=north,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_s"
+    },
+    "down=false,east=false,facing=north,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_s_w"
+    },
+    "down=false,east=false,facing=north,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n"
+    },
+    "down=false,east=false,facing=north,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_w"
+    },
+    "down=false,east=false,facing=north,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n"
+    },
+    "down=false,east=false,facing=north,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_w"
+    },
+    "down=false,east=false,facing=north,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_s"
+    },
+    "down=false,east=false,facing=north,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_s_w"
+    },
+    "down=false,east=false,facing=north,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s"
+    },
+    "down=false,east=false,facing=north,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_w"
+    },
+    "down=false,east=false,facing=south,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_w",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_w",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_s",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_s_w",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_s",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_s_w",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_w",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_w",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_s",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_s_w",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s",
+      "y": 180
+    },
+    "down=false,east=false,facing=south,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_w",
+      "y": 180
+    },
+    "down=false,east=false,facing=west,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_w",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_w",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_s",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_s_w",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_s",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_s_w",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_w",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_w",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_s",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_s_w",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s",
+      "y": 270
+    },
+    "down=false,east=false,facing=west,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_w",
+      "y": 270
+    },
+    "down=false,east=true,facing=east,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_w_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_w_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_s_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_s_w_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_s_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_s_w_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_w_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_w_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_s_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_s_w_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=east,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_w_e",
+      "y": 90
+    },
+    "down=false,east=true,facing=north,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_e"
+    },
+    "down=false,east=true,facing=north,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_w_e"
+    },
+    "down=false,east=true,facing=north,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_e"
+    },
+    "down=false,east=true,facing=north,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_w_e"
+    },
+    "down=false,east=true,facing=north,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_s_e"
+    },
+    "down=false,east=true,facing=north,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_s_w_e"
+    },
+    "down=false,east=true,facing=north,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_s_e"
+    },
+    "down=false,east=true,facing=north,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_s_w_e"
+    },
+    "down=false,east=true,facing=north,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_e"
+    },
+    "down=false,east=true,facing=north,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_w_e"
+    },
+    "down=false,east=true,facing=north,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_e"
+    },
+    "down=false,east=true,facing=north,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_w_e"
+    },
+    "down=false,east=true,facing=north,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_s_e"
+    },
+    "down=false,east=true,facing=north,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_s_w_e"
+    },
+    "down=false,east=true,facing=north,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_e"
+    },
+    "down=false,east=true,facing=north,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_w_e"
+    },
+    "down=false,east=true,facing=south,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_w_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_w_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_s_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_s_w_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_s_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_s_w_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_w_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_w_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_s_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_s_w_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=south,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_w_e",
+      "y": 180
+    },
+    "down=false,east=true,facing=west,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_w_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_w_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_s_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_s_w_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_s_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_s_w_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_w_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_w_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_n_s_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_n_s_w_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_e",
+      "y": 270
+    },
+    "down=false,east=true,facing=west,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_u_n_s_w_e",
+      "y": 270
+    },
+    "down=true,east=false,facing=east,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_w",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_w",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_s",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_s_w",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_w",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_w",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_w",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_w",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s",
+      "y": 90
+    },
+    "down=true,east=false,facing=east,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_w",
+      "y": 90
+    },
+    "down=true,east=false,facing=north,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d"
+    },
+    "down=true,east=false,facing=north,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_w"
+    },
+    "down=true,east=false,facing=north,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u"
+    },
+    "down=true,east=false,facing=north,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_w"
+    },
+    "down=true,east=false,facing=north,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_s"
+    },
+    "down=true,east=false,facing=north,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_s_w"
+    },
+    "down=true,east=false,facing=north,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s"
+    },
+    "down=true,east=false,facing=north,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_w"
+    },
+    "down=true,east=false,facing=north,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n"
+    },
+    "down=true,east=false,facing=north,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_w"
+    },
+    "down=true,east=false,facing=north,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n"
+    },
+    "down=true,east=false,facing=north,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_w"
+    },
+    "down=true,east=false,facing=north,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s"
+    },
+    "down=true,east=false,facing=north,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_w"
+    },
+    "down=true,east=false,facing=north,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s"
+    },
+    "down=true,east=false,facing=north,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_w"
+    },
+    "down=true,east=false,facing=south,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_w",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_w",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_s",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_s_w",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_w",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_w",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_w",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_w",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s",
+      "y": 180
+    },
+    "down=true,east=false,facing=south,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_w",
+      "y": 180
+    },
+    "down=true,east=false,facing=west,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_w",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_w",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_s",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_s_w",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_w",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_w",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_w",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_w",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s",
+      "y": 270
+    },
+    "down=true,east=false,facing=west,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_w",
+      "y": 270
+    },
+    "down=true,east=true,facing=east,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_w_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_w_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_s_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_s_w_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_w_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_w_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_w_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_w_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=east,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_w_e",
+      "y": 90
+    },
+    "down=true,east=true,facing=north,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_e"
+    },
+    "down=true,east=true,facing=north,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_w_e"
+    },
+    "down=true,east=true,facing=north,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_e"
+    },
+    "down=true,east=true,facing=north,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_w_e"
+    },
+    "down=true,east=true,facing=north,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_s_e"
+    },
+    "down=true,east=true,facing=north,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_s_w_e"
+    },
+    "down=true,east=true,facing=north,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_e"
+    },
+    "down=true,east=true,facing=north,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_w_e"
+    },
+    "down=true,east=true,facing=north,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_e"
+    },
+    "down=true,east=true,facing=north,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_w_e"
+    },
+    "down=true,east=true,facing=north,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_e"
+    },
+    "down=true,east=true,facing=north,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_w_e"
+    },
+    "down=true,east=true,facing=north,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_e"
+    },
+    "down=true,east=true,facing=north,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_w_e"
+    },
+    "down=true,east=true,facing=north,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_e"
+    },
+    "down=true,east=true,facing=north,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_w_e"
+    },
+    "down=true,east=true,facing=south,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_w_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_w_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_s_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_s_w_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_w_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_w_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_w_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_w_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=south,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_w_e",
+      "y": 180
+    },
+    "down=true,east=true,facing=west,north=false,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=false,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_w_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=false,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=false,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_w_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=false,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_s_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=false,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_s_w_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=false,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=false,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_s_w_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=true,south=false,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=true,south=false,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_w_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=true,south=false,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=true,south=false,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_w_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=true,south=true,up=false,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=true,south=true,up=false,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_n_s_w_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=true,south=true,up=true,west=false": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_e",
+      "y": 270
+    },
+    "down=true,east=true,facing=west,north=true,south=true,up=true,west=true": {
+      "model": "buildcraft:block/quarry/quarry_d_u_n_s_w_e",
+      "y": 270
+    }
+  }
+}

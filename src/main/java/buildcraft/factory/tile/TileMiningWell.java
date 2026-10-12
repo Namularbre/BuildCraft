@@ -6,22 +6,11 @@
 
 package buildcraft.factory.tile;
 
-import java.util.List;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.util.FakePlayerFactory;
-import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import buildcraft.api.core.EnumPipePart;
@@ -29,6 +18,7 @@ import buildcraft.api.mj.IMjReceiver;
 import buildcraft.api.mj.MjAPI;
 
 import buildcraft.lib.inventory.InventoryUtil;
+import buildcraft.lib.misc.BlockUtil;
 import buildcraft.lib.mj.MjBatteryReceiver;
 
 import buildcraft.factory.BCFactoryBlocks;
@@ -80,35 +70,14 @@ public class TileMiningWell extends TileMiner {
         }
     }
 
-    /** Breaks the block like a player with a diamond pickaxe would, if no other mod stops it. */
     private void breakBlock(ServerLevel serverLevel, BlockPos blockPos) {
-        BlockState state = level.getBlockState(blockPos);
-        FakePlayer fakePlayer = FakePlayerFactory.get(serverLevel, getOwner());
-        ItemStack tool = new ItemStack(Items.DIAMOND_PICKAXE);
-        fakePlayer.setItemInHand(InteractionHand.MAIN_HAND, tool);
-        BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(level, blockPos, state, fakePlayer);
-        if (MinecraftForge.EVENT_BUS.post(event)) {
-            return;
-        }
-        List<ItemStack> drops = Block.getDrops(
-            state, serverLevel, blockPos, level.getBlockEntity(blockPos), fakePlayer, tool
+        BlockUtil.breakBlockAndGetDrops(serverLevel, blockPos, getOwner()).ifPresent(
+            drops -> drops.forEach(stack -> InventoryUtil.addToBestAcceptor(level, worldPosition, stack))
         );
-        level.destroyBlock(blockPos, false, fakePlayer);
-        for (ItemStack stack : drops) {
-            InventoryUtil.addToBestAcceptor(level, worldPosition, stack);
-        }
     }
 
     private boolean canBreak(BlockPos blockPos) {
-        BlockState state = level.getBlockState(blockPos);
-        if (state.isAir() || state.getDestroySpeed(level, blockPos) < 0) {
-            return false;
-        }
-        if (state.getBlock() instanceof LiquidBlock) {
-            // Mining wells go through water, but not through anything thicker (like lava)
-            return state.getFluidState().getFluidType().getViscosity() <= 1000;
-        }
-        return true;
+        return BlockUtil.canMachineBreak(level, blockPos);
     }
 
     private void nextPos() {

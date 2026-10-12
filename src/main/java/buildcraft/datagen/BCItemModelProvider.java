@@ -50,6 +50,7 @@ public class BCItemModelProvider extends ItemModelProvider {
         basicItem(BCFactoryItems.GEL.get());
 
         withExistingParent("laser", modLoc("block/laser"));
+        withExistingParent("quarry", modLoc("block/quarry/quarry"));
         withExistingParent("assembly_table", modLoc("block/assembly_table"));
         for (EnumRedstoneChipset chipset : EnumRedstoneChipset.values()) {
             withExistingParent(chipset.getItemName(), mcLoc("item/generated"))

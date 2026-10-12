@@ -11,6 +11,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import buildcraft.lib.BCLib;
 
+import buildcraft.builders.BCBuilders;
 import buildcraft.core.BCCore;
 import buildcraft.energy.BCEnergy;
 import buildcraft.factory.BCFactory;
@@ -28,5 +29,6 @@ public class BuildCraft {
         BCEnergy.init(context);
         BCFactory.init(context);
         BCSilicon.init(context);
+        BCBuilders.init(context);
     }
 }

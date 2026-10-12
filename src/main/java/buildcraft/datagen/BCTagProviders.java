@@ -20,6 +20,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import buildcraft.lib.BCTags;
 
 import buildcraft.BuildCraft;
+import buildcraft.builders.BCBuildersBlocks;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
 import buildcraft.energy.BCEnergyBlocks;
@@ -43,7 +44,8 @@ public final class BCTagProviders {
                 .add(BCFactoryBlocks.MINING_WELL.get()).add(BCFactoryBlocks.DISTILLER.get())
                 .add(BCFactoryBlocks.HEAT_EXCHANGE.get()).add(BCFactoryBlocks.CHUTE.get())
                 .add(BCFactoryBlocks.FLOOD_GATE.get())
-                .add(BCSiliconBlocks.LASER.get()).add(BCSiliconBlocks.ASSEMBLY_TABLE.get());
+                .add(BCSiliconBlocks.LASER.get()).add(BCSiliconBlocks.ASSEMBLY_TABLE.get())
+                .add(BCBuildersBlocks.QUARRY.get()).add(BCBuildersBlocks.FRAME.get());
             if (BCCoreBlocks.POWER_TESTER != null) {
                 // Optional: the tester only exists in development, and a missing entry would break the whole tag
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).addOptional(BCCoreBlocks.POWER_TESTER.getId());

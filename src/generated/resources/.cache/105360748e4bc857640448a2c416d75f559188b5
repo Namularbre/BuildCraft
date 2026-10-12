@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T23:02:13.1327267	Item Models: buildcraft
+// 1.20.1	2026-10-12T23:20:08.1667389	Item Models: buildcraft
 efd3bf6432cd66ca8f8f91950c9ae9cfaf2e737d assets/buildcraft/models/item/assembly_table.json
 fc532d8923f450294e07edfd2198126d4872a144 assets/buildcraft/models/item/autoworkbench_item.json
 1d18a91184439da5d75dc396886d4c709e81ec5d assets/buildcraft/models/item/chute.json
@@ -56,6 +56,7 @@ affbafaab9ab636effd6e599bcae9b376ba9cc3f assets/buildcraft/models/item/oil_resid
 8ac1adc8ecd185ff1c11b4ab0b4f3ff39ecade0a assets/buildcraft/models/item/pipe_sealant.json
 d84f406d9d3d33863ab41e07e0d5b864ab6282ff assets/buildcraft/models/item/power_tester.json
 e2cc90179fbfeffa95ede1830dafcc858af4b4a2 assets/buildcraft/models/item/pump.json
+8eebfa3282d19af521a9d20e1e32bc5cc13d039b assets/buildcraft/models/item/quarry.json
 4cbb4230063a4f4370dcac21ae6da2b9cc99ab86 assets/buildcraft/models/item/quartz_chipset.json
 57e8df9b8af7594977cf505144c105d7e9a5fbf5 assets/buildcraft/models/item/quartz_fluid_pipe.json
 1403607ddbef56cef871c1ebd5965e7b46b0e200 assets/buildcraft/models/item/quartz_item_pipe.json

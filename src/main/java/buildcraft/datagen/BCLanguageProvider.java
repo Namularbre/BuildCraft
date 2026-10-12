@@ -11,6 +11,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 import buildcraft.BuildCraft;
+import buildcraft.builders.BCBuildersBlocks;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
 import buildcraft.energy.BCEnergyBlocks;
@@ -51,6 +52,8 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCFactoryBlocks.DISTILLER.get(), "Distiller");
             add(BCFactoryBlocks.CHUTE.get(), "Chute");
             add(BCSiliconBlocks.LASER.get(), "Laser");
+            add(BCBuildersBlocks.QUARRY.get(), "Quarry");
+            add(BCBuildersBlocks.FRAME.get(), "Frame");
             add(BCSiliconBlocks.ASSEMBLY_TABLE.get(), "Assembly Table");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.RED), "Redstone Chipset");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.IRON), "Iron Chipset");
@@ -143,6 +146,8 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCFactoryBlocks.DISTILLER.get(), "Distillateur");
             add(BCFactoryBlocks.CHUTE.get(), "Goulotte");
             add(BCSiliconBlocks.LASER.get(), "Laser");
+            add(BCBuildersBlocks.QUARRY.get(), "Carrière");
+            add(BCBuildersBlocks.FRAME.get(), "Cadre");
             add(BCSiliconBlocks.ASSEMBLY_TABLE.get(), "Table d'assemblage");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.RED), "Circuit en redstone");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.IRON), "Circuit en fer");

@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T22:09:35.4113001	Loot Tables
+// 1.20.1	2026-10-12T23:20:08.1717405	Loot Tables
 c3c9c1234ad14c1046832b1bad677bac23c12dc8 data/buildcraft/loot_tables/blocks/assembly_table.json
 338e9dc7bedd91034abc4d5bd03b967d590c1a7a data/buildcraft/loot_tables/blocks/autoworkbench_item.json
 be29287f9a1731ac150dde15dbc75e44f79562dc data/buildcraft/loot_tables/blocks/chute.json
@@ -10,6 +10,7 @@ c1f360ce826d2f44c2d340cbd75436bbb89b29c4 data/buildcraft/loot_tables/blocks/lase
 2889b6a29ab4e8d1e105edea100741c1949cb1ea data/buildcraft/loot_tables/blocks/mining_well.json
 98904efe9f73db2978ae89b49ce67e00a90e478d data/buildcraft/loot_tables/blocks/power_tester.json
 8fdd081b07f00c98c1daec846094a03934f2804f data/buildcraft/loot_tables/blocks/pump.json
+c478a59d8aefb18c64f4dc88b5527c26691da938 data/buildcraft/loot_tables/blocks/quarry.json
 604b01d975055f698cb350b1d28671e707a8de1c data/buildcraft/loot_tables/blocks/redstone_engine.json
 f05860b6a77b2fad7bd93d4ed247576fa769c737 data/buildcraft/loot_tables/blocks/stirling_engine.json
 6d403d2dc7e2118da59699a3517a83e79f831090 data/buildcraft/loot_tables/blocks/tank.json

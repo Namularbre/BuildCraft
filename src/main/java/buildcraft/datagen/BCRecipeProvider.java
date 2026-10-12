@@ -28,6 +28,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import buildcraft.lib.BCTags;
 
 import buildcraft.BuildCraft;
+import buildcraft.builders.BCBuildersBlocks;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
 import buildcraft.energy.BCEnergyBlocks;
@@ -106,6 +107,18 @@ public class BCRecipeProvider extends RecipeProvider {
             .pattern("ggg")
             .define('g', Tags.Items.GLASS_COLORLESS)
             .unlockedBy("has_glass", has(Tags.Items.GLASS_COLORLESS))
+            .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCBuildersBlocks.QUARRY.get())
+            .pattern("iri")
+            .pattern("gig")
+            .pattern("dpd")
+            .define('i', BCTags.Items.GEARS_IRON)
+            .define('r', Tags.Items.DUSTS_REDSTONE)
+            .define('g', BCTags.Items.GEARS_GOLD)
+            .define('d', BCTags.Items.GEARS_DIAMOND)
+            .define('p', Items.DIAMOND_PICKAXE)
+            .unlockedBy("has_gear", has(BCTags.Items.GEARS_DIAMOND))
             .save(out);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCSiliconBlocks.LASER.get())

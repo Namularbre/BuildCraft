@@ -25,6 +25,9 @@ import buildcraft.lib.engine.BlockEngineBase;
 import buildcraft.lib.fluid.BCFluid;
 
 import buildcraft.BuildCraft;
+import buildcraft.builders.BCBuildersBlocks;
+import buildcraft.builders.block.BlockFrame;
+import buildcraft.builders.block.BlockQuarry;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.energy.BCEnergyFluids;
@@ -83,6 +86,8 @@ public class BCBlockStateProvider extends BlockStateProvider {
             .build());
         heatExchange();
         chute();
+        quarry();
+        frame();
         laser();
         simpleBlock(BCSiliconBlocks.ASSEMBLY_TABLE.get(), models().getExistingFile(modLoc("block/assembly_table")));
         getVariantBuilder(BCFactoryBlocks.WATER_GEL.get()).forAllStates(state -> {
@@ -141,6 +146,52 @@ public class BCBlockStateProvider extends BlockStateProvider {
             };
             return ConfiguredModel.builder().modelFile(model).rotationX(rotation[0]).rotationY(rotation[1]).build();
         });
+    }
+
+    /** One model for each set of sides with an item hatch (where pipes and inventories are), turned to face the
+     * right way. The model faces north. */
+    private void quarry() {
+        getVariantBuilder(BCBuildersBlocks.QUARRY.get()).forAllStates(state -> {
+            StringBuilder name = new StringBuilder("block/quarry/quarry");
+            Map<Direction, ResourceLocation> textures = new EnumMap<>(Direction.class);
+            for (Direction side : Direction.values()) {
+                boolean connected = state.getValue(BlockQuarry.CONNECTED.get(side));
+                String face = switch (side) {
+                    case UP -> "top";
+                    case DOWN -> "bottom";
+                    case NORTH -> "front";
+                    case SOUTH -> "back";
+                    default -> "side";
+                };
+                textures.put(side, modLoc("block/quarry/" + (connected ? "connected/" : "normal/") + face));
+                name.append(connected ? "_" + side.getSerializedName().charAt(0) : "");
+            }
+            ModelFile model = models().cube(name.toString(), textures.get(Direction.DOWN), textures.get(Direction.UP),
+                textures.get(Direction.NORTH), textures.get(Direction.SOUTH), textures.get(Direction.EAST),
+                textures.get(Direction.WEST)
+            ).texture("particle", modLoc("block/quarry/normal/side"));
+            int rotation = BlockQuarry.modelRotation(state.getValue(BlockQuarry.FACING));
+            return ConfiguredModel.builder().modelFile(model).rotationY(rotation).build();
+        });
+    }
+
+    /** A center, and an arm towards each frame or quarry next to it (the arm model points north). */
+    private void frame() {
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(BCBuildersBlocks.FRAME.get());
+        builder.part().modelFile(models().getExistingFile(modLoc("block/frame/center"))).addModel();
+        ModelFile arm = models().getExistingFile(modLoc("block/frame/arm"));
+        for (Direction side : Direction.values()) {
+            int[] rotation = switch (side) {
+                case UP -> new int[] { 270, 0 };
+                case DOWN -> new int[] { 90, 0 };
+                case SOUTH -> new int[] { 0, 180 };
+                case EAST -> new int[] { 0, 90 };
+                case WEST -> new int[] { 0, 270 };
+                default -> new int[] { 0, 0 };
+            };
+            builder.part().modelFile(arm).rotationX(rotation[0]).rotationY(rotation[1]).addModel()
+                .condition(BlockFrame.CONNECTED.get(side), true);
+        }
     }
 
     /** The funnel turned towards the opening, and a small spout towards each inventory it sends items to (the

@@ -10,6 +10,8 @@
     "buildcraft:flood_gate",
     "buildcraft:laser",
     "buildcraft:assembly_table",
+    "buildcraft:quarry",
+    "buildcraft:frame",
     {
       "id": "buildcraft:power_tester",
       "required": false
