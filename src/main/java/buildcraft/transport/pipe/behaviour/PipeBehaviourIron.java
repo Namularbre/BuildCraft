@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 
 import buildcraft.api.core.EnumPipePart;
 import buildcraft.api.transport.pipe.IPipe;
+import buildcraft.api.transport.pipe.PipeEventFluid;
 import buildcraft.api.transport.pipe.PipeEventHandler;
 import buildcraft.api.transport.pipe.PipeEventItem;
 
@@ -39,6 +40,22 @@ public class PipeBehaviourIron extends PipeBehaviourDirectional {
             sideCheck.disallowAll();
         } else {
             sideCheck.disallowAllExcept(currentDir.face);
+        }
+    }
+
+    @PipeEventHandler
+    public void fluidSideCheck(PipeEventFluid.SideCheck sideCheck) {
+        if (currentDir == EnumPipePart.CENTER) {
+            sideCheck.disallowAll();
+        } else {
+            sideCheck.disallowAllExcept(currentDir.face);
+        }
+    }
+
+    @PipeEventHandler
+    public void fluidInsert(PipeEventFluid.TryInsert insert) {
+        if (currentDir.face == insert.from) {
+            insert.cancel();
         }
     }
 

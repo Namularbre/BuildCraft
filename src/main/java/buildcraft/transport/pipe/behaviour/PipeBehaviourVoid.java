@@ -6,10 +6,13 @@
 
 package buildcraft.transport.pipe.behaviour;
 
+import java.util.Arrays;
+
 import net.minecraft.nbt.CompoundTag;
 
 import buildcraft.api.transport.pipe.IPipe;
 import buildcraft.api.transport.pipe.PipeBehaviour;
+import buildcraft.api.transport.pipe.PipeEventFluid;
 import buildcraft.api.transport.pipe.PipeEventHandler;
 import buildcraft.api.transport.pipe.PipeEventItem;
 
@@ -25,5 +28,10 @@ public class PipeBehaviourVoid extends PipeBehaviour {
     @PipeEventHandler
     public static void reachCentre(PipeEventItem.ReachCenter reachCenter) {
         reachCenter.getStack().setCount(0);
+    }
+
+    @PipeEventHandler
+    public static void moveFluidToCentre(PipeEventFluid.OnMoveToCentre move) {
+        Arrays.fill(move.fluidEnteringCentre, 0);
     }
 }

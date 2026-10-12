@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "buildcraft:iron_fluid_pipe"
+    }
+  ],
+  "result": {
+    "item": "buildcraft:iron_item_pipe"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "buildcraft:sandstone_item_pipe"
+    },
+    {
+      "item": "buildcraft:pipe_sealant"
+    }
+  ],
+  "result": {
+    "item": "buildcraft:sandstone_fluid_pipe"
+  }
+}

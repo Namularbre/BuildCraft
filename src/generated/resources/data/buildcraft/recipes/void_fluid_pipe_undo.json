@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "buildcraft:void_fluid_pipe"
+    }
+  ],
+  "result": {
+    "item": "buildcraft:void_item_pipe"
+  }
+}

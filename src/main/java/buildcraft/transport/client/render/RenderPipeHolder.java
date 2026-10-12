@@ -27,18 +27,22 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.minecraftforge.fluids.FluidStack;
+
 import buildcraft.api.mj.MjAPI;
 
 import buildcraft.lib.client.render.BoxRenderer;
 
 import buildcraft.BuildCraft;
 import buildcraft.transport.pipe.Pipe;
+import buildcraft.transport.pipe.flow.PipeFlowFluids;
 import buildcraft.transport.pipe.flow.PipeFlowItems;
 import buildcraft.transport.pipe.flow.PipeFlowPower;
 import buildcraft.transport.pipe.flow.TravellingItem;
 import buildcraft.transport.tile.TilePipeHolder;
 
-/** Renders what moves through pipes: travelling items, and the flow of power in kinesis pipes. */
+/** Renders what moves through pipes: travelling items, fluids, and the flow of power in kinesis pipes. */
 public class RenderPipeHolder implements BlockEntityRenderer<TilePipeHolder> {
     private static final float ITEM_SCALE = 0.4f;
     private static final ResourceLocation POWER_FLOW = ResourceLocation.fromNamespaceAndPath(
@@ -62,6 +66,8 @@ public class RenderPipeHolder implements BlockEntityRenderer<TilePipeHolder> {
             renderItems(tile, flow, partialTick, poseStack, buffers, light, overlay);
         } else if (pipe.getFlow() instanceof PipeFlowPower flow) {
             renderPower(pipe, flow, partialTick, poseStack, buffers);
+        } else if (pipe.getFlow() instanceof PipeFlowFluids flow) {
+            renderFluids(pipe, flow, partialTick, poseStack, buffers, light);
         }
     }
 
@@ -129,7 +135,7 @@ public class RenderPipeHolder implements BlockEntityRenderer<TilePipeHolder> {
             }
             float[] scroll = new float[3];
             scroll[axis] = offset / 2 * side.getAxisDirection().getStep();
-            drawBox(box, sprite, from, to, scroll, side.getOpposite());
+            drawBox(box, sprite, from, to, scroll, side.getOpposite(), 0.5f);
         }
 
         float[] from = { 0.5f - centreRadius, 0.5f - centreRadius, 0.5f - centreRadius };
@@ -138,18 +144,105 @@ public class RenderPipeHolder implements BlockEntityRenderer<TilePipeHolder> {
         for (int axis = 0; axis < 3; axis++) {
             scroll[axis] = (float) flow.clientDisplayFlowCentre[axis] / 2;
         }
-        drawBox(box, sprite, from, to, scroll, null);
+        drawBox(box, sprite, from, to, scroll, null, 0.5f);
     }
 
-    /** Draws a box (in block units), with UVs taken from its position (halved, so that it stays within the texture)
-     * and moved by scroll pixels. */
+    /** Draws the fluid in each section of the pipe: horizontal sections fill up from the bottom (or from the top, for
+     * gases), and vertical ones get thicker as they fill. */
+    private static void renderFluids(Pipe pipe, PipeFlowFluids flow, float partialTick, PoseStack poseStack,
+        MultiBufferSource buffers, int light) {
+        FluidStack fluid = flow.getFluidStackForRender();
+        if (fluid.isEmpty()) {
+            return;
+        }
+        double[] amounts = flow.getAmountsForRender(partialTick);
+        IClientFluidTypeExtensions extensions = IClientFluidTypeExtensions.of(fluid.getFluid());
+        TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+            .apply(extensions.getStillTexture(fluid));
+        int fluidLight = fluid.getFluid().getFluidType().getLightLevel(fluid);
+        int blockLight = Math.max(LightTexture.block(light), fluidLight);
+        BoxRenderer box = new BoxRenderer(
+            buffers.getBuffer(Sheets.translucentCullBlockSheet()), poseStack,
+            LightTexture.pack(blockLight, LightTexture.sky(light)), OverlayTexture.NO_OVERLAY,
+            extensions.getTintColor(fluid)
+        );
+        boolean gas = fluid.getFluid().getFluidType().isLighterThanAir();
+        double capacity = flow.capacity;
+
+        boolean horizontal = false;
+        boolean vertical = pipe.isConnected(gas ? Direction.DOWN : Direction.UP);
+
+        for (Direction face : Direction.values()) {
+            double amount = amounts[face.get3DDataValue()];
+            if (amount <= 0) {
+                continue;
+            }
+            float size = pipe.getConnectedDist(face);
+            if (face.getAxis() != Direction.Axis.Y) {
+                horizontal |= pipe.isConnected(face);
+            }
+            float[] centre = { 0.5f, 0.5f, 0.5f };
+            float[] radius = { 0.24f, 0.24f, 0.24f };
+            int axis = face.getAxis().ordinal();
+            centre[axis] += face.getAxisDirection().getStep() * (0.245f + size / 2);
+            radius[axis] = 0.005f + size / 2;
+            double fill = amount / capacity;
+            if (face.getAxis() == Direction.Axis.Y) {
+                float perc = (float) Math.sqrt(Math.min(1, fill));
+                radius[0] = perc * 0.24f;
+                radius[2] = perc * 0.24f;
+                fill = 1;
+            }
+            drawFluidBox(box, sprite, centre, radius, fill, gas);
+        }
+
+        double amount = amounts[6];
+        if (amount <= 0) {
+            return;
+        }
+        double fill = Math.min(1, amount / capacity);
+        float horizPos = 0.26f;
+        if (horizontal | !vertical) {
+            float[] centre = { 0.5f, 0.5f, 0.5f };
+            float[] radius = { 0.24f, 0.24f, 0.24f };
+            drawFluidBox(box, sprite, centre, radius, fill, gas);
+            horizPos += (float) (0.48 * fill);
+        }
+        if (vertical && horizPos < 0.74f) {
+            float perc = (float) Math.sqrt(fill) * 0.24f;
+            float yMin = gas ? 0.26f : horizPos;
+            float yMax = gas ? 1 - horizPos : 0.74f;
+            float[] centre = { 0.5f, (yMin + yMax) / 2, 0.5f };
+            float[] radius = { perc, (yMax - yMin) / 2, perc };
+            drawFluidBox(box, sprite, centre, radius, 1, gas);
+        }
+    }
+
+    /** Draws a box of fluid around centre, filled up to the given fraction of its height. */
+    private static void drawFluidBox(BoxRenderer box, TextureAtlasSprite sprite, float[] centre, float[] radius,
+        double fill, boolean gas) {
+        float[] from = { centre[0] - radius[0], centre[1] - radius[1], centre[2] - radius[2] };
+        float[] to = { centre[0] + radius[0], centre[1] + radius[1], centre[2] + radius[2] };
+        float height = (float) ((to[1] - from[1]) * Math.max(0, Math.min(1, fill)));
+        if (height <= 0) {
+            return;
+        }
+        if (gas) {
+            from[1] = to[1] - height;
+        } else {
+            to[1] = from[1] + height;
+        }
+        drawBox(box, sprite, from, to, new float[3], null, 1);
+    }
+
+    /** Draws a box (in block units), with UVs taken from its position (scaled by uvScale) and moved by scroll
+     * pixels. */
     private static void drawBox(BoxRenderer box, TextureAtlasSprite sprite, float[] from, float[] to, float[] scroll,
-        Direction skip) {
+        Direction skip, float uvScale) {
         float x0 = from[0] * 16, y0 = from[1] * 16, z0 = from[2] * 16;
         float x1 = to[0] * 16, y1 = to[1] * 16, z1 = to[2] * 16;
-        // The UV box: half size, so that a whole block fits in the first 8 pixels, leaving room to scroll
-        float ux0 = x0 / 2 + scroll[0], uy0 = y0 / 2 + scroll[1], uz0 = z0 / 2 + scroll[2];
-        float ux1 = x1 / 2 + scroll[0], uy1 = y1 / 2 + scroll[1], uz1 = z1 / 2 + scroll[2];
+        float ux0 = x0 * uvScale + scroll[0], uy0 = y0 * uvScale + scroll[1], uz0 = z0 * uvScale + scroll[2];
+        float ux1 = x1 * uvScale + scroll[0], uy1 = y1 * uvScale + scroll[1], uz1 = z1 * uvScale + scroll[2];
         for (Direction face : Direction.values()) {
             if (face == skip) {
                 continue;

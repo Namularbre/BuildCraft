@@ -94,6 +94,25 @@ public class BCRecipeProvider extends RecipeProvider {
         pipeUpgrade(
             out, BCTransportItems.PIPE_SANDSTONE_ITEM.get(), BCTransportItems.PIPE_SANDSTONE_POWER.get(), redstone
         );
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BCTransportItems.PIPE_SEALANT.get())
+            .requires(Ingredient.of(Items.GREEN_DYE, Items.SLIME_BALL))
+            .unlockedBy("has_slime_ball", has(Items.SLIME_BALL))
+            .unlockedBy("has_green_dye", has(Items.GREEN_DYE))
+            .save(out);
+        Ingredient sealant = Ingredient.of(BCTransportItems.PIPE_SEALANT.get());
+        pipeUpgrade(out, BCTransportItems.PIPE_WOOD_ITEM.get(), BCTransportItems.PIPE_WOOD_FLUID.get(), sealant);
+        pipeUpgrade(
+            out, BCTransportItems.PIPE_COBBLESTONE_ITEM.get(), BCTransportItems.PIPE_COBBLESTONE_FLUID.get(), sealant
+        );
+        pipeUpgrade(out, BCTransportItems.PIPE_STONE_ITEM.get(), BCTransportItems.PIPE_STONE_FLUID.get(), sealant);
+        pipeUpgrade(out, BCTransportItems.PIPE_QUARTZ_ITEM.get(), BCTransportItems.PIPE_QUARTZ_FLUID.get(), sealant);
+        pipeUpgrade(out, BCTransportItems.PIPE_GOLD_ITEM.get(), BCTransportItems.PIPE_GOLD_FLUID.get(), sealant);
+        pipeUpgrade(
+            out, BCTransportItems.PIPE_SANDSTONE_ITEM.get(), BCTransportItems.PIPE_SANDSTONE_FLUID.get(), sealant
+        );
+        pipeUpgrade(out, BCTransportItems.PIPE_IRON_ITEM.get(), BCTransportItems.PIPE_IRON_FLUID.get(), sealant);
+        pipeUpgrade(out, BCTransportItems.PIPE_VOID_ITEM.get(), BCTransportItems.PIPE_VOID_FLUID.get(), sealant);
     }
 
     /** Turns a pipe into another by adding an item, and back again (losing the item). */

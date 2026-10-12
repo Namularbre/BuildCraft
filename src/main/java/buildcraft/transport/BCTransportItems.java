@@ -41,6 +41,20 @@ public final class BCTransportItems {
     public static final RegistryObject<ItemPipeHolder> PIPE_GOLD_POWER = pipe(BCTransportPipes.GOLD_POWER);
     public static final RegistryObject<ItemPipeHolder> PIPE_SANDSTONE_POWER = pipe(BCTransportPipes.SANDSTONE_POWER);
 
+    public static final RegistryObject<ItemPipeHolder> PIPE_WOOD_FLUID = pipe(BCTransportPipes.WOOD_FLUID);
+    public static final RegistryObject<ItemPipeHolder> PIPE_COBBLESTONE_FLUID =
+        pipe(BCTransportPipes.COBBLESTONE_FLUID);
+    public static final RegistryObject<ItemPipeHolder> PIPE_STONE_FLUID = pipe(BCTransportPipes.STONE_FLUID);
+    public static final RegistryObject<ItemPipeHolder> PIPE_QUARTZ_FLUID = pipe(BCTransportPipes.QUARTZ_FLUID);
+    public static final RegistryObject<ItemPipeHolder> PIPE_GOLD_FLUID = pipe(BCTransportPipes.GOLD_FLUID);
+    public static final RegistryObject<ItemPipeHolder> PIPE_SANDSTONE_FLUID = pipe(BCTransportPipes.SANDSTONE_FLUID);
+    public static final RegistryObject<ItemPipeHolder> PIPE_IRON_FLUID = pipe(BCTransportPipes.IRON_FLUID);
+    public static final RegistryObject<ItemPipeHolder> PIPE_VOID_FLUID = pipe(BCTransportPipes.VOID_FLUID);
+
+    /** Turns item pipes into fluid pipes. */
+    public static final RegistryObject<Item> PIPE_SEALANT =
+        BCRegistries.ITEMS.register("pipe_sealant", () -> new Item(new Item.Properties()));
+
     private BCTransportItems() {}
 
     /** Registers the item of a pipe, named after its definition (for example "wood_item_pipe"). */

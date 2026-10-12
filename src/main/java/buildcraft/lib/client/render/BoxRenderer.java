@@ -24,13 +24,23 @@ public final class BoxRenderer {
     private final Matrix3f normal;
     private final int light;
     private final int overlay;
+    private final float red, green, blue, alpha;
 
     public BoxRenderer(VertexConsumer buffer, PoseStack poseStack, int light, int overlay) {
+        this(buffer, poseStack, light, overlay, 0xFF_FF_FF_FF);
+    }
+
+    /** @param argb The colour that every vertex is tinted with. */
+    public BoxRenderer(VertexConsumer buffer, PoseStack poseStack, int light, int overlay, int argb) {
         this.buffer = buffer;
         this.pose = poseStack.last().pose();
         this.normal = poseStack.last().normal();
         this.light = light;
         this.overlay = overlay;
+        this.alpha = ((argb >>> 24) & 0xFF) / 255f;
+        this.red = ((argb >> 16) & 0xFF) / 255f;
+        this.green = ((argb >> 8) & 0xFF) / 255f;
+        this.blue = (argb & 0xFF) / 255f;
     }
 
     /** Draws one face of the box from (x0, y0, z0) to (x1, y1, z1).
@@ -69,7 +79,7 @@ public final class BoxRenderer {
 
     private void vertex(Direction dir, float[] pos, float u, float v) {
         buffer.vertex(pose, pos[0], pos[1], pos[2])
-            .color(1f, 1f, 1f, 1f)
+            .color(red, green, blue, alpha)
             .uv(u, v)
             .overlayCoords(overlay)
             .uv2(light)

@@ -56,6 +56,15 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_QUARTZ_POWER.get(), "Quartz Kinesis Pipe");
             add(BCTransportItems.PIPE_GOLD_POWER.get(), "Golden Kinesis Pipe");
             add(BCTransportItems.PIPE_SANDSTONE_POWER.get(), "Sandstone Kinesis Pipe");
+            add(BCTransportItems.PIPE_WOOD_FLUID.get(), "Wooden Fluid Pipe");
+            add(BCTransportItems.PIPE_COBBLESTONE_FLUID.get(), "Cobblestone Fluid Pipe");
+            add(BCTransportItems.PIPE_STONE_FLUID.get(), "Stone Fluid Pipe");
+            add(BCTransportItems.PIPE_QUARTZ_FLUID.get(), "Quartz Fluid Pipe");
+            add(BCTransportItems.PIPE_GOLD_FLUID.get(), "Golden Fluid Pipe");
+            add(BCTransportItems.PIPE_SANDSTONE_FLUID.get(), "Sandstone Fluid Pipe");
+            add(BCTransportItems.PIPE_IRON_FLUID.get(), "Iron Fluid Pipe");
+            add(BCTransportItems.PIPE_VOID_FLUID.get(), "Void Fluid Pipe");
+            add(BCTransportItems.PIPE_SEALANT.get(), "Pipe Sealant");
         }
     }
 
@@ -92,6 +101,15 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_QUARTZ_POWER.get(), "Tuyau cinétique en quartz");
             add(BCTransportItems.PIPE_GOLD_POWER.get(), "Tuyau cinétique en or");
             add(BCTransportItems.PIPE_SANDSTONE_POWER.get(), "Tuyau cinétique en grès");
+            add(BCTransportItems.PIPE_WOOD_FLUID.get(), "Tuyau à fluide en bois");
+            add(BCTransportItems.PIPE_COBBLESTONE_FLUID.get(), "Tuyau à fluide en pierre");
+            add(BCTransportItems.PIPE_STONE_FLUID.get(), "Tuyau à fluide en roche");
+            add(BCTransportItems.PIPE_QUARTZ_FLUID.get(), "Tuyau à fluide en quartz");
+            add(BCTransportItems.PIPE_GOLD_FLUID.get(), "Tuyau à fluide en or");
+            add(BCTransportItems.PIPE_SANDSTONE_FLUID.get(), "Tuyau à fluide en grès");
+            add(BCTransportItems.PIPE_IRON_FLUID.get(), "Tuyau à fluide en fer");
+            add(BCTransportItems.PIPE_VOID_FLUID.get(), "Tuyau d'évacuation de fluide");
+            add(BCTransportItems.PIPE_SEALANT.get(), "Enduit étanche");
         }
     }
 }

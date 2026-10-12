@@ -31,6 +31,7 @@ public class BCItemModelProvider extends ItemModelProvider {
         basicItem(BCCoreItems.GEAR_IRON.get());
         basicItem(BCCoreItems.GEAR_GOLD.get());
         basicItem(BCCoreItems.GEAR_DIAMOND.get());
+        basicItem(BCTransportItems.PIPE_SEALANT.get());
 
         engine(BCCoreBlocks.ENGINE_REDSTONE.getId(), "redstone");
 

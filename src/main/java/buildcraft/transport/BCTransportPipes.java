@@ -26,16 +26,21 @@ import buildcraft.transport.pipe.behaviour.PipeBehaviourStone;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourVoid;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourWood;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourWoodPower;
+import buildcraft.transport.pipe.flow.PipeFlowFluids;
 import buildcraft.transport.pipe.flow.PipeFlowItems;
 import buildcraft.transport.pipe.flow.PipeFlowPower;
 
 /** Every pipe definition. Must be loaded while BuildCraft is the active mod, as definitions take their namespace from
  * it. */
 public final class BCTransportPipes {
+    /** The flow rate of the slowest fluid pipe, in millibuckets per tick. */
+    public static final int BASE_FLUID_FLOW_RATE = 10;
+
     static {
         PipeApi.pipeRegistry = PipeRegistry.INSTANCE;
         PipeApi.flowItems = new PipeFlowType(PipeFlowItems::new, PipeFlowItems::new);
         PipeApi.flowPower = new PipeFlowType(PipeFlowPower::new, PipeFlowPower::new);
+        PipeApi.flowFluids = new PipeFlowType(PipeFlowFluids::new, PipeFlowFluids::new);
     }
 
     public static final PipeDefinition WOOD_ITEM = itemPipe(
@@ -82,6 +87,31 @@ public final class BCTransportPipes {
         "sandstone_power", PipeBehaviourSandstone::new, PipeBehaviourSandstone::new, 16, 32, false
     );
 
+    public static final PipeDefinition WOOD_FLUID = fluidPipe(
+        "wood_fluid", PipeBehaviourWood::new, PipeBehaviourWood::new, 1, 10, "_clear", "_filled"
+    );
+    public static final PipeDefinition COBBLESTONE_FLUID = fluidPipe(
+        "cobblestone_fluid", PipeBehaviourCobble::new, PipeBehaviourCobble::new, 2, 10
+    );
+    public static final PipeDefinition STONE_FLUID = fluidPipe(
+        "stone_fluid", PipeBehaviourStone::new, PipeBehaviourStone::new, 2, 10
+    );
+    public static final PipeDefinition QUARTZ_FLUID = fluidPipe(
+        "quartz_fluid", PipeBehaviourQuartz::new, PipeBehaviourQuartz::new, 4, 10
+    );
+    public static final PipeDefinition GOLD_FLUID = fluidPipe(
+        "gold_fluid", PipeBehaviourGold::new, PipeBehaviourGold::new, 8, 2
+    );
+    public static final PipeDefinition SANDSTONE_FLUID = fluidPipe(
+        "sandstone_fluid", PipeBehaviourSandstone::new, PipeBehaviourSandstone::new, 2, 10
+    );
+    public static final PipeDefinition IRON_FLUID = fluidPipe(
+        "iron_fluid", PipeBehaviourIron::new, PipeBehaviourIron::new, 4, 10, "_clear", "_filled"
+    );
+    public static final PipeDefinition VOID_FLUID = fluidPipe(
+        "void_fluid", PipeBehaviourVoid::new, PipeBehaviourVoid::new, 8, 10
+    );
+
     private BCTransportPipes() {}
 
     private static PipeDefinition itemPipe(String id, IPipeCreator creator, IPipeLoader loader,
@@ -90,6 +120,20 @@ public final class BCTransportPipes {
         builder.logic(creator, loader);
         builder.enableColouring();
         return builder.id(id).tex(id, textureSuffixes).flowItem().define();
+    }
+
+    /** @param flowMultiplier The pipe moves this many times the base flow rate (10 mB) per tick.
+     * @param delay How long fluid takes to cross each section of the pipe, in ticks. */
+    private static PipeDefinition fluidPipe(String id, IPipeCreator creator, IPipeLoader loader, int flowMultiplier,
+        int delay, String... textureSuffixes) {
+        PipeDefinitionBuilder builder = new PipeDefinitionBuilder(BuildCraft.MODID);
+        builder.logic(creator, loader);
+        builder.enableColouring();
+        PipeDefinition definition = builder.id(id).tex(id, textureSuffixes).flowFluid().define();
+        PipeApi.fluidTransferData.put(
+            definition, new PipeApi.FluidTransferInfo(BASE_FLUID_FLOW_RATE * flowMultiplier, delay)
+        );
+        return definition;
     }
 
     /** @param mjPerTick The maximum power the pipe can move each tick, in MJ.
