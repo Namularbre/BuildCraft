@@ -36,6 +36,8 @@ import buildcraft.factory.block.BlockHeatExchange;
 import buildcraft.factory.block.BlockHeatExchange.EnumExchangePart;
 import buildcraft.factory.block.BlockTank;
 import buildcraft.factory.block.BlockWaterGel;
+import buildcraft.silicon.BCSiliconBlocks;
+import buildcraft.silicon.block.BlockLaser;
 import buildcraft.transport.BCTransportBlocks;
 
 public class BCBlockStateProvider extends BlockStateProvider {
@@ -81,6 +83,8 @@ public class BCBlockStateProvider extends BlockStateProvider {
             .build());
         heatExchange();
         chute();
+        laser();
+        simpleBlock(BCSiliconBlocks.ASSEMBLY_TABLE.get(), models().getExistingFile(modLoc("block/assembly_table")));
         getVariantBuilder(BCFactoryBlocks.WATER_GEL.get()).forAllStates(state -> {
             String stage = state.getValue(BlockWaterGel.STAGE).getSerializedName();
             return ConfiguredModel.builder()
@@ -119,6 +123,23 @@ public class BCBlockStateProvider extends BlockStateProvider {
                 textures.get(Direction.EAST), textures.get(Direction.WEST)
             ).texture("particle", modLoc("block/flood_gate/top"));
             return ConfiguredModel.builder().modelFile(model).build();
+        });
+    }
+
+    /** The model points up, and is turned like in 1.12. */
+    private void laser() {
+        ModelFile model = models().getExistingFile(modLoc("block/laser"));
+        getVariantBuilder(BCSiliconBlocks.LASER.get()).forAllStates(state -> {
+            Direction facing = state.getValue(BlockLaser.FACING);
+            int[] rotation = switch (facing) {
+                case UP -> new int[] { 0, 0 };
+                case DOWN -> new int[] { 180, 0 };
+                case NORTH -> new int[] { 90, 0 };
+                case EAST -> new int[] { 90, 90 };
+                case SOUTH -> new int[] { 90, 180 };
+                case WEST -> new int[] { 90, 270 };
+            };
+            return ConfiguredModel.builder().modelFile(model).rotationX(rotation[0]).rotationY(rotation[1]).build();
         });
     }
 

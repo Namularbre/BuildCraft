@@ -8,6 +8,8 @@
     "buildcraft:heat_exchange",
     "buildcraft:chute",
     "buildcraft:flood_gate",
+    "buildcraft:laser",
+    "buildcraft:assembly_table",
     {
       "id": "buildcraft:power_tester",
       "required": false

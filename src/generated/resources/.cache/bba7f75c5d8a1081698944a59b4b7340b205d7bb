@@ -1,4 +1,5 @@
-// 1.20.1	2026-10-12T21:53:51.2874008	Block States: buildcraft
+// 1.20.1	2026-10-12T22:09:35.3966071	Block States: buildcraft
+ca9d637985321401ecdb034c44cd3bef4e910bf5 assets/buildcraft/blockstates/assembly_table.json
 6845a09162a73eb96df9d99eeb983899c211bdf8 assets/buildcraft/blockstates/autoworkbench_item.json
 22632d01aedc59f0f550a8de1dc5bf5e04a0e7f0 assets/buildcraft/blockstates/chute.json
 e409775c2174c4fc4bc9d0ab06360ea312b1c24d assets/buildcraft/blockstates/combustion_engine.json
@@ -20,6 +21,7 @@ fe47f3d1570a3608e152dfbf3050f1f3cc830907 assets/buildcraft/blockstates/fuel_gase
 6a62225765d38d4d66e5cf2acd52e825708b08c2 assets/buildcraft/blockstates/fuel_mixed_light_heat_1.json
 59e8733262f79e323299e80079b749a0f1709e33 assets/buildcraft/blockstates/fuel_mixed_light_heat_2.json
 cb896ab7045cfcc1a7636d6c717fcc2ee9bae7a1 assets/buildcraft/blockstates/heat_exchange.json
+dd7f1f7667affcbd4e2cc94d6d131da754febc7a assets/buildcraft/blockstates/laser.json
 adad9dad8b68c3cab158af84464da90d51adf55f assets/buildcraft/blockstates/mining_well.json
 de9f4efc669b9808801d82dae71aa5e71406aef7 assets/buildcraft/blockstates/oil.json
 178d80eff3e5b15e15beb73fd7c3b13e6e66cd8e assets/buildcraft/blockstates/oil_dense.json

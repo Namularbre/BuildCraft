@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2017 SpaceToad and the BuildCraft team
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
+ * distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/
+ */
+
+package buildcraft.silicon.container;
+
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+
+import net.minecraftforge.items.SlotItemHandler;
+
+import buildcraft.lib.gui.ContainerBCTile;
+
+import buildcraft.silicon.BCSiliconMenus;
+import buildcraft.silicon.tile.TileAssemblyTable;
+
+public class ContainerAssemblyTable extends ContainerBCTile<TileAssemblyTable> {
+    public ContainerAssemblyTable(int id, Player player, TileAssemblyTable tile) {
+        super(BCSiliconMenus.ASSEMBLY_TABLE.get(), id, player, tile);
+        addFullPlayerInventory(123);
+        for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 3; x++) {
+                addSlot(new SlotItemHandler(tile.inv, x + y * 3, 8 + x * 18, 36 + y * 18));
+            }
+        }
+    }
+
+    /** The client-side constructor. */
+    public ContainerAssemblyTable(int id, Inventory inventory, FriendlyByteBuf buffer) {
+        this(id, inventory.player, readTile(inventory, buffer, TileAssemblyTable.class));
+    }
+}

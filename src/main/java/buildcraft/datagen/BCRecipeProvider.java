@@ -34,6 +34,7 @@ import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.energy.BCEnergyFluids;
 import buildcraft.factory.BCFactoryBlocks;
 import buildcraft.factory.BCFactoryItems;
+import buildcraft.silicon.BCSiliconBlocks;
 import buildcraft.transport.BCTransportItems;
 
 /** Crafting recipes, ported from the 1.12 recipe JSONs (ore dictionary entries became tags). */
@@ -105,6 +106,27 @@ public class BCRecipeProvider extends RecipeProvider {
             .pattern("ggg")
             .define('g', Tags.Items.GLASS_COLORLESS)
             .unlockedBy("has_glass", has(Tags.Items.GLASS_COLORLESS))
+            .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCSiliconBlocks.LASER.get())
+            .pattern("rro")
+            .pattern("rdd")
+            .pattern("rro")
+            .define('r', Tags.Items.DUSTS_REDSTONE)
+            .define('d', Tags.Items.GEMS_DIAMOND)
+            .define('o', Items.OBSIDIAN)
+            .unlockedBy("has_diamond", has(Tags.Items.GEMS_DIAMOND))
+            .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCSiliconBlocks.ASSEMBLY_TABLE.get())
+            .pattern("OdO")
+            .pattern("OrO")
+            .pattern("OgO")
+            .define('O', Items.OBSIDIAN)
+            .define('d', Tags.Items.GEMS_DIAMOND)
+            .define('r', Tags.Items.DUSTS_REDSTONE)
+            .define('g', BCTags.Items.GEARS_DIAMOND)
+            .unlockedBy("has_gear", has(BCTags.Items.GEARS_DIAMOND))
             .save(out);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCFactoryItems.WATER_GEL.get())

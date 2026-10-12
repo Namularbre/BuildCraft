@@ -21,6 +21,7 @@ import buildcraft.core.BCCoreItems;
 import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.energy.BCEnergyFluids;
 import buildcraft.factory.BCFactoryItems;
+import buildcraft.silicon.EnumRedstoneChipset;
 import buildcraft.transport.BCTransportItems;
 
 public class BCItemModelProvider extends ItemModelProvider {
@@ -47,6 +48,13 @@ public class BCItemModelProvider extends ItemModelProvider {
         withExistingParent("chute", modLoc("block/chute"));
         withExistingParent("water_gel_spawn", mcLoc("item/generated")).texture("layer0", modLoc("item/water_gel"));
         basicItem(BCFactoryItems.GEL.get());
+
+        withExistingParent("laser", modLoc("block/laser"));
+        withExistingParent("assembly_table", modLoc("block/assembly_table"));
+        for (EnumRedstoneChipset chipset : EnumRedstoneChipset.values()) {
+            withExistingParent(chipset.getItemName(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/chipset/" + chipset.getTextureName()));
+        }
         withExistingParent("autoworkbench_item", modLoc("block/autoworkbench_item"));
         withExistingParent("flood_gate", modLoc("block/flood_gate_d_n_s_w_e"));
 
