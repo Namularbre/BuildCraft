@@ -6,12 +6,19 @@
 
 package buildcraft.energy;
 
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import buildcraft.BuildCraft;
+
 /** The energy module: engines that burn fuel, and oil. */
 public final class BCEnergy {
     private BCEnergy() {}
 
-    public static void init() {
+    public static void init(FMLJavaModLoadingContext context) {
+        context.registerConfig(ModConfig.Type.COMMON, BCEnergyConfig.SPEC, BuildCraft.MODID + "-energy-common.toml");
         BCEnergyBlocks.init();
+        BCEnergyFluids.init();
         BCEnergyMenus.init();
     }
 }

@@ -67,6 +67,21 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_IRON_FLUID.get(), "Iron Fluid Pipe");
             add(BCTransportItems.PIPE_VOID_FLUID.get(), "Void Fluid Pipe");
             add(BCTransportItems.PIPE_SEALANT.get(), "Pipe Sealant");
+
+            add("buildcraft.fluid.heat_0", "%s (§bCool§r)");
+            add("buildcraft.fluid.heat_1", "%s (§6Hot§r)");
+            add("buildcraft.fluid.heat_2", "%s (§cSearing§r)");
+            add("item.buildcraft.fluid_bucket", "Bucket of %s");
+            add("fluid.buildcraft.oil", "Oil");
+            add("fluid.buildcraft.oil_residue", "Residue");
+            add("fluid.buildcraft.oil_heavy", "Heavy Oil");
+            add("fluid.buildcraft.oil_dense", "Dense Oil");
+            add("fluid.buildcraft.oil_distilled", "Distilled Oil");
+            add("fluid.buildcraft.fuel_dense", "Dense Fuel");
+            add("fluid.buildcraft.fuel_mixed_heavy", "Mixed Heavy Fuels");
+            add("fluid.buildcraft.fuel_light", "Light Fuel");
+            add("fluid.buildcraft.fuel_mixed_light", "Mixed Light Fuels");
+            add("fluid.buildcraft.fuel_gaseous", "Gaseous Fuel");
         }
     }
 
@@ -113,6 +128,21 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_IRON_FLUID.get(), "Tuyau à fluide en fer");
             add(BCTransportItems.PIPE_VOID_FLUID.get(), "Tuyau d'évacuation de fluide");
             add(BCTransportItems.PIPE_SEALANT.get(), "Enduit étanche");
+
+            add("buildcraft.fluid.heat_0", "%s (§bFroid§r)");
+            add("buildcraft.fluid.heat_1", "%s (§6Chaud§r)");
+            add("buildcraft.fluid.heat_2", "%s (§cBrûlant§r)");
+            add("item.buildcraft.fluid_bucket", "Seau de %s");
+            add("fluid.buildcraft.oil", "Pétrole");
+            add("fluid.buildcraft.oil_residue", "Résidu");
+            add("fluid.buildcraft.oil_heavy", "Pétrole lourd");
+            add("fluid.buildcraft.oil_dense", "Pétrole dense");
+            add("fluid.buildcraft.oil_distilled", "Pétrole distillé");
+            add("fluid.buildcraft.fuel_dense", "Carburant dense");
+            add("fluid.buildcraft.fuel_mixed_heavy", "Carburants lourds mélangés");
+            add("fluid.buildcraft.fuel_light", "Essence");
+            add("fluid.buildcraft.fuel_mixed_light", "Carburants légers mélangés");
+            add("fluid.buildcraft.fuel_gaseous", "Carburant gazeux");
         }
     }
 }

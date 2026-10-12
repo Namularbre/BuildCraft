@@ -8,6 +8,7 @@ package buildcraft.datagen;
 
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -17,9 +18,11 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import buildcraft.BuildCraft;
 import buildcraft.api.enums.EnumPowerStage;
 import buildcraft.lib.engine.BlockEngineBase;
+import buildcraft.lib.fluid.BCFluid;
 
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.energy.BCEnergyBlocks;
+import buildcraft.energy.BCEnergyFluids;
 import buildcraft.transport.BCTransportBlocks;
 
 public class BCBlockStateProvider extends BlockStateProvider {
@@ -34,6 +37,12 @@ public class BCBlockStateProvider extends BlockStateProvider {
 
         if (BCCoreBlocks.POWER_TESTER != null) {
             simpleBlock(BCCoreBlocks.POWER_TESTER.get());
+        }
+
+        // Fluids are drawn by the fluid renderer: the model is only used for the breaking particles
+        for (BCFluid fluid : BCEnergyFluids.ALL) {
+            ResourceLocation still = fluid.type.get().getStillTextureLocation();
+            simpleBlock(fluid.block.get(), models().getBuilder("block/fluid/" + fluid.name).texture("particle", still));
         }
 
         // A placeholder: the real model is generated from the pipe at runtime

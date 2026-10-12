@@ -1,0 +1,6 @@
+{
+  "parent": "forge:item/bucket_drip",
+  "flip_gas": true,
+  "fluid": "buildcraft:oil_heavy",
+  "loader": "forge:fluid_container"
+}

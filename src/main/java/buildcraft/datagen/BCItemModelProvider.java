@@ -10,6 +10,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import buildcraft.BuildCraft;
@@ -17,6 +18,8 @@ import buildcraft.BuildCraft;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
 import buildcraft.energy.BCEnergyBlocks;
+import buildcraft.energy.BCEnergyFluids;
+import buildcraft.lib.fluid.BCFluid;
 import buildcraft.transport.BCTransportItems;
 
 public class BCItemModelProvider extends ItemModelProvider {
@@ -39,6 +42,15 @@ public class BCItemModelProvider extends ItemModelProvider {
 
         if (BCCoreBlocks.POWER_TESTER != null) {
             withExistingParent(BCCoreBlocks.POWER_TESTER.getId().getPath(), modLoc("block/power_tester"));
+        }
+
+        // Forge's bucket model, which draws the fluid inside the bucket
+        for (BCFluid fluid : BCEnergyFluids.ALL) {
+            withExistingParent(fluid.bucket.getId().getPath(), ResourceLocation.fromNamespaceAndPath(
+                "forge", "item/bucket_drip"
+            )).customLoader(DynamicFluidContainerModelBuilder::begin)
+                .fluid(fluid.get())
+                .flipGas(true);
         }
 
         BCTransportItems.PIPES.forEach((definition, item) -> {
