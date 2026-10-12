@@ -55,6 +55,7 @@ import buildcraft.BuildCraft;
 import buildcraft.builders.BCBuildersBlocks;
 import buildcraft.builders.BCBuildersConfig;
 import buildcraft.builders.block.BlockQuarry;
+import buildcraft.core.tile.TileMarkerVolume;
 import buildcraft.factory.BCFactoryConfig;
 import buildcraft.factory.tile.TileMiningWell;
 
@@ -136,7 +137,17 @@ public class TileQuarry extends TileBC implements ITickable {
         if (level.isClientSide) {
             return;
         }
-        // The area is behind the quarry: 11 by 11 blocks (the frame included)
+        // A box of connected markers right behind the quarry gives it its area (if it is big enough)
+        BlockPos behind = worldPosition.relative(getFacing().getOpposite());
+        if (level.getBlockEntity(behind) instanceof TileMarkerVolume marker) {
+            Box box = marker.getBox();
+            if (box != null && box.max().getX() - box.min().getX() >= 3 && box.max().getZ() - box.min().getZ() >= 3) {
+                marker.removeConnectedMarkers();
+                setArea(box.min(), box.max());
+                return;
+            }
+        }
+        // Otherwise the area is behind the quarry: 11 by 11 blocks (the frame included)
         BlockPos min, max;
         switch (getFacing().getOpposite()) {
             case WEST -> {

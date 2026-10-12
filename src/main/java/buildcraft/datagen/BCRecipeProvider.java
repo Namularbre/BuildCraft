@@ -109,6 +109,14 @@ public class BCRecipeProvider extends RecipeProvider {
             .unlockedBy("has_glass", has(Tags.Items.GLASS_COLORLESS))
             .save(out);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCCoreBlocks.MARKER_VOLUME.get())
+            .pattern("l")
+            .pattern("t")
+            .define('l', Tags.Items.GEMS_LAPIS)
+            .define('t', Items.REDSTONE_TORCH)
+            .unlockedBy("has_lapis", has(Tags.Items.GEMS_LAPIS))
+            .save(out);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCBuildersBlocks.QUARRY.get())
             .pattern("iri")
             .pattern("gig")

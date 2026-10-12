@@ -53,6 +53,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCFactoryBlocks.CHUTE.get(), "Chute");
             add(BCSiliconBlocks.LASER.get(), "Laser");
             add(BCBuildersBlocks.QUARRY.get(), "Quarry");
+            add(BCCoreBlocks.MARKER_VOLUME.get(), "Volume Marker");
             add(BCBuildersBlocks.FRAME.get(), "Frame");
             add(BCSiliconBlocks.ASSEMBLY_TABLE.get(), "Assembly Table");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.RED), "Redstone Chipset");
@@ -147,6 +148,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCFactoryBlocks.CHUTE.get(), "Goulotte");
             add(BCSiliconBlocks.LASER.get(), "Laser");
             add(BCBuildersBlocks.QUARRY.get(), "Carrière");
+            add(BCCoreBlocks.MARKER_VOLUME.get(), "Marqueur de volume");
             add(BCBuildersBlocks.FRAME.get(), "Cadre");
             add(BCSiliconBlocks.ASSEMBLY_TABLE.get(), "Table d'assemblage");
             add(BCSiliconItems.chipset(EnumRedstoneChipset.RED), "Circuit en redstone");

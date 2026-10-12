@@ -22,8 +22,10 @@ import buildcraft.lib.BCLib;
 import buildcraft.lib.engine.BlockEngineBase;
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.core.block.BlockMarkerVolume;
 import buildcraft.core.block.BlockPowerConsumerTester;
 import buildcraft.core.tile.TileEngineRedstone;
+import buildcraft.core.tile.TileMarkerVolume;
 import buildcraft.core.tile.TilePowerConsumerTester;
 
 public final class BCCoreBlocks {
@@ -54,6 +56,18 @@ public final class BCCoreBlocks {
             "power_tester", () -> BlockEntityType.Builder.of(TilePowerConsumerTester::new, POWER_TESTER.get())
                 .build(null)
         ) : null;
+
+    public static final RegistryObject<BlockMarkerVolume> MARKER_VOLUME = registerWithItem(
+        "marker_volume", () -> new BlockMarkerVolume(
+            BlockBehaviour.Properties.of().mapColor(MapColor.NONE).instabreak().sound(SoundType.WOOD).lightLevel(s -> 3)
+        )
+    );
+
+    @SuppressWarnings("ConstantConditions")
+    public static final RegistryObject<BlockEntityType<TileMarkerVolume>> MARKER_VOLUME_TILE =
+        BCRegistries.BLOCK_ENTITY_TYPES.register(
+            "marker_volume", () -> BlockEntityType.Builder.of(TileMarkerVolume::new, MARKER_VOLUME.get()).build(null)
+        );
 
     private BCCoreBlocks() {}
 

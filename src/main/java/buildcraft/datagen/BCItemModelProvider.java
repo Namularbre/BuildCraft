@@ -51,6 +51,7 @@ public class BCItemModelProvider extends ItemModelProvider {
 
         withExistingParent("laser", modLoc("block/laser"));
         withExistingParent("quarry", modLoc("block/quarry/quarry"));
+        withExistingParent("marker_volume", mcLoc("item/generated")).texture("layer0", modLoc("item/marker_volume"));
         withExistingParent("assembly_table", modLoc("block/assembly_table"));
         for (EnumRedstoneChipset chipset : EnumRedstoneChipset.values()) {
             withExistingParent(chipset.getItemName(), mcLoc("item/generated"))

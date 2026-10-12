@@ -8,6 +8,7 @@
   "block.buildcraft.frame": "Cadre",
   "block.buildcraft.heat_exchange": "Échangeur de chaleur",
   "block.buildcraft.laser": "Laser",
+  "block.buildcraft.marker_volume": "Marqueur de volume",
   "block.buildcraft.mining_well": "Puits de mine",
   "block.buildcraft.pipe_holder": "Tuyau",
   "block.buildcraft.power_tester": "Testeur de puissance (debug)",

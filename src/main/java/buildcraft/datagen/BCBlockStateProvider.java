@@ -29,6 +29,7 @@ import buildcraft.builders.BCBuildersBlocks;
 import buildcraft.builders.block.BlockFrame;
 import buildcraft.builders.block.BlockQuarry;
 import buildcraft.core.BCCoreBlocks;
+import buildcraft.core.block.BlockMarkerVolume;
 import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.energy.BCEnergyFluids;
 import buildcraft.factory.BCFactoryBlocks;
@@ -86,6 +87,7 @@ public class BCBlockStateProvider extends BlockStateProvider {
             .build());
         heatExchange();
         chute();
+        markerVolume();
         quarry();
         frame();
         laser();
@@ -192,6 +194,22 @@ public class BCBlockStateProvider extends BlockStateProvider {
             builder.part().modelFile(arm).rotationX(rotation[0]).rotationY(rotation[1]).addModel()
                 .condition(BlockFrame.CONNECTED.get(side), true);
         }
+    }
+
+    /** The model points up, and is turned like in 1.12. */
+    private void markerVolume() {
+        ModelFile model = models().getExistingFile(modLoc("block/marker_volume"));
+        getVariantBuilder(BCCoreBlocks.MARKER_VOLUME.get()).forAllStates(state -> {
+            int[] rotation = switch (state.getValue(BlockMarkerVolume.FACING)) {
+                case UP -> new int[] { 0, 0 };
+                case DOWN -> new int[] { 180, 0 };
+                case NORTH -> new int[] { 90, 0 };
+                case EAST -> new int[] { 90, 90 };
+                case SOUTH -> new int[] { 90, 180 };
+                case WEST -> new int[] { 90, 270 };
+            };
+            return ConfiguredModel.builder().modelFile(model).rotationX(rotation[0]).rotationY(rotation[1]).build();
+        });
     }
 
     /** The funnel turned towards the opening, and a small spout towards each inventory it sends items to (the

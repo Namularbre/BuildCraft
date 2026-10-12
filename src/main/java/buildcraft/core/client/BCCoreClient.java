@@ -13,10 +13,11 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import buildcraft.BuildCraft;
 import buildcraft.lib.client.render.RenderEngine;
 
+import buildcraft.BuildCraft;
 import buildcraft.core.BCCoreBlocks;
+import buildcraft.core.client.render.RenderMarkerVolume;
 
 @Mod.EventBusSubscriber(modid = BuildCraft.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class BCCoreClient {
@@ -24,6 +25,7 @@ public final class BCCoreClient {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(BCCoreBlocks.MARKER_VOLUME_TILE.get(), RenderMarkerVolume::new);
         event.registerBlockEntityRenderer(
             BCCoreBlocks.ENGINE_REDSTONE_TILE.get(), context -> new RenderEngine<>(
                 context, texture("block/engine/redstone_back"), texture("block/engine/redstone_side"), texture(
