@@ -18,6 +18,7 @@ public final class BCFactory {
     public static void init(FMLJavaModLoadingContext context) {
         context.registerConfig(ModConfig.Type.COMMON, BCFactoryConfig.SPEC, BuildCraft.MODID + "-factory-common.toml");
         BCFactoryBlocks.init();
+        BCFactoryItems.init();
         BCFactoryMenus.init();
     }
 }

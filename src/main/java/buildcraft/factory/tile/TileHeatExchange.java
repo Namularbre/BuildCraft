@@ -30,16 +30,16 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fml.LogicalSide;
 
 import buildcraft.api.core.EnumPipePart;
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
+import buildcraft.api.recipes.IRefineryRecipeManager;
 import buildcraft.api.recipes.IRefineryRecipeManager.ICoolableRecipe;
 import buildcraft.api.recipes.IRefineryRecipeManager.IHeatableRecipe;
-import buildcraft.api.recipes.IRefineryRecipeManager;
 
 import buildcraft.lib.fluid.RestrictedFluidHandler;
 import buildcraft.lib.misc.data.IdAllocator;
@@ -47,8 +47,8 @@ import buildcraft.lib.tile.ITickable;
 import buildcraft.lib.tile.TileBC;
 
 import buildcraft.factory.BCFactoryBlocks;
-import buildcraft.factory.block.BlockHeatExchange.EnumExchangePart;
 import buildcraft.factory.block.BlockHeatExchange;
+import buildcraft.factory.block.BlockHeatExchange.EnumExchangePart;
 
 /** One block of a heat exchanger. The first block of a row (the start, clockwise of the facing) heats the fluid that
  * goes in from below, and the last block (the end) cools the fluid that goes in through its outer side. The heated

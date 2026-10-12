@@ -15,16 +15,16 @@ import net.minecraft.world.level.material.Fluids;
 
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.gametest.GameTestHolder;
 import net.minecraftforge.gametest.PrefixGameTestTemplate;
 
 import buildcraft.BuildCraft;
 import buildcraft.energy.BCEnergyFluids;
 import buildcraft.factory.BCFactoryBlocks;
-import buildcraft.factory.block.BlockHeatExchange.EnumExchangePart;
 import buildcraft.factory.block.BlockHeatExchange;
+import buildcraft.factory.block.BlockHeatExchange.EnumExchangePart;
 import buildcraft.factory.tile.TileHeatExchange;
 
 @GameTestHolder(BuildCraft.MODID)

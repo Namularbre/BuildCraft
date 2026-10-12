@@ -1,0 +1,67 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "condition": "minecraft:any_of",
+                  "terms": [
+                    {
+                      "block": "buildcraft:water_gel",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "stage": "spread_0"
+                      }
+                    },
+                    {
+                      "block": "buildcraft:water_gel",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "stage": "spread_1"
+                      }
+                    },
+                    {
+                      "block": "buildcraft:water_gel",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "stage": "spread_2"
+                      }
+                    },
+                    {
+                      "block": "buildcraft:water_gel",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "stage": "spread_3"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "buildcraft:gel"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "buildcraft:blocks/water_gel"
+}

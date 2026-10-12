@@ -11,11 +11,11 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 import buildcraft.BuildCraft;
-
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
 import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.factory.BCFactoryBlocks;
+import buildcraft.factory.BCFactoryItems;
 import buildcraft.transport.BCTransportBlocks;
 import buildcraft.transport.BCTransportItems;
 
@@ -47,6 +47,9 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCFactoryBlocks.MINING_WELL.get(), "Mining Well");
             add(BCFactoryBlocks.DISTILLER.get(), "Distiller");
             add(BCFactoryBlocks.CHUTE.get(), "Chute");
+            add(BCFactoryBlocks.WATER_GEL.get(), "Water Gel");
+            add(BCFactoryItems.WATER_GEL.get(), "Water Gel");
+            add(BCFactoryItems.GEL.get(), "Gel");
             add(BCFactoryBlocks.AUTO_WORKBENCH_ITEMS.get(), "Auto Workbench");
             add(BCFactoryBlocks.FLOOD_GATE.get(), "Flood Gate");
             add(BCFactoryBlocks.HEAT_EXCHANGE.get(), "Heat Exchanger");
@@ -123,6 +126,9 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCFactoryBlocks.MINING_WELL.get(), "Puits de mine");
             add(BCFactoryBlocks.DISTILLER.get(), "Distillateur");
             add(BCFactoryBlocks.CHUTE.get(), "Goulotte");
+            add(BCFactoryBlocks.WATER_GEL.get(), "Gel d'eau");
+            add(BCFactoryItems.WATER_GEL.get(), "Gel d'eau");
+            add(BCFactoryItems.GEL.get(), "Gel");
             add(BCFactoryBlocks.AUTO_WORKBENCH_ITEMS.get(), "Établi automatique");
             add(BCFactoryBlocks.FLOOD_GATE.get(), "Vanne d'inondation");
             add(BCFactoryBlocks.HEAT_EXCHANGE.get(), "Échangeur de chaleur");

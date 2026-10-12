@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T21:44:04.5397694	Recipes
+// 1.20.1	2026-10-12T21:53:51.2997639	Recipes
 2e2a97af27918323b4060658a3d91af618935769 data/buildcraft/advancements/recipes/misc/autoworkbench_item.json
 b789e01849761cdb4cdce786ae811ce93e1ffda9 data/buildcraft/advancements/recipes/misc/chute.json
 5e0f8f09821304c052e739eba3f19e284a068f16 data/buildcraft/advancements/recipes/misc/diamond_gear.json
@@ -12,6 +12,8 @@ d913d04e71e05c6d4106949f0fb6cf542e5dafa6 data/buildcraft/advancements/recipes/mi
 1637072eb07eea0b114ac256f27552e0122e80ef data/buildcraft/advancements/recipes/misc/pump.json
 b40cdc6b9ca5bd95dcc224aab027a90d79a9fc98 data/buildcraft/advancements/recipes/misc/stone_gear.json
 4bf904b44b8ba7236b4e63489f3eb67d27735c7b data/buildcraft/advancements/recipes/misc/tank.json
+3fa068c6d7df4e8936ff0e833c663f37d6606513 data/buildcraft/advancements/recipes/misc/water_gel_spawn.json
+dedc229b77b029afd42a3cbb65e2e1c477deaf71 data/buildcraft/advancements/recipes/misc/water_gel_to_bucket.json
 f1443d02ff2b9e00ea44bd68d303ca2b6ff0af84 data/buildcraft/advancements/recipes/misc/wood_gear.json
 6c47701ff0405383be7805c0109618f77494f539 data/buildcraft/advancements/recipes/redstone/combustion_engine.json
 4b85aff3a22c717ef1bf00cfdba3a3df3969fb23 data/buildcraft/advancements/recipes/redstone/redstone_engine.json
@@ -100,6 +102,8 @@ a87d895b6d357fa89b3c69e7d220560c0bc66675 data/buildcraft/recipes/stone_item_pipe
 ba3a2500a12e6eaad06fb32aba95799cb31dd35b data/buildcraft/recipes/void_fluid_pipe.json
 eedc58456bcee3a3af3b86b397a4ec035cb0be70 data/buildcraft/recipes/void_fluid_pipe_undo.json
 c6af2979965e47da8540d40931f6b51ecd1e7194 data/buildcraft/recipes/void_item_pipe.json
+2d0657c9c6b94c26c182340fbc7f9961efc34cbe data/buildcraft/recipes/water_gel_spawn.json
+9fae2fde9f882c782b0ec19e12a6f516b461fc06 data/buildcraft/recipes/water_gel_to_bucket.json
 b159cc204c891b32d44379903cfbd6e2984b5c8d data/buildcraft/recipes/wood_fluid_pipe.json
 ab7847e4ad29129743b6599150817db2761cfbad data/buildcraft/recipes/wood_fluid_pipe_undo.json
 5ce78ea0ee06ded802753030c4c1da085f4d3f0d data/buildcraft/recipes/wood_gear.json

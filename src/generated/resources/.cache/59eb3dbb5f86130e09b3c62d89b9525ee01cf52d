@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T21:44:04.5372381	Loot Tables
+// 1.20.1	2026-10-12T21:53:51.2966649	Loot Tables
 338e9dc7bedd91034abc4d5bd03b967d590c1a7a data/buildcraft/loot_tables/blocks/autoworkbench_item.json
 be29287f9a1731ac150dde15dbc75e44f79562dc data/buildcraft/loot_tables/blocks/chute.json
 c21809addc58ab140075c66b458cd9dfd4662000 data/buildcraft/loot_tables/blocks/combustion_engine.json
@@ -11,3 +11,4 @@ f736a5e5b52a6757970a6200226d32f723abab2d data/buildcraft/loot_tables/blocks/floo
 604b01d975055f698cb350b1d28671e707a8de1c data/buildcraft/loot_tables/blocks/redstone_engine.json
 f05860b6a77b2fad7bd93d4ed247576fa769c737 data/buildcraft/loot_tables/blocks/stirling_engine.json
 6d403d2dc7e2118da59699a3517a83e79f831090 data/buildcraft/loot_tables/blocks/tank.json
+b6bf16a184505b11bff774c7b5c4931d815ae854 data/buildcraft/loot_tables/blocks/water_gel.json

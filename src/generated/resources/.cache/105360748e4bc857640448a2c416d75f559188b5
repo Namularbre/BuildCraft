@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T21:44:04.5276821	Item Models: buildcraft
+// 1.20.1	2026-10-12T21:53:51.2920668	Item Models: buildcraft
 fc532d8923f450294e07edfd2198126d4872a144 assets/buildcraft/models/item/autoworkbench_item.json
 1d18a91184439da5d75dc396886d4c709e81ec5d assets/buildcraft/models/item/chute.json
 cf0c0a207b01646a7ff4f97cae2b5758148e907d assets/buildcraft/models/item/cobblestone_fluid_pipe.json
@@ -22,6 +22,7 @@ af2256e3a2267c3be905050b7cb02562f07bccca assets/buildcraft/models/item/fuel_mixe
 2fc4c5faccb6ff86d8c0d68ef95e27d947308f31 assets/buildcraft/models/item/fuel_mixed_light_bucket.json
 e3f4e7876be647bfae0415e105dd4fc46a039445 assets/buildcraft/models/item/fuel_mixed_light_heat_1_bucket.json
 728843ee71a5159b1f8950f705849dbab8b0248e assets/buildcraft/models/item/fuel_mixed_light_heat_2_bucket.json
+edb811334f34a1401d2f872926c17adce57195fa assets/buildcraft/models/item/gel.json
 786f9530551198b47000d2a077d4df749c67c222 assets/buildcraft/models/item/gold_fluid_pipe.json
 959ff24934e8e9bc10192f39c19be7c91ce284a0 assets/buildcraft/models/item/gold_gear.json
 33a4a9c11763b76f71c60ebcfc92638224bf973d assets/buildcraft/models/item/gold_item_pipe.json
@@ -63,6 +64,7 @@ d6766dee5702cd5db85d03f61307317d3ec45774 assets/buildcraft/models/item/stirling_
 1f50500bfb3a00f66e9f331eee7363fd425a9efb assets/buildcraft/models/item/tank.json
 d32a677c25880aa5f8ff38c9d4dcd1376a7bad34 assets/buildcraft/models/item/void_fluid_pipe.json
 f6b2246e24da5e27272a5b49d22a0fa8977fcbf0 assets/buildcraft/models/item/void_item_pipe.json
+8098ac3e66f3ba2abc737cc70741159cf4ea0fec assets/buildcraft/models/item/water_gel_spawn.json
 1e1aa869ccb1a4b0eb0d1c3224b51261bebb3e35 assets/buildcraft/models/item/wood_fluid_pipe.json
 3dc543c9e60d352cf5528b50c94650391e8b88f0 assets/buildcraft/models/item/wood_gear.json
 7d9428518cca8b7e6a860753a16c52f022387c2d assets/buildcraft/models/item/wood_item_pipe.json

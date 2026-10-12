@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T21:44:04.5221619	Block States: buildcraft
+// 1.20.1	2026-10-12T21:53:51.2874008	Block States: buildcraft
 6845a09162a73eb96df9d99eeb983899c211bdf8 assets/buildcraft/blockstates/autoworkbench_item.json
 22632d01aedc59f0f550a8de1dc5bf5e04a0e7f0 assets/buildcraft/blockstates/chute.json
 e409775c2174c4fc4bc9d0ab06360ea312b1c24d assets/buildcraft/blockstates/combustion_engine.json
@@ -43,6 +43,7 @@ c3550d1f43ada4e00dd754408cb070a7b5ae09fc assets/buildcraft/blockstates/pump.json
 d0c5279a670287a62f4955a04f3aac7f2cf3546d assets/buildcraft/blockstates/stirling_engine.json
 a06342328e4891300b84f01df41e567458f552dc assets/buildcraft/blockstates/tank.json
 e10babb5484f74b8b0d7d803d46b801811d2e83c assets/buildcraft/blockstates/tube.json
+ffc93e0ca27e1b8b300c432df34083ee8b386651 assets/buildcraft/blockstates/water_gel.json
 6e699e17f8494fb260872d79509967b99c729e1a assets/buildcraft/models/block/autoworkbench_item.json
 84814ad9fb7e9b7c615bcffb80887cb888350795 assets/buildcraft/models/block/engine/iron_black.json
 43a640ef3155a0e8b61b1fbdfc8a69cc90f0381c assets/buildcraft/models/block/engine/iron_blue.json
@@ -128,3 +129,10 @@ da0d37b0b908f92eda7e5543d75c61f5cff7d984 assets/buildcraft/models/block/fluid/oi
 92f4a3b4cda910f1aa301401f2ab0145bce3e795 assets/buildcraft/models/block/power_tester.json
 bf21e35c94bb8342f0390aaa5ca2a05ef39001d0 assets/buildcraft/models/block/pump.json
 da665fcefc09202c206f5fbd503b04d9794b69ba assets/buildcraft/models/block/tube.json
+cde1b3c8d6193cf08a9030e9b5196764574975e3 assets/buildcraft/models/block/water_gel/gel.json
+ebe87039cb80752fcd50631076f08840b6b5a213 assets/buildcraft/models/block/water_gel/gelling_0.json
+c2f3f9ed28d1da5530c38ba1a155cea0bd3a0219 assets/buildcraft/models/block/water_gel/gelling_1.json
+470ff55405d887bc9a955b3eb863f09859ea202d assets/buildcraft/models/block/water_gel/spread_0.json
+139a90a6f9f89d634ba3439977f043c03b6aa636 assets/buildcraft/models/block/water_gel/spread_1.json
+6cbbfc9833797f4ec53ec985b948d08acc59eaa9 assets/buildcraft/models/block/water_gel/spread_2.json
+e9e7b5496b48b78b46158d62c8e4ad2af9e15533 assets/buildcraft/models/block/water_gel/spread_3.json

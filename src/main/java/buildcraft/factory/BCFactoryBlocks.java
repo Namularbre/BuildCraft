@@ -27,6 +27,7 @@ import buildcraft.factory.block.BlockMiningWell;
 import buildcraft.factory.block.BlockPump;
 import buildcraft.factory.block.BlockTank;
 import buildcraft.factory.block.BlockTube;
+import buildcraft.factory.block.BlockWaterGel;
 import buildcraft.factory.tile.TileAutoWorkbenchItems;
 import buildcraft.factory.tile.TileChute;
 import buildcraft.factory.tile.TileDistiller;
@@ -131,6 +132,13 @@ public final class BCFactoryBlocks {
             "autoworkbench_item",
             () -> BlockEntityType.Builder.of(TileAutoWorkbenchItems::new, AUTO_WORKBENCH_ITEMS.get()).build(null)
         );
+
+    /** Made by throwing water gel into water: it has no item, and drops gel. */
+    public static final RegistryObject<BlockWaterGel> WATER_GEL = BCRegistries.BLOCKS.register(
+        "water_gel", () -> new BlockWaterGel(
+            BlockBehaviour.Properties.of().mapColor(MapColor.CLAY).strength(0.6f).sound(SoundType.SLIME_BLOCK)
+        )
+    );
 
     /** Unbreakable: it is removed with the machine above it. */
     public static final RegistryObject<BlockTube> TUBE = BCRegistries.BLOCKS.register(

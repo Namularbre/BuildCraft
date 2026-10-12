@@ -152,7 +152,8 @@ def sort_imports(text):
         # Something other than imports (like a comment) is mixed in: leave the block alone
         return text
     groups = {}
-    for line in sorted(set(block)):
+    # Sorted without the ";", so that "a.B" comes before "a.B.C"
+    for line in sorted(set(block), key=lambda l: l.rstrip(";")):
         groups.setdefault(import_group(line), []).append(line)
     sorted_block = []
     for key in sorted(groups):

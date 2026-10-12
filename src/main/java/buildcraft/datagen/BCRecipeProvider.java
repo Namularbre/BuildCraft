@@ -14,6 +14,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -26,10 +27,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import buildcraft.lib.BCTags;
 
+import buildcraft.BuildCraft;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
 import buildcraft.energy.BCEnergyBlocks;
+import buildcraft.energy.BCEnergyFluids;
 import buildcraft.factory.BCFactoryBlocks;
+import buildcraft.factory.BCFactoryItems;
 import buildcraft.transport.BCTransportItems;
 
 /** Crafting recipes, ported from the 1.12 recipe JSONs (ore dictionary entries became tags). */
@@ -102,6 +106,23 @@ public class BCRecipeProvider extends RecipeProvider {
             .define('g', Tags.Items.GLASS_COLORLESS)
             .unlockedBy("has_glass", has(Tags.Items.GLASS_COLORLESS))
             .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCFactoryItems.WATER_GEL.get())
+            .pattern(" s ")
+            .pattern("srs")
+            .pattern(" s ")
+            .define('s', Items.SAND)
+            .define('r', BCEnergyFluids.OIL_RESIDUE.get(0).bucket.get())
+            .unlockedBy("has_residue", has(BCEnergyFluids.OIL_RESIDUE.get(0).bucket.get()))
+            .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.WATER_BUCKET)
+            .pattern("g")
+            .pattern("b")
+            .define('g', BCFactoryItems.GEL.get())
+            .define('b', Items.BUCKET)
+            .unlockedBy("has_gel", has(BCFactoryItems.GEL.get()))
+            .save(out, ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "water_gel_to_bucket"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCFactoryBlocks.AUTO_WORKBENCH_ITEMS.get())
             .pattern("gwg")

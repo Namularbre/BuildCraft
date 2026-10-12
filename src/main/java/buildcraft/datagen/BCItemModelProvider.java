@@ -13,13 +13,14 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import buildcraft.BuildCraft;
+import buildcraft.lib.fluid.BCFluid;
 
+import buildcraft.BuildCraft;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
 import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.energy.BCEnergyFluids;
-import buildcraft.lib.fluid.BCFluid;
+import buildcraft.factory.BCFactoryItems;
 import buildcraft.transport.BCTransportItems;
 
 public class BCItemModelProvider extends ItemModelProvider {
@@ -44,6 +45,8 @@ public class BCItemModelProvider extends ItemModelProvider {
         withExistingParent("pump", modLoc("block/pump"));
         withExistingParent("mining_well", modLoc("block/mining_well"));
         withExistingParent("chute", modLoc("block/chute"));
+        withExistingParent("water_gel_spawn", mcLoc("item/generated")).texture("layer0", modLoc("item/water_gel"));
+        basicItem(BCFactoryItems.GEL.get());
         withExistingParent("autoworkbench_item", modLoc("block/autoworkbench_item"));
         withExistingParent("flood_gate", modLoc("block/flood_gate_d_n_s_w_e"));
 

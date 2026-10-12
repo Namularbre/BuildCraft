@@ -32,9 +32,10 @@ import buildcraft.factory.BCFactoryBlocks;
 import buildcraft.factory.block.BlockChute;
 import buildcraft.factory.block.BlockDistiller;
 import buildcraft.factory.block.BlockFloodGate;
-import buildcraft.factory.block.BlockHeatExchange.EnumExchangePart;
 import buildcraft.factory.block.BlockHeatExchange;
+import buildcraft.factory.block.BlockHeatExchange.EnumExchangePart;
 import buildcraft.factory.block.BlockTank;
+import buildcraft.factory.block.BlockWaterGel;
 import buildcraft.transport.BCTransportBlocks;
 
 public class BCBlockStateProvider extends BlockStateProvider {
@@ -80,6 +81,11 @@ public class BCBlockStateProvider extends BlockStateProvider {
             .build());
         heatExchange();
         chute();
+        getVariantBuilder(BCFactoryBlocks.WATER_GEL.get()).forAllStates(state -> {
+            String stage = state.getValue(BlockWaterGel.STAGE).getSerializedName();
+            return ConfiguredModel.builder()
+                .modelFile(models().cubeAll("block/water_gel/" + stage, modLoc("block/gel/" + stage))).build();
+        });
         // Like in 1.12, the top texture is used for the bottom too
         simpleBlock(BCFactoryBlocks.AUTO_WORKBENCH_ITEMS.get(), models().cube(
             "block/autoworkbench_item", modLoc("block/auto_workbench_item/top"),

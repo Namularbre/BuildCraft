@@ -6,7 +6,6 @@
 
 package buildcraft.transport;
 
-import buildcraft.BuildCraft;
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.transport.pipe.PipeApi;
 import buildcraft.api.transport.pipe.PipeApi.PowerTransferInfo;
@@ -16,6 +15,7 @@ import buildcraft.api.transport.pipe.PipeDefinition.IPipeLoader;
 import buildcraft.api.transport.pipe.PipeDefinition.PipeDefinitionBuilder;
 import buildcraft.api.transport.pipe.PipeFlowType;
 
+import buildcraft.BuildCraft;
 import buildcraft.transport.pipe.PipeRegistry;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourCobble;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourGold;

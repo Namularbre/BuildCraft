@@ -27,9 +27,9 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import buildcraft.lib.client.render.BoxRenderer;
 
 import buildcraft.factory.block.BlockHeatExchange;
+import buildcraft.factory.tile.TileHeatExchange;
 import buildcraft.factory.tile.TileHeatExchange.EnumProgressState;
 import buildcraft.factory.tile.TileHeatExchange.Section;
-import buildcraft.factory.tile.TileHeatExchange;
 
 /** Draws the fluids in the tanks of the start and the end of a heat exchanger, and (from the start) the two fluids
  * flowing through it in opposite directions. Everything is drawn as if the exchanger faced west (like its model): the
