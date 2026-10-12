@@ -47,6 +47,7 @@ public final class BCDataGenerators {
             event.includeServer(), new BCTagProviders.Items(output, lookup, blockTags.contentsGetter(), files)
         );
         generator.addProvider(event.includeServer(), new BCRecipeProvider(output));
+        generator.addProvider(event.includeServer(), new BCWorldGenProvider(output, lookup));
         generator.addProvider(
             event.includeServer(), new LootTableProvider(
                 output, Set.of(), List.of(

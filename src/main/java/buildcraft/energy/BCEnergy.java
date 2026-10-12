@@ -21,6 +21,7 @@ public final class BCEnergy {
         BCEnergyBlocks.init();
         BCEnergyFluids.init();
         BCEnergyMenus.init();
+        BCEnergyWorldGen.init();
         context.getModEventBus().addListener(BCEnergy::commonSetup);
     }
 

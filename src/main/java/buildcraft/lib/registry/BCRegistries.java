@@ -12,6 +12,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.material.Fluid;
 
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -37,6 +38,8 @@ public final class BCRegistries {
         DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, BuildCraft.MODID);
     public static final DeferredRegister<Fluid> FLUIDS =
         DeferredRegister.create(ForgeRegistries.FLUIDS, BuildCraft.MODID);
+    public static final DeferredRegister<Feature<?>> FEATURES =
+        DeferredRegister.create(ForgeRegistries.FEATURES, BuildCraft.MODID);
 
     private BCRegistries() {}
 
@@ -48,5 +51,6 @@ public final class BCRegistries {
         CREATIVE_MODE_TABS.register(modBus);
         FLUID_TYPES.register(modBus);
         FLUIDS.register(modBus);
+        FEATURES.register(modBus);
     }
 }
