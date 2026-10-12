@@ -7,6 +7,7 @@
 package buildcraft.energy;
 
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import buildcraft.BuildCraft;
@@ -20,5 +21,10 @@ public final class BCEnergy {
         BCEnergyBlocks.init();
         BCEnergyFluids.init();
         BCEnergyMenus.init();
+        context.getModEventBus().addListener(BCEnergy::commonSetup);
+    }
+
+    private static void commonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(BCEnergyFuels::register);
     }
 }

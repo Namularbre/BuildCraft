@@ -12,9 +12,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
+import buildcraft.api.fuels.BuildcraftFuelRegistry;
 import buildcraft.api.mj.IMjToRfStatus;
 import buildcraft.api.mj.MjAPI;
 
+import buildcraft.lib.fluid.CoolantRegistry;
+import buildcraft.lib.fluid.FuelRegistry;
 import buildcraft.lib.net.MessageManager;
 import buildcraft.lib.registry.BCRegistries;
 
@@ -30,6 +33,8 @@ public final class BCLib {
 
         context.registerConfig(ModConfig.Type.COMMON, BCLibConfig.SPEC);
         IMjToRfStatus.set(new BCLibConfig.MjToRfStatus());
+        BuildcraftFuelRegistry.fuel = FuelRegistry.INSTANCE;
+        BuildcraftFuelRegistry.coolant = CoolantRegistry.INSTANCE;
 
         BCRegistries.register(modBus);
         modBus.addListener(MjAPI::registerCapabilities);

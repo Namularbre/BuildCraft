@@ -45,6 +45,7 @@ IMPORTS = {
     "net.minecraft.init.Blocks": "net.minecraft.world.level.block.Blocks",
     "net.minecraft.init.Items": "net.minecraft.world.item.Items",
     "net.minecraftforge.fml.relauncher.Side": "net.minecraftforge.fml.LogicalSide",
+    "net.minecraftforge.fluids.Fluid": "net.minecraft.world.level.material.Fluid",
 }
 
 # Imports that no longer exist; the code using them has to be ported by hand.
@@ -53,6 +54,7 @@ REMOVED_IMPORTS = [
     "net.minecraftforge.fml.common.network.simpleimpl.MessageContext",
     "net.minecraftforge.fml.common.network.simpleimpl.IMessage",
     "net.minecraftforge.common.util.Constants",
+    "net.minecraftforge.fml.common.API",
 ]
 
 # Plain identifier renames, applied on word boundaries.
@@ -165,6 +167,8 @@ def remap(text):
         text = text.replace("import " + old + ";", "import " + new + ";")
     for old in REMOVED_IMPORTS:
         text = text.replace("import " + old + ";\n", "")
+    # The @API annotation on package-info files is gone
+    text = re.sub(r"^@API\(.*\)\n", "", text, flags=re.M)
     for old, new in IDENTIFIERS.items():
         text = re.sub(r"(?<![\w.])" + re.escape(old) + r"\b", new, text)
     for pattern, new in MEMBERS:
