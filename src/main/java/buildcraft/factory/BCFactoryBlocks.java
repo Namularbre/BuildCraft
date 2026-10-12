@@ -20,6 +20,7 @@ import buildcraft.lib.registry.BCRegistries;
 
 import buildcraft.factory.block.BlockChute;
 import buildcraft.factory.block.BlockDistiller;
+import buildcraft.factory.block.BlockFloodGate;
 import buildcraft.factory.block.BlockHeatExchange;
 import buildcraft.factory.block.BlockMiningWell;
 import buildcraft.factory.block.BlockPump;
@@ -27,6 +28,7 @@ import buildcraft.factory.block.BlockTank;
 import buildcraft.factory.block.BlockTube;
 import buildcraft.factory.tile.TileChute;
 import buildcraft.factory.tile.TileDistiller;
+import buildcraft.factory.tile.TileFloodGate;
 import buildcraft.factory.tile.TileHeatExchange;
 import buildcraft.factory.tile.TileMiningWell;
 import buildcraft.factory.tile.TilePump;
@@ -103,6 +105,18 @@ public final class BCFactoryBlocks {
             "chute", () -> BlockEntityType.Builder.of(TileChute::new, CHUTE.get()).build(null)
         );
 
+    public static final RegistryObject<BlockFloodGate> FLOOD_GATE = BCRegistries.BLOCKS.register(
+        "flood_gate", () -> new BlockFloodGate(
+            BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 10.0f).sound(SoundType.METAL)
+        )
+    );
+
+    @SuppressWarnings("ConstantConditions")
+    public static final RegistryObject<BlockEntityType<TileFloodGate>> FLOOD_GATE_TILE =
+        BCRegistries.BLOCK_ENTITY_TYPES.register(
+            "flood_gate", () -> BlockEntityType.Builder.of(TileFloodGate::new, FLOOD_GATE.get()).build(null)
+        );
+
     /** Unbreakable: it is removed with the machine above it. */
     public static final RegistryObject<BlockTube> TUBE = BCRegistries.BLOCKS.register(
         "tube", () -> new BlockTube(
@@ -117,6 +131,7 @@ public final class BCFactoryBlocks {
         BCRegistries.ITEMS.register("mining_well", () -> new BlockItem(MINING_WELL.get(), new Item.Properties()));
         BCRegistries.ITEMS.register("distiller", () -> new BlockItem(DISTILLER.get(), new Item.Properties()));
         BCRegistries.ITEMS.register("chute", () -> new BlockItem(CHUTE.get(), new Item.Properties()));
+        BCRegistries.ITEMS.register("flood_gate", () -> new BlockItem(FLOOD_GATE.get(), new Item.Properties()));
         BCRegistries.ITEMS.register(
             "heat_exchange", () -> new BlockItem(HEAT_EXCHANGE.get(), new Item.Properties())
         );

@@ -47,6 +47,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCFactoryBlocks.MINING_WELL.get(), "Mining Well");
             add(BCFactoryBlocks.DISTILLER.get(), "Distiller");
             add(BCFactoryBlocks.CHUTE.get(), "Chute");
+            add(BCFactoryBlocks.FLOOD_GATE.get(), "Flood Gate");
             add(BCFactoryBlocks.HEAT_EXCHANGE.get(), "Heat Exchanger");
             add(BCFactoryBlocks.TUBE.get(), "Tube");
             add("buildcraft.gui.tank.fuel", "Fuel");
@@ -121,6 +122,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCFactoryBlocks.MINING_WELL.get(), "Puits de mine");
             add(BCFactoryBlocks.DISTILLER.get(), "Distillateur");
             add(BCFactoryBlocks.CHUTE.get(), "Goulotte");
+            add(BCFactoryBlocks.FLOOD_GATE.get(), "Vanne d'inondation");
             add(BCFactoryBlocks.HEAT_EXCHANGE.get(), "Échangeur de chaleur");
             add(BCFactoryBlocks.TUBE.get(), "Tube");
             add("buildcraft.gui.tank.fuel", "Combustible");

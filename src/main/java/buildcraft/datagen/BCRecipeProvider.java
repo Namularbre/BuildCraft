@@ -103,6 +103,17 @@ public class BCRecipeProvider extends RecipeProvider {
             .unlockedBy("has_glass", has(Tags.Items.GLASS_COLORLESS))
             .save(out);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCFactoryBlocks.FLOOD_GATE.get())
+            .pattern("igi")
+            .pattern("btb")
+            .pattern("ibi")
+            .define('i', Tags.Items.INGOTS_IRON)
+            .define('g', BCTags.Items.GEARS_IRON)
+            .define('b', Items.IRON_BARS)
+            .define('t', BCFactoryBlocks.TANK.get())
+            .unlockedBy("has_tank", has(BCFactoryBlocks.TANK.get()))
+            .save(out);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCFactoryBlocks.CHUTE.get())
             .pattern("ici")
             .pattern("igi")

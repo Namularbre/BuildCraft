@@ -7,6 +7,7 @@
     "buildcraft:distiller",
     "buildcraft:heat_exchange",
     "buildcraft:chute",
+    "buildcraft:flood_gate",
     {
       "id": "buildcraft:power_tester",
       "required": false

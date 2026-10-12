@@ -1,7 +1,8 @@
-// 1.20.1	2026-10-12T20:52:25.4269778	Recipes
+// 1.20.1	2026-10-12T21:26:26.9555985	Recipes
 b789e01849761cdb4cdce786ae811ce93e1ffda9 data/buildcraft/advancements/recipes/misc/chute.json
 5e0f8f09821304c052e739eba3f19e284a068f16 data/buildcraft/advancements/recipes/misc/diamond_gear.json
 74bf8e9bdcc913f42546ed088b64600b247c809a data/buildcraft/advancements/recipes/misc/distiller.json
+e4843fea6d528499445e418dea26ee22523f0761 data/buildcraft/advancements/recipes/misc/flood_gate.json
 950d8f5d1005e49e2acf94a425d659945d56878f data/buildcraft/advancements/recipes/misc/gold_gear.json
 85adf65a61a9bea02818040e36d419fbde877d7c data/buildcraft/advancements/recipes/misc/heat_exchange.json
 2634f12a2fbeef83cb9bd97724d64fab085e29b6 data/buildcraft/advancements/recipes/misc/iron_gear.json
@@ -60,6 +61,7 @@ d047068b1bd338809c4430b2e57688f690a3b11b data/buildcraft/recipes/cobblestone_ite
 cfea32665bf2ccb13c6ada0aac865bd211fa8060 data/buildcraft/recipes/combustion_engine.json
 0a39fd97c02a235e9f98541b05144d110042fa11 data/buildcraft/recipes/diamond_gear.json
 c6ce650d0f067c1d011bbc842fe3f3f5d03e856d data/buildcraft/recipes/distiller.json
+64580e6baac688a82fac33f37c18f62e12520111 data/buildcraft/recipes/flood_gate.json
 f575abe6b169c5e568297eb507f6dd28b643db18 data/buildcraft/recipes/gold_fluid_pipe.json
 c9d812fe52aa75f7e886f4b25018daabbf1ded88 data/buildcraft/recipes/gold_fluid_pipe_undo.json
 57a61a1998bf3e7d05bfabfda4fbfdf7518278c2 data/buildcraft/recipes/gold_gear.json

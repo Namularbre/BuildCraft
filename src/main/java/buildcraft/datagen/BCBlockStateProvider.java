@@ -6,6 +6,9 @@
 
 package buildcraft.datagen;
 
+import java.util.EnumMap;
+import java.util.Map;
+
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -28,6 +31,7 @@ import buildcraft.energy.BCEnergyFluids;
 import buildcraft.factory.BCFactoryBlocks;
 import buildcraft.factory.block.BlockChute;
 import buildcraft.factory.block.BlockDistiller;
+import buildcraft.factory.block.BlockFloodGate;
 import buildcraft.factory.block.BlockHeatExchange.EnumExchangePart;
 import buildcraft.factory.block.BlockHeatExchange;
 import buildcraft.factory.block.BlockTank;
@@ -76,12 +80,33 @@ public class BCBlockStateProvider extends BlockStateProvider {
             .build());
         heatExchange();
         chute();
+        floodGate();
         // Drawn by the machine above it: the model is only used for particles
         simpleBlock(BCFactoryBlocks.TUBE.get(), models().getBuilder("block/tube")
             .texture("particle", modLoc("block/pump/tube")));
 
         // A placeholder: the real model is generated from the pipe at runtime
         simpleBlock(BCTransportBlocks.PIPE_HOLDER.get(), models().getExistingFile(modLoc("block/pipe_holder")));
+    }
+
+    /** A cube showing which sides are open, so one model for each combination of open sides. */
+    private void floodGate() {
+        ResourceLocation open = modLoc("block/flood_gate/open");
+        ResourceLocation closed = modLoc("block/flood_gate/closed");
+        getVariantBuilder(BCFactoryBlocks.FLOOD_GATE.get()).forAllStates(state -> {
+            StringBuilder name = new StringBuilder("block/flood_gate");
+            Map<Direction, ResourceLocation> textures = new EnumMap<>(Direction.class);
+            for (Direction side : BlockFloodGate.OPEN.keySet()) {
+                boolean isOpen = state.getValue(BlockFloodGate.OPEN.get(side));
+                textures.put(side, isOpen ? open : closed);
+                name.append(isOpen ? "_" + side.getSerializedName().charAt(0) : "");
+            }
+            ModelFile model = models().cube(name.toString(), textures.get(Direction.DOWN),
+                modLoc("block/flood_gate/top"), textures.get(Direction.NORTH), textures.get(Direction.SOUTH),
+                textures.get(Direction.EAST), textures.get(Direction.WEST)
+            ).texture("particle", modLoc("block/flood_gate/top"));
+            return ConfiguredModel.builder().modelFile(model).build();
+        });
     }
 
     /** The funnel turned towards the opening, and a small spout towards each inventory it sends items to (the
