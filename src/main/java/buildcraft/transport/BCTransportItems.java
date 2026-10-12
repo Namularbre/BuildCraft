@@ -31,6 +31,7 @@ public final class BCTransportItems {
     public static final RegistryObject<ItemPipeHolder> PIPE_GOLD_ITEM = pipe(BCTransportPipes.GOLD_ITEM);
     public static final RegistryObject<ItemPipeHolder> PIPE_SANDSTONE_ITEM = pipe(BCTransportPipes.SANDSTONE_ITEM);
     public static final RegistryObject<ItemPipeHolder> PIPE_IRON_ITEM = pipe(BCTransportPipes.IRON_ITEM);
+    public static final RegistryObject<ItemPipeHolder> PIPE_DIAMOND_ITEM = pipe(BCTransportPipes.DIAMOND_ITEM);
     public static final RegistryObject<ItemPipeHolder> PIPE_VOID_ITEM = pipe(BCTransportPipes.VOID_ITEM);
 
     public static final RegistryObject<ItemPipeHolder> PIPE_WOOD_POWER = pipe(BCTransportPipes.WOOD_POWER);
@@ -49,6 +50,7 @@ public final class BCTransportItems {
     public static final RegistryObject<ItemPipeHolder> PIPE_GOLD_FLUID = pipe(BCTransportPipes.GOLD_FLUID);
     public static final RegistryObject<ItemPipeHolder> PIPE_SANDSTONE_FLUID = pipe(BCTransportPipes.SANDSTONE_FLUID);
     public static final RegistryObject<ItemPipeHolder> PIPE_IRON_FLUID = pipe(BCTransportPipes.IRON_FLUID);
+    public static final RegistryObject<ItemPipeHolder> PIPE_DIAMOND_FLUID = pipe(BCTransportPipes.DIAMOND_FLUID);
     public static final RegistryObject<ItemPipeHolder> PIPE_VOID_FLUID = pipe(BCTransportPipes.VOID_FLUID);
 
     /** Turns item pipes into fluid pipes. */

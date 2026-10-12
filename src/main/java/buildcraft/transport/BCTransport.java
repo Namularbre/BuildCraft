@@ -18,6 +18,7 @@ public final class BCTransport {
         BCTransportPipes.init();
         BCTransportBlocks.init();
         BCTransportItems.init();
+        BCTransportMenus.init();
         modBus.addListener(PipeApi::registerCapabilities);
     }
 }

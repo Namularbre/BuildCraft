@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T22:09:35.4053005	Item Models: buildcraft
+// 1.20.1	2026-10-12T23:02:13.1327267	Item Models: buildcraft
 efd3bf6432cd66ca8f8f91950c9ae9cfaf2e737d assets/buildcraft/models/item/assembly_table.json
 fc532d8923f450294e07edfd2198126d4872a144 assets/buildcraft/models/item/autoworkbench_item.json
 1d18a91184439da5d75dc396886d4c709e81ec5d assets/buildcraft/models/item/chute.json
@@ -7,7 +7,9 @@ cf0c0a207b01646a7ff4f97cae2b5758148e907d assets/buildcraft/models/item/cobblesto
 a7e89f443758502b0ec9588475021dc0c5ac39f6 assets/buildcraft/models/item/cobblestone_power_pipe.json
 359bcbc597d992d8abfc56b7a1e8e50261224278 assets/buildcraft/models/item/combustion_engine.json
 3fa3cbc02b659ef36ba60872fdefb5d7fc9e66be assets/buildcraft/models/item/diamond_chipset.json
+707bc52c7a26fc0be396dbbd67a6591cea844a98 assets/buildcraft/models/item/diamond_fluid_pipe.json
 41335712397375917a9add5a1582bc85e7292b6b assets/buildcraft/models/item/diamond_gear.json
+8226f531db61465d0faf61ff46182a4a2f926638 assets/buildcraft/models/item/diamond_item_pipe.json
 ec20d41eb51e0bf8dbf2a94c7390d7b9918f8567 assets/buildcraft/models/item/flood_gate.json
 87624ad8b708ac2bff04e016b73dc121baaf7039 assets/buildcraft/models/item/fuel_dense_bucket.json
 c538bc850aa02379c0d7c7e941da0cc94008a415 assets/buildcraft/models/item/fuel_dense_heat_1_bucket.json

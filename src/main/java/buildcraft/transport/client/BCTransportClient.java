@@ -6,6 +6,7 @@
 
 package buildcraft.transport.client;
 
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
@@ -15,16 +16,23 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import buildcraft.BuildCraft;
-
 import buildcraft.transport.BCTransportBlocks;
+import buildcraft.transport.BCTransportMenus;
+import buildcraft.transport.client.gui.GuiDiamondPipe;
 import buildcraft.transport.client.model.PipeBakedModel;
 import buildcraft.transport.client.render.RenderPipeHolder;
 
 @Mod.EventBusSubscriber(modid = BuildCraft.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class BCTransportClient {
     private BCTransportClient() {}
+
+    @SubscribeEvent
+    public static void clientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> MenuScreens.register(BCTransportMenus.DIAMOND_PIPE.get(), GuiDiamondPipe::new));
+    }
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {

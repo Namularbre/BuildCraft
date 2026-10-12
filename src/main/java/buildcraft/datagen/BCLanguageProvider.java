@@ -84,6 +84,9 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_SANDSTONE_ITEM.get(), "Sandstone Transport Pipe");
             add(BCTransportItems.PIPE_IRON_ITEM.get(), "Iron Transport Pipe");
             add(BCTransportItems.PIPE_VOID_ITEM.get(), "Void Transport Pipe");
+            add(BCTransportItems.PIPE_DIAMOND_ITEM.get(), "Diamond Transport Pipe");
+            add(BCTransportItems.PIPE_DIAMOND_FLUID.get(), "Diamond Fluid Pipe");
+            add("buildcraft.gui.diamond_pipe", "Filters");
             add(BCTransportItems.PIPE_WOOD_POWER.get(), "Wooden Kinesis Pipe");
             add(BCTransportItems.PIPE_COBBLESTONE_POWER.get(), "Cobblestone Kinesis Pipe");
             add(BCTransportItems.PIPE_STONE_POWER.get(), "Stone Kinesis Pipe");
@@ -173,6 +176,9 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_SANDSTONE_ITEM.get(), "Tuyau de transport en grès");
             add(BCTransportItems.PIPE_IRON_ITEM.get(), "Tuyau de transport en fer");
             add(BCTransportItems.PIPE_VOID_ITEM.get(), "Tuyau d'évacuation");
+            add(BCTransportItems.PIPE_DIAMOND_ITEM.get(), "Tuyau de transport en diamant");
+            add(BCTransportItems.PIPE_DIAMOND_FLUID.get(), "Tuyau à fluide en diamant");
+            add("buildcraft.gui.diamond_pipe", "Filtres");
             add(BCTransportItems.PIPE_WOOD_POWER.get(), "Tuyau cinétique en bois");
             add(BCTransportItems.PIPE_COBBLESTONE_POWER.get(), "Tuyau cinétique en pierre");
             add(BCTransportItems.PIPE_STONE_POWER.get(), "Tuyau cinétique en roche");

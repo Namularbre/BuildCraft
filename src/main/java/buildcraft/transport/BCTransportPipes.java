@@ -6,6 +6,8 @@
 
 package buildcraft.transport;
 
+import net.minecraft.core.Direction;
+
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.transport.pipe.PipeApi;
 import buildcraft.api.transport.pipe.PipeApi.PowerTransferInfo;
@@ -18,6 +20,8 @@ import buildcraft.api.transport.pipe.PipeFlowType;
 import buildcraft.BuildCraft;
 import buildcraft.transport.pipe.PipeRegistry;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourCobble;
+import buildcraft.transport.pipe.behaviour.PipeBehaviourDiamondFluid;
+import buildcraft.transport.pipe.behaviour.PipeBehaviourDiamondItem;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourGold;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourIron;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourQuartz;
@@ -64,6 +68,7 @@ public final class BCTransportPipes {
     public static final PipeDefinition IRON_ITEM = itemPipe(
         "iron_item", PipeBehaviourIron::new, PipeBehaviourIron::new, "_clear", "_filled"
     );
+    public static final PipeDefinition DIAMOND_ITEM = diamondPipe("diamond_item", false);
     public static final PipeDefinition VOID_ITEM = itemPipe(
         "void_item", PipeBehaviourVoid::new, PipeBehaviourVoid::new
     );
@@ -108,6 +113,7 @@ public final class BCTransportPipes {
     public static final PipeDefinition IRON_FLUID = fluidPipe(
         "iron_fluid", PipeBehaviourIron::new, PipeBehaviourIron::new, 4, 10, "_clear", "_filled"
     );
+    public static final PipeDefinition DIAMOND_FLUID = diamondPipe("diamond_fluid", true);
     public static final PipeDefinition VOID_FLUID = fluidPipe(
         "void_fluid", PipeBehaviourVoid::new, PipeBehaviourVoid::new, 8, 10
     );
@@ -151,6 +157,26 @@ public final class BCTransportPipes {
             )
         );
         return definition;
+    }
+
+    /** Diamond pipes have a texture for each side (the colour of its filters in the GUI), and one for the item. */
+    private static PipeDefinition diamondPipe(String id, boolean fluid) {
+        String[] suffixes = new String[8];
+        suffixes[0] = "";
+        for (Direction face : Direction.values()) {
+            suffixes[face.ordinal() + 1] = "_" + face.getSerializedName();
+        }
+        suffixes[7] = "_itemstack";
+        PipeDefinitionBuilder builder = new PipeDefinitionBuilder(BuildCraft.MODID);
+        builder.enableColouring();
+        if (fluid) {
+            builder.logic(PipeBehaviourDiamondFluid::new, PipeBehaviourDiamondFluid::new);
+            PipeDefinition definition = builder.id(id).tex(id, suffixes).itemTex(7).flowFluid().define();
+            PipeApi.fluidTransferData.put(definition, new PipeApi.FluidTransferInfo(BASE_FLUID_FLOW_RATE * 2, 10));
+            return definition;
+        }
+        builder.logic(PipeBehaviourDiamondItem::new, PipeBehaviourDiamondItem::new);
+        return builder.id(id).tex(id, suffixes).itemTex(7).flowItem().define();
     }
 
     /** Loads this class, so that every pipe is defined. */

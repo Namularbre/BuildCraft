@@ -223,6 +223,7 @@ public class BCRecipeProvider extends RecipeProvider {
         pipe(out, BCTransportItems.PIPE_GOLD_ITEM.get(), Ingredient.of(Tags.Items.INGOTS_GOLD));
         pipe(out, BCTransportItems.PIPE_SANDSTONE_ITEM.get(), Ingredient.of(Tags.Items.SANDSTONE));
         pipe(out, BCTransportItems.PIPE_IRON_ITEM.get(), Ingredient.of(Tags.Items.INGOTS_IRON));
+        pipe(out, BCTransportItems.PIPE_DIAMOND_ITEM.get(), Ingredient.of(Tags.Items.GEMS_DIAMOND));
         pipe(
             out, BCTransportItems.PIPE_VOID_ITEM.get(), Ingredient.of(Tags.Items.DYES_BLACK),
             Ingredient.of(Tags.Items.DUSTS_REDSTONE)
@@ -257,6 +258,9 @@ public class BCRecipeProvider extends RecipeProvider {
             out, BCTransportItems.PIPE_SANDSTONE_ITEM.get(), BCTransportItems.PIPE_SANDSTONE_FLUID.get(), sealant
         );
         pipeUpgrade(out, BCTransportItems.PIPE_IRON_ITEM.get(), BCTransportItems.PIPE_IRON_FLUID.get(), sealant);
+        pipeUpgrade(
+            out, BCTransportItems.PIPE_DIAMOND_ITEM.get(), BCTransportItems.PIPE_DIAMOND_FLUID.get(), sealant
+        );
         pipeUpgrade(out, BCTransportItems.PIPE_VOID_ITEM.get(), BCTransportItems.PIPE_VOID_FLUID.get(), sealant);
     }
 
