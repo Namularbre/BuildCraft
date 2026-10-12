@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T16:27:53.5906281	Block States: buildcraft
+// 1.20.1	2026-10-12T16:46:12.2457149	Block States: buildcraft
 e409775c2174c4fc4bc9d0ab06360ea312b1c24d assets/buildcraft/blockstates/combustion_engine.json
 7f40c8ceafe66c241101361a9097bed6875b3b83 assets/buildcraft/blockstates/fuel_dense.json
 186c5532a1916485219242f3764f97be41feb58c assets/buildcraft/blockstates/fuel_dense_heat_1.json
@@ -34,6 +34,7 @@ ecf8a5c825098e982068e2f5f52abb1c345b4692 assets/buildcraft/blockstates/oil_resid
 617afc34c4fb05dafe04c8113f879760e4d559ed assets/buildcraft/blockstates/power_tester.json
 5ae261cd18f251c337def62533e7e79d29a67068 assets/buildcraft/blockstates/redstone_engine.json
 d0c5279a670287a62f4955a04f3aac7f2cf3546d assets/buildcraft/blockstates/stirling_engine.json
+a06342328e4891300b84f01df41e567458f552dc assets/buildcraft/blockstates/tank.json
 84814ad9fb7e9b7c615bcffb80887cb888350795 assets/buildcraft/models/block/engine/iron_black.json
 43a640ef3155a0e8b61b1fbdfc8a69cc90f0381c assets/buildcraft/models/block/engine/iron_blue.json
 3acac13876d137aa99bce54da0c6ca414a84b099 assets/buildcraft/models/block/engine/iron_green.json

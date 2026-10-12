@@ -4,6 +4,7 @@
   "block.buildcraft.power_tester": "Power Tester (Debug)",
   "block.buildcraft.redstone_engine": "Redstone Engine",
   "block.buildcraft.stirling_engine": "Stirling Engine",
+  "block.buildcraft.tank": "Tank",
   "buildcraft.fluid.heat_0": "%s (§bCool§r)",
   "buildcraft.fluid.heat_1": "%s (§6Hot§r)",
   "buildcraft.fluid.heat_2": "%s (§cSearing§r)",

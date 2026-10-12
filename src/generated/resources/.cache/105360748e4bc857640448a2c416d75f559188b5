@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T16:27:53.5931601	Item Models: buildcraft
+// 1.20.1	2026-10-12T16:46:12.2513285	Item Models: buildcraft
 cf0c0a207b01646a7ff4f97cae2b5758148e907d assets/buildcraft/models/item/cobblestone_fluid_pipe.json
 3c81600c442df01f43096805a373fc208b478473 assets/buildcraft/models/item/cobblestone_item_pipe.json
 a7e89f443758502b0ec9588475021dc0c5ac39f6 assets/buildcraft/models/item/cobblestone_power_pipe.json
@@ -55,6 +55,7 @@ d6766dee5702cd5db85d03f61307317d3ec45774 assets/buildcraft/models/item/stirling_
 7864562555f2c5e98e07bb16156ada0b9634cdf5 assets/buildcraft/models/item/stone_gear.json
 6ec0fc78f64572d553168d32d04d9304fc37c64e assets/buildcraft/models/item/stone_item_pipe.json
 9bccbf1fa71643634a1e3adec117986cb04c3539 assets/buildcraft/models/item/stone_power_pipe.json
+1f50500bfb3a00f66e9f331eee7363fd425a9efb assets/buildcraft/models/item/tank.json
 d32a677c25880aa5f8ff38c9d4dcd1376a7bad34 assets/buildcraft/models/item/void_fluid_pipe.json
 f6b2246e24da5e27272a5b49d22a0fa8977fcbf0 assets/buildcraft/models/item/void_item_pipe.json
 1e1aa869ccb1a4b0eb0d1c3224b51261bebb3e35 assets/buildcraft/models/item/wood_fluid_pipe.json

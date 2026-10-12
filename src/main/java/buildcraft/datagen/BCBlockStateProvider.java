@@ -23,6 +23,8 @@ import buildcraft.lib.fluid.BCFluid;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.energy.BCEnergyFluids;
+import buildcraft.factory.BCFactoryBlocks;
+import buildcraft.factory.block.BlockTank;
 import buildcraft.transport.BCTransportBlocks;
 
 public class BCBlockStateProvider extends BlockStateProvider {
@@ -45,6 +47,12 @@ public class BCBlockStateProvider extends BlockStateProvider {
             ResourceLocation still = fluid.type.get().getStillTextureLocation();
             simpleBlock(fluid.block.get(), models().getBuilder("block/fluid/" + fluid.name).texture("particle", still));
         }
+
+        getVariantBuilder(BCFactoryBlocks.TANK.get()).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(models().getExistingFile(modLoc(
+                state.getValue(BlockTank.JOINED_BELOW) ? "block/tank_joined_below" : "block/tank"
+            )))
+            .build());
 
         // A placeholder: the real model is generated from the pipe at runtime
         simpleBlock(BCTransportBlocks.PIPE_HOLDER.get(), models().getExistingFile(modLoc("block/pipe_holder")));

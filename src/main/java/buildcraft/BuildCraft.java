@@ -13,6 +13,7 @@ import buildcraft.lib.BCLib;
 
 import buildcraft.core.BCCore;
 import buildcraft.energy.BCEnergy;
+import buildcraft.factory.BCFactory;
 import buildcraft.transport.BCTransport;
 
 @Mod(BuildCraft.MODID)
@@ -24,5 +25,6 @@ public class BuildCraft {
         BCCore.init();
         BCTransport.init(context.getModEventBus());
         BCEnergy.init(context);
+        BCFactory.init();
     }
 }

@@ -22,6 +22,8 @@ import net.minecraftforge.gametest.PrefixGameTestTemplate;
 
 import buildcraft.BuildCraft;
 import buildcraft.core.BCCoreBlocks;
+import buildcraft.factory.BCFactoryBlocks;
+import buildcraft.factory.tile.TileTank;
 import buildcraft.transport.BCTransportBlocks;
 import buildcraft.transport.BCTransportItems;
 import buildcraft.transport.pipe.flow.PipeFlowFluids;
@@ -40,8 +42,8 @@ public class FluidPipeGameTests {
         BlockPos stone = new BlockPos(2, 1, 1);
         BlockPos target = new BlockPos(2, 1, 2);
 
-        helper.setBlock(source, TestTank.block);
-        helper.setBlock(target, TestTank.block);
+        helper.setBlock(source, BCFactoryBlocks.TANK.get());
+        helper.setBlock(target, BCFactoryBlocks.TANK.get());
         tank(helper, source).tank.fill(new FluidStack(Fluids.WATER, 2000), FluidAction.EXECUTE);
         placePipe(helper, wood, BCTransportItems.PIPE_WOOD_FLUID.get());
         placePipe(helper, stone, BCTransportItems.PIPE_STONE_FLUID.get());
@@ -114,8 +116,8 @@ public class FluidPipeGameTests {
         });
     }
 
-    private static TestTank.Tile tank(GameTestHelper helper, BlockPos pos) {
-        return (TestTank.Tile) helper.getBlockEntity(pos);
+    private static TileTank tank(GameTestHelper helper, BlockPos pos) {
+        return (TileTank) helper.getBlockEntity(pos);
     }
 
     private static PipeFlowFluids fluids(GameTestHelper helper, BlockPos pos) {

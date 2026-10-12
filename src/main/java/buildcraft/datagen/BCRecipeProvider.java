@@ -29,6 +29,7 @@ import buildcraft.lib.BCTags;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
 import buildcraft.energy.BCEnergyBlocks;
+import buildcraft.factory.BCFactoryBlocks;
 import buildcraft.transport.BCTransportItems;
 
 /** Crafting recipes, ported from the 1.12 recipe JSONs (ore dictionary entries became tags). */
@@ -92,6 +93,14 @@ public class BCRecipeProvider extends RecipeProvider {
             .define('G', BCTags.Items.GEARS_IRON)
             .define('p', Items.PISTON)
             .unlockedBy("has_gear", has(BCTags.Items.GEARS_IRON))
+            .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCFactoryBlocks.TANK.get())
+            .pattern("ggg")
+            .pattern("g g")
+            .pattern("ggg")
+            .define('g', Tags.Items.GLASS_COLORLESS)
+            .unlockedBy("has_glass", has(Tags.Items.GLASS_COLORLESS))
             .save(out);
 
         pipe(out, BCTransportItems.PIPE_WOOD_ITEM.get(), Ingredient.of(ItemTags.PLANKS));

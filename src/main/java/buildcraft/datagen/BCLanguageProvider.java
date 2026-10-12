@@ -15,6 +15,7 @@ import buildcraft.BuildCraft;
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
 import buildcraft.energy.BCEnergyBlocks;
+import buildcraft.factory.BCFactoryBlocks;
 import buildcraft.transport.BCTransportBlocks;
 import buildcraft.transport.BCTransportItems;
 
@@ -41,6 +42,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCCoreBlocks.ENGINE_REDSTONE.get(), "Redstone Engine");
             add(BCEnergyBlocks.ENGINE_STONE.get(), "Stirling Engine");
             add(BCEnergyBlocks.ENGINE_IRON.get(), "Combustion Engine");
+            add(BCFactoryBlocks.TANK.get(), "Tank");
             add("buildcraft.gui.tank.fuel", "Fuel");
             add("buildcraft.gui.tank.coolant", "Coolant");
             add("buildcraft.gui.tank.residue", "Residue");
@@ -108,6 +110,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCCoreBlocks.ENGINE_REDSTONE.get(), "Moteur de redstone");
             add(BCEnergyBlocks.ENGINE_STONE.get(), "Moteur à vapeur");
             add(BCEnergyBlocks.ENGINE_IRON.get(), "Moteur à combustion");
+            add(BCFactoryBlocks.TANK.get(), "Réservoir");
             add("buildcraft.gui.tank.fuel", "Combustible");
             add("buildcraft.gui.tank.coolant", "Refroidissant");
             add("buildcraft.gui.tank.residue", "Résidu");
