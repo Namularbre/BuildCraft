@@ -17,6 +17,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
 import net.minecraftforge.common.Tags;
@@ -25,6 +26,7 @@ import buildcraft.lib.BCTags;
 
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
+import buildcraft.transport.BCTransportItems;
 
 /** Crafting recipes, ported from the 1.12 recipe JSONs (ore dictionary entries became tags). */
 public class BCRecipeProvider extends RecipeProvider {
@@ -65,6 +67,34 @@ public class BCRecipeProvider extends RecipeProvider {
             .define('G', BCTags.Items.GEARS_WOOD)
             .define('p', Items.PISTON)
             .unlockedBy("has_gear", has(BCTags.Items.GEARS_WOOD))
+            .save(out);
+
+        pipe(out, BCTransportItems.PIPE_WOOD_ITEM.get(), Ingredient.of(ItemTags.PLANKS));
+        pipe(out, BCTransportItems.PIPE_COBBLESTONE_ITEM.get(), Ingredient.of(Tags.Items.COBBLESTONE));
+        pipe(out, BCTransportItems.PIPE_STONE_ITEM.get(), Ingredient.of(Items.STONE));
+        pipe(out, BCTransportItems.PIPE_QUARTZ_ITEM.get(), Ingredient.of(Items.QUARTZ_BLOCK));
+        pipe(out, BCTransportItems.PIPE_GOLD_ITEM.get(), Ingredient.of(Tags.Items.INGOTS_GOLD));
+        pipe(out, BCTransportItems.PIPE_SANDSTONE_ITEM.get(), Ingredient.of(Tags.Items.SANDSTONE));
+        pipe(out, BCTransportItems.PIPE_IRON_ITEM.get(), Ingredient.of(Tags.Items.INGOTS_IRON));
+        pipe(
+            out, BCTransportItems.PIPE_VOID_ITEM.get(), Ingredient.of(Tags.Items.DYES_BLACK),
+            Ingredient.of(Tags.Items.DUSTS_REDSTONE)
+        );
+    }
+
+    /** 8 pipes from a piece of colourless glass between two of the material. */
+    private static void pipe(Consumer<FinishedRecipe> out, ItemLike result, Ingredient material) {
+        pipe(out, result, material, material);
+    }
+
+    private static void pipe(Consumer<FinishedRecipe> out, ItemLike result, Ingredient left, Ingredient right) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, result, 8)
+            .pattern("lgr")
+            .define('l', left)
+            .define('g', Tags.Items.GLASS_COLORLESS)
+            .define('r', right)
+            .group("buildcraft:pipes")
+            .unlockedBy("has_glass", has(Tags.Items.GLASS_COLORLESS))
             .save(out);
     }
 

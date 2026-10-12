@@ -10,13 +10,15 @@ import java.util.Set;
 
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import net.minecraftforge.registries.RegistryObject;
 
 import buildcraft.lib.registry.BCRegistries;
 
-/** Every BuildCraft block drops itself. */
+/** Every BuildCraft block that has an item drops itself. Blocks without one (like pipes) decide their drops in
+ * code. */
 public class BCBlockLootProvider extends BlockLootSubProvider {
     public BCBlockLootProvider() {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
@@ -31,6 +33,7 @@ public class BCBlockLootProvider extends BlockLootSubProvider {
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return BCRegistries.BLOCKS.getEntries().stream().map(RegistryObject::get).map(Block.class::cast)::iterator;
+        return BCRegistries.BLOCKS.getEntries().stream().map(RegistryObject::get).map(Block.class::cast)
+            .filter(block -> block.asItem() != Items.AIR)::iterator;
     }
 }

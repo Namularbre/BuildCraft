@@ -14,6 +14,8 @@ import buildcraft.BuildCraft;
 
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
+import buildcraft.transport.BCTransportBlocks;
+import buildcraft.transport.BCTransportItems;
 
 /** Translations. Names are taken from the 1.12 translations (BuildCraft-Localization). */
 public abstract class BCLanguageProvider extends LanguageProvider {
@@ -39,6 +41,15 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             if (BCCoreBlocks.POWER_TESTER != null) {
                 add(BCCoreBlocks.POWER_TESTER.get(), "Power Tester (Debug)");
             }
+            add(BCTransportBlocks.PIPE_HOLDER.get(), "Pipe");
+            add(BCTransportItems.PIPE_WOOD_ITEM.get(), "Wooden Transport Pipe");
+            add(BCTransportItems.PIPE_COBBLESTONE_ITEM.get(), "Cobblestone Transport Pipe");
+            add(BCTransportItems.PIPE_STONE_ITEM.get(), "Stone Transport Pipe");
+            add(BCTransportItems.PIPE_QUARTZ_ITEM.get(), "Quartz Transport Pipe");
+            add(BCTransportItems.PIPE_GOLD_ITEM.get(), "Golden Transport Pipe");
+            add(BCTransportItems.PIPE_SANDSTONE_ITEM.get(), "Sandstone Transport Pipe");
+            add(BCTransportItems.PIPE_IRON_ITEM.get(), "Iron Transport Pipe");
+            add(BCTransportItems.PIPE_VOID_ITEM.get(), "Void Transport Pipe");
         }
     }
 
@@ -60,6 +71,15 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             if (BCCoreBlocks.POWER_TESTER != null) {
                 add(BCCoreBlocks.POWER_TESTER.get(), "Testeur de puissance (debug)");
             }
+            add(BCTransportBlocks.PIPE_HOLDER.get(), "Tuyau");
+            add(BCTransportItems.PIPE_WOOD_ITEM.get(), "Tuyau de transport en bois");
+            add(BCTransportItems.PIPE_COBBLESTONE_ITEM.get(), "Tuyau de transport en pierre");
+            add(BCTransportItems.PIPE_STONE_ITEM.get(), "Tuyau de transport en roche");
+            add(BCTransportItems.PIPE_QUARTZ_ITEM.get(), "Tuyau de transport en quartz");
+            add(BCTransportItems.PIPE_GOLD_ITEM.get(), "Tuyau de transport en or");
+            add(BCTransportItems.PIPE_SANDSTONE_ITEM.get(), "Tuyau de transport en grès");
+            add(BCTransportItems.PIPE_IRON_ITEM.get(), "Tuyau de transport en fer");
+            add(BCTransportItems.PIPE_VOID_ITEM.get(), "Tuyau d'évacuation");
         }
     }
 }

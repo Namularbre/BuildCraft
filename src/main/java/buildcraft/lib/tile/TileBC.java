@@ -252,6 +252,8 @@ public abstract class TileBC extends BlockEntity implements IPayloadReceiver, IP
     public final void redrawBlock() {
         if (level != null) {
             if (level.isClientSide) {
+                // Dynamic models read their state from the model data
+                requestModelDataUpdate();
                 BlockState state = getBlockState();
                 level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_IMMEDIATE);
             } else {

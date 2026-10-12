@@ -1,11 +1,20 @@
 {
+  "block.buildcraft.pipe_holder": "Pipe",
   "block.buildcraft.power_tester": "Power Tester (Debug)",
   "block.buildcraft.redstone_engine": "Redstone Engine",
+  "item.buildcraft.cobblestone_item_pipe": "Cobblestone Transport Pipe",
   "item.buildcraft.diamond_gear": "Diamond Gear",
   "item.buildcraft.gold_gear": "Gold Gear",
+  "item.buildcraft.gold_item_pipe": "Golden Transport Pipe",
   "item.buildcraft.iron_gear": "Iron Gear",
+  "item.buildcraft.iron_item_pipe": "Iron Transport Pipe",
+  "item.buildcraft.quartz_item_pipe": "Quartz Transport Pipe",
+  "item.buildcraft.sandstone_item_pipe": "Sandstone Transport Pipe",
   "item.buildcraft.stone_gear": "Stone Gear",
+  "item.buildcraft.stone_item_pipe": "Stone Transport Pipe",
+  "item.buildcraft.void_item_pipe": "Void Transport Pipe",
   "item.buildcraft.wood_gear": "Wood Gear",
+  "item.buildcraft.wood_item_pipe": "Wooden Transport Pipe",
   "item.buildcraft.wrench": "Wrench",
   "itemGroup.buildcraft.main": "BuildCraft"
 }

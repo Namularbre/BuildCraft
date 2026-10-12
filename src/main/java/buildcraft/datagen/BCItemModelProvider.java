@@ -16,6 +16,7 @@ import buildcraft.BuildCraft;
 
 import buildcraft.core.BCCoreBlocks;
 import buildcraft.core.BCCoreItems;
+import buildcraft.transport.BCTransportItems;
 
 public class BCItemModelProvider extends ItemModelProvider {
     public BCItemModelProvider(PackOutput output, ExistingFileHelper files) {
@@ -36,6 +37,12 @@ public class BCItemModelProvider extends ItemModelProvider {
         if (BCCoreBlocks.POWER_TESTER != null) {
             withExistingParent(BCCoreBlocks.POWER_TESTER.getId().getPath(), modLoc("block/power_tester"));
         }
+
+        BCTransportItems.PIPES.forEach((definition, item) -> {
+            int texture = definition.itemModelCenter.getTexture(0);
+            String path = ResourceLocation.parse(definition.textures[texture]).getPath();
+            withExistingParent(item.getId().getPath(), modLoc("item/pipe_base")).texture("pipe", modLoc(path));
+        });
     }
 
     /** The whole engine at rest, in its coolest stage. */

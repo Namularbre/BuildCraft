@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "buildcraft:pipes",
+  "key": {
+    "g": {
+      "tag": "forge:glass/colorless"
+    },
+    "l": {
+      "item": "minecraft:stone"
+    },
+    "r": {
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    "lgr"
+  ],
+  "result": {
+    "count": 8,
+    "item": "buildcraft:stone_item_pipe"
+  },
+  "show_notification": true
+}

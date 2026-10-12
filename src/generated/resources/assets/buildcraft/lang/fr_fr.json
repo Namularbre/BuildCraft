@@ -1,11 +1,20 @@
 {
+  "block.buildcraft.pipe_holder": "Tuyau",
   "block.buildcraft.power_tester": "Testeur de puissance (debug)",
   "block.buildcraft.redstone_engine": "Moteur de redstone",
+  "item.buildcraft.cobblestone_item_pipe": "Tuyau de transport en pierre",
   "item.buildcraft.diamond_gear": "Engrenage de diamant",
   "item.buildcraft.gold_gear": "Engrenage d'or",
+  "item.buildcraft.gold_item_pipe": "Tuyau de transport en or",
   "item.buildcraft.iron_gear": "Engrenage de fer",
+  "item.buildcraft.iron_item_pipe": "Tuyau de transport en fer",
+  "item.buildcraft.quartz_item_pipe": "Tuyau de transport en quartz",
+  "item.buildcraft.sandstone_item_pipe": "Tuyau de transport en grès",
   "item.buildcraft.stone_gear": "Engrenage de pierre",
+  "item.buildcraft.stone_item_pipe": "Tuyau de transport en roche",
+  "item.buildcraft.void_item_pipe": "Tuyau d'évacuation",
   "item.buildcraft.wood_gear": "Engrenage de bois",
+  "item.buildcraft.wood_item_pipe": "Tuyau de transport en bois",
   "item.buildcraft.wrench": "Clé à molette",
   "itemGroup.buildcraft.main": "BuildCraft"
 }

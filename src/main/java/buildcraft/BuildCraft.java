@@ -12,6 +12,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import buildcraft.lib.BCLib;
 
 import buildcraft.core.BCCore;
+import buildcraft.transport.BCTransport;
 
 @Mod(BuildCraft.MODID)
 public class BuildCraft {
@@ -20,5 +21,6 @@ public class BuildCraft {
     public BuildCraft(FMLJavaModLoadingContext context) {
         BCLib.init(context);
         BCCore.init();
+        BCTransport.init(context.getModEventBus());
     }
 }

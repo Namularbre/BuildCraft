@@ -19,6 +19,7 @@ import buildcraft.api.enums.EnumPowerStage;
 import buildcraft.lib.engine.BlockEngineBase;
 
 import buildcraft.core.BCCoreBlocks;
+import buildcraft.transport.BCTransportBlocks;
 
 public class BCBlockStateProvider extends BlockStateProvider {
     public BCBlockStateProvider(PackOutput output, ExistingFileHelper files) {
@@ -32,6 +33,9 @@ public class BCBlockStateProvider extends BlockStateProvider {
         if (BCCoreBlocks.POWER_TESTER != null) {
             simpleBlock(BCCoreBlocks.POWER_TESTER.get());
         }
+
+        // A placeholder: the real model is generated from the pipe at runtime
+        simpleBlock(BCTransportBlocks.PIPE_HOLDER.get(), models().getExistingFile(modLoc("block/pipe_holder")));
     }
 
     /** One model per heat stage, rotated so that the engine's trunk points in the direction it faces. */
