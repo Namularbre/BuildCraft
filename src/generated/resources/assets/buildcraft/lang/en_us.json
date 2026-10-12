@@ -1,0 +1,11 @@
+{
+  "block.buildcraft.power_tester": "Power Tester (Debug)",
+  "block.buildcraft.redstone_engine": "Redstone Engine",
+  "item.buildcraft.diamond_gear": "Diamond Gear",
+  "item.buildcraft.gold_gear": "Gold Gear",
+  "item.buildcraft.iron_gear": "Iron Gear",
+  "item.buildcraft.stone_gear": "Stone Gear",
+  "item.buildcraft.wood_gear": "Wood Gear",
+  "item.buildcraft.wrench": "Wrench",
+  "itemGroup.buildcraft.main": "BuildCraft"
+}

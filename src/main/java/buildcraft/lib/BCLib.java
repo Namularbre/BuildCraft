@@ -10,6 +10,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import buildcraft.api.mj.IMjToRfStatus;
 import buildcraft.api.mj.MjAPI;
@@ -19,6 +20,9 @@ import buildcraft.lib.registry.BCRegistries;
 
 /** Sets up the shared library code that every other BuildCraft module builds on. */
 public final class BCLib {
+    /** True in development environments (or with -Dbuildcraft.dev=true), enabling debugging content. */
+    public static final boolean DEV = !FMLEnvironment.production || Boolean.getBoolean("buildcraft.dev");
+
     private BCLib() {}
 
     public static void init(FMLJavaModLoadingContext context) {

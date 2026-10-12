@@ -11,11 +11,14 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import buildcraft.lib.BCLib;
 
+import buildcraft.core.BCCore;
+
 @Mod(BuildCraft.MODID)
 public class BuildCraft {
     public static final String MODID = "buildcraft";
 
     public BuildCraft(FMLJavaModLoadingContext context) {
         BCLib.init(context);
+        BCCore.init();
     }
 }

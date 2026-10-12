@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "buildcraft:power_tester",
+      "required": false
+    }
+  ]
+}

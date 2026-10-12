@@ -1,0 +1,9 @@
+// 1.20.1	2026-10-12T02:48:36.6368912	Tags for minecraft:item mod id buildcraft
+36d3fe38efa0d0514db985c280055e398009f6b6 data/forge/tags/items/gears.json
+c8198c2a76eb9269bf4fe0c3fae6757c6fd6dd71 data/forge/tags/items/gears/diamond.json
+c4535707a46b11608c9eafe8c87ee6914652d0f4 data/forge/tags/items/gears/gold.json
+bc1adb50c61a0a148f01d8c4bf309cc6263abd01 data/forge/tags/items/gears/iron.json
+5c44d804cf484caac3013dfb4ad76d0657ea8e94 data/forge/tags/items/gears/stone.json
+716fbfe8d153c046bcedde7555453b26cca14ae5 data/forge/tags/items/gears/wood.json
+3e65a1f943cae7927da2f45388efe248474e5397 data/forge/tags/items/tools.json
+658e031e34e37e124d4c259177ca1e4c0b7e27e9 data/forge/tags/items/tools/wrench.json

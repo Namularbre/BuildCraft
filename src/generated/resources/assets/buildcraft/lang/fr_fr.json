@@ -1,0 +1,11 @@
+{
+  "block.buildcraft.power_tester": "Testeur de puissance (debug)",
+  "block.buildcraft.redstone_engine": "Moteur de redstone",
+  "item.buildcraft.diamond_gear": "Engrenage de diamant",
+  "item.buildcraft.gold_gear": "Engrenage d'or",
+  "item.buildcraft.iron_gear": "Engrenage de fer",
+  "item.buildcraft.stone_gear": "Engrenage de pierre",
+  "item.buildcraft.wood_gear": "Engrenage de bois",
+  "item.buildcraft.wrench": "Clé à molette",
+  "itemGroup.buildcraft.main": "BuildCraft"
+}

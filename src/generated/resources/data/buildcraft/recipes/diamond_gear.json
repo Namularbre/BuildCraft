@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "buildcraft:gears",
+  "key": {
+    "i": {
+      "tag": "forge:gears/gold"
+    },
+    "o": {
+      "tag": "forge:gems/diamond"
+    }
+  },
+  "pattern": [
+    " o ",
+    "oio",
+    " o "
+  ],
+  "result": {
+    "item": "buildcraft:diamond_gear"
+  },
+  "show_notification": true
+}
