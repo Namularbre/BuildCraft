@@ -13,6 +13,7 @@ public final class BCFactoryConfig {
     public static final ForgeConfigSpec SPEC;
 
     public static final ForgeConfigSpec.IntValue MINING_MAX_DEPTH;
+    public static final ForgeConfigSpec.DoubleValue MINING_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue PUMP_MAX_DISTANCE;
     public static final ForgeConfigSpec.BooleanValue PUMPS_CONSUME_WATER;
 
@@ -23,6 +24,9 @@ public final class BCFactoryConfig {
         MINING_MAX_DEPTH = builder
             .comment("How deep (in blocks) pumps and mining wells can reach.")
             .defineInRange("miningMaxDepth", 512, 1, 4096);
+        MINING_MULTIPLIER = builder
+            .comment("How much more power mining wells need to break blocks.")
+            .defineInRange("miningMultiplier", 1.0, 1.0, 200.0);
         PUMP_MAX_DISTANCE = builder
             .comment("How far (in blocks) from the end of its tube a pump will pump fluids.")
             .defineInRange("pumpMaxDistance", 64, 1, 1024);
@@ -42,6 +46,10 @@ public final class BCFactoryConfig {
 
     public static int miningMaxDepth() {
         return get(MINING_MAX_DEPTH);
+    }
+
+    public static double miningMultiplier() {
+        return get(MINING_MULTIPLIER);
     }
 
     public static int pumpMaxDistance() {

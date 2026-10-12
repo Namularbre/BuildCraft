@@ -3,6 +3,7 @@
     "buildcraft:stirling_engine",
     "buildcraft:combustion_engine",
     "buildcraft:pump",
+    "buildcraft:mining_well",
     {
       "id": "buildcraft:power_tester",
       "required": false

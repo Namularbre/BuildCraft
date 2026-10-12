@@ -18,9 +18,11 @@ import net.minecraftforge.registries.RegistryObject;
 
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.factory.block.BlockMiningWell;
 import buildcraft.factory.block.BlockPump;
 import buildcraft.factory.block.BlockTank;
 import buildcraft.factory.block.BlockTube;
+import buildcraft.factory.tile.TileMiningWell;
 import buildcraft.factory.tile.TilePump;
 import buildcraft.factory.tile.TileTank;
 
@@ -47,6 +49,18 @@ public final class BCFactoryBlocks {
         "pump", () -> BlockEntityType.Builder.of(TilePump::new, PUMP.get()).build(null)
     );
 
+    public static final RegistryObject<BlockMiningWell> MINING_WELL = BCRegistries.BLOCKS.register(
+        "mining_well", () -> new BlockMiningWell(
+            BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 10.0f).sound(SoundType.METAL)
+        )
+    );
+
+    @SuppressWarnings("ConstantConditions")
+    public static final RegistryObject<BlockEntityType<TileMiningWell>> MINING_WELL_TILE =
+        BCRegistries.BLOCK_ENTITY_TYPES.register(
+            "mining_well", () -> BlockEntityType.Builder.of(TileMiningWell::new, MINING_WELL.get()).build(null)
+        );
+
     /** Unbreakable: it is removed with the machine above it. */
     public static final RegistryObject<BlockTube> TUBE = BCRegistries.BLOCKS.register(
         "tube", () -> new BlockTube(
@@ -58,6 +72,7 @@ public final class BCFactoryBlocks {
     static {
         BCRegistries.ITEMS.register("tank", () -> new BlockItem(TANK.get(), new Item.Properties()));
         BCRegistries.ITEMS.register("pump", () -> new BlockItem(PUMP.get(), new Item.Properties()));
+        BCRegistries.ITEMS.register("mining_well", () -> new BlockItem(MINING_WELL.get(), new Item.Properties()));
     }
 
     private BCFactoryBlocks() {}

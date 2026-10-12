@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T17:01:49.0377607	Block States: buildcraft
+// 1.20.1	2026-10-12T19:55:44.0145396	Block States: buildcraft
 e409775c2174c4fc4bc9d0ab06360ea312b1c24d assets/buildcraft/blockstates/combustion_engine.json
 7f40c8ceafe66c241101361a9097bed6875b3b83 assets/buildcraft/blockstates/fuel_dense.json
 186c5532a1916485219242f3764f97be41feb58c assets/buildcraft/blockstates/fuel_dense_heat_1.json
@@ -15,6 +15,7 @@ fe47f3d1570a3608e152dfbf3050f1f3cc830907 assets/buildcraft/blockstates/fuel_gase
 9e8d4a4e2c2f305afa6916b00574415c6fba783a assets/buildcraft/blockstates/fuel_mixed_light.json
 6a62225765d38d4d66e5cf2acd52e825708b08c2 assets/buildcraft/blockstates/fuel_mixed_light_heat_1.json
 59e8733262f79e323299e80079b749a0f1709e33 assets/buildcraft/blockstates/fuel_mixed_light_heat_2.json
+adad9dad8b68c3cab158af84464da90d51adf55f assets/buildcraft/blockstates/mining_well.json
 de9f4efc669b9808801d82dae71aa5e71406aef7 assets/buildcraft/blockstates/oil.json
 178d80eff3e5b15e15beb73fd7c3b13e6e66cd8e assets/buildcraft/blockstates/oil_dense.json
 3198bfa812006275c54b9dee13661e877fee2201 assets/buildcraft/blockstates/oil_dense_heat_1.json
@@ -85,6 +86,7 @@ da0d37b0b908f92eda7e5543d75c61f5cff7d984 assets/buildcraft/models/block/fluid/oi
 83e19c08f841badf5c69038c641201f9cc88c24f assets/buildcraft/models/block/fluid/oil_residue.json
 2d5d7fa1de8691285fac636a7fd75a9b41603bf6 assets/buildcraft/models/block/fluid/oil_residue_heat_1.json
 91bbcb42a06de2c59e096b9ff6b3194a30a84d8b assets/buildcraft/models/block/fluid/oil_residue_heat_2.json
+23c8ea5c654b6f8174ca2826a9c30dfeae9617ce assets/buildcraft/models/block/mining_well.json
 92f4a3b4cda910f1aa301401f2ab0145bce3e795 assets/buildcraft/models/block/power_tester.json
 bf21e35c94bb8342f0390aaa5ca2a05ef39001d0 assets/buildcraft/models/block/pump.json
 da665fcefc09202c206f5fbd503b04d9794b69ba assets/buildcraft/models/block/tube.json

@@ -58,6 +58,12 @@ public class BCBlockStateProvider extends BlockStateProvider {
             "block/pump", modLoc("block/pump/bottom"), modLoc("block/pump/top"), modLoc("block/pump/side"),
             modLoc("block/pump/side"), modLoc("block/pump/side"), modLoc("block/pump/side")
         ).texture("particle", modLoc("block/pump/side")));
+        // The front (with the LEDs) faces north in the model, and is turned to face where the block faces
+        horizontalBlock(BCFactoryBlocks.MINING_WELL.get(), models().cube(
+            "block/mining_well", modLoc("block/mining_well/bottom"), modLoc("block/mining_well/top"),
+            modLoc("block/mining_well/front"), modLoc("block/mining_well/back"), modLoc("block/mining_well/side"),
+            modLoc("block/mining_well/side")
+        ).texture("particle", modLoc("block/mining_well/side")));
         // Drawn by the machine above it: the model is only used for particles
         simpleBlock(BCFactoryBlocks.TUBE.get(), models().getBuilder("block/tube")
             .texture("particle", modLoc("block/pump/tube")));
