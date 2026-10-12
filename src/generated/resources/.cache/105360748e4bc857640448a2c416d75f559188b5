@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-12T16:46:12.2513285	Item Models: buildcraft
+// 1.20.1	2026-10-12T17:01:49.0443182	Item Models: buildcraft
 cf0c0a207b01646a7ff4f97cae2b5758148e907d assets/buildcraft/models/item/cobblestone_fluid_pipe.json
 3c81600c442df01f43096805a373fc208b478473 assets/buildcraft/models/item/cobblestone_item_pipe.json
 a7e89f443758502b0ec9588475021dc0c5ac39f6 assets/buildcraft/models/item/cobblestone_power_pipe.json
@@ -43,6 +43,7 @@ b5e9e001270f5a32dfbbb108434c7a339f2bece5 assets/buildcraft/models/item/oil_resid
 affbafaab9ab636effd6e599bcae9b376ba9cc3f assets/buildcraft/models/item/oil_residue_heat_2_bucket.json
 8ac1adc8ecd185ff1c11b4ab0b4f3ff39ecade0a assets/buildcraft/models/item/pipe_sealant.json
 d84f406d9d3d33863ab41e07e0d5b864ab6282ff assets/buildcraft/models/item/power_tester.json
+e2cc90179fbfeffa95ede1830dafcc858af4b4a2 assets/buildcraft/models/item/pump.json
 57e8df9b8af7594977cf505144c105d7e9a5fbf5 assets/buildcraft/models/item/quartz_fluid_pipe.json
 1403607ddbef56cef871c1ebd5965e7b46b0e200 assets/buildcraft/models/item/quartz_item_pipe.json
 d8fce436f49ebc40669a7a1b7cc3adc812777cd7 assets/buildcraft/models/item/quartz_power_pipe.json

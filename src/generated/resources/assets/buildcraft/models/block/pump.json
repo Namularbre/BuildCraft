@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "buildcraft:block/pump/bottom",
+    "east": "buildcraft:block/pump/side",
+    "north": "buildcraft:block/pump/side",
+    "particle": "buildcraft:block/pump/side",
+    "south": "buildcraft:block/pump/side",
+    "up": "buildcraft:block/pump/top",
+    "west": "buildcraft:block/pump/side"
+  }
+}

@@ -6,11 +6,17 @@
 
 package buildcraft.factory;
 
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import buildcraft.BuildCraft;
+
 /** The factory module: tanks, pumps, mining wells, and refining oil. */
 public final class BCFactory {
     private BCFactory() {}
 
-    public static void init() {
+    public static void init(FMLJavaModLoadingContext context) {
+        context.registerConfig(ModConfig.Type.COMMON, BCFactoryConfig.SPEC, BuildCraft.MODID + "-factory-common.toml");
         BCFactoryBlocks.init();
     }
 }

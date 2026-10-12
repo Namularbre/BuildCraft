@@ -41,6 +41,7 @@ public class BCItemModelProvider extends ItemModelProvider {
         engine(BCEnergyBlocks.ENGINE_STONE.getId(), "stone");
         engine(BCEnergyBlocks.ENGINE_IRON.getId(), "iron");
         withExistingParent("tank", modLoc("block/tank"));
+        withExistingParent("pump", modLoc("block/pump"));
 
         if (BCCoreBlocks.POWER_TESTER != null) {
             withExistingParent(BCCoreBlocks.POWER_TESTER.getId().getPath(), modLoc("block/power_tester"));

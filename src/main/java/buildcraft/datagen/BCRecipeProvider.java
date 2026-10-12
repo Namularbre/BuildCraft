@@ -103,6 +103,18 @@ public class BCRecipeProvider extends RecipeProvider {
             .unlockedBy("has_glass", has(Tags.Items.GLASS_COLORLESS))
             .save(out);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCFactoryBlocks.PUMP.get())
+            .pattern("iri")
+            .pattern("igi")
+            .pattern("tbt")
+            .define('i', Tags.Items.INGOTS_IRON)
+            .define('r', Tags.Items.DUSTS_REDSTONE)
+            .define('g', BCTags.Items.GEARS_IRON)
+            .define('t', BCFactoryBlocks.TANK.get())
+            .define('b', Items.BUCKET)
+            .unlockedBy("has_tank", has(BCFactoryBlocks.TANK.get()))
+            .save(out);
+
         pipe(out, BCTransportItems.PIPE_WOOD_ITEM.get(), Ingredient.of(ItemTags.PLANKS));
         pipe(out, BCTransportItems.PIPE_COBBLESTONE_ITEM.get(), Ingredient.of(Tags.Items.COBBLESTONE));
         pipe(out, BCTransportItems.PIPE_STONE_ITEM.get(), Ingredient.of(Items.STONE));

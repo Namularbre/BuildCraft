@@ -77,6 +77,34 @@ public final class BoxRenderer {
         vertex(dir, corners[3], su1, vStart);
     }
 
+    /** Like {@link #face}, for a side face (not up or down) whose texture is turned a quarter turn: u goes down the
+     * face, and v across it. */
+    public void sideFaceRotated(Direction dir, float x0, float y0, float z0, float x1, float y1, float z1,
+        TextureAtlasSprite sprite, float u0, float v0, float u1, float v1) {
+        if (dir.getAxis() == Direction.Axis.Y) {
+            throw new IllegalArgumentException("Not a side face: " + dir);
+        }
+        float[][] corners = switch (dir) {
+            case NORTH -> new float[][] { { x1, y1, z0 }, { x1, y0, z0 }, { x0, y0, z0 }, { x0, y1, z0 } };
+            case SOUTH -> new float[][] { { x0, y1, z1 }, { x0, y0, z1 }, { x1, y0, z1 }, { x1, y1, z1 } };
+            case WEST -> new float[][] { { x0, y1, z0 }, { x0, y0, z0 }, { x0, y0, z1 }, { x0, y1, z1 } };
+            default -> new float[][] { { x1, y1, z1 }, { x1, y0, z1 }, { x1, y0, z0 }, { x1, y1, z0 } };
+        };
+        float su0 = sprite.getU(u0);
+        float su1 = sprite.getU(u1);
+        float sv0 = sprite.getV(v0);
+        float sv1 = sprite.getV(v1);
+        for (float[] corner : corners) {
+            corner[0] *= PX;
+            corner[1] *= PX;
+            corner[2] *= PX;
+        }
+        vertex(dir, corners[0], su0, sv0);
+        vertex(dir, corners[1], su1, sv0);
+        vertex(dir, corners[2], su1, sv1);
+        vertex(dir, corners[3], su0, sv1);
+    }
+
     private void vertex(Direction dir, float[] pos, float u, float v) {
         buffer.vertex(pose, pos[0], pos[1], pos[2])
             .color(red, green, blue, alpha)

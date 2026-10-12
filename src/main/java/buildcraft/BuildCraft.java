@@ -25,6 +25,6 @@ public class BuildCraft {
         BCCore.init();
         BCTransport.init(context.getModEventBus());
         BCEnergy.init(context);
-        BCFactory.init();
+        BCFactory.init(context);
     }
 }

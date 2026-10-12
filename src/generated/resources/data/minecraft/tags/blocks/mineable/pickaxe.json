@@ -2,6 +2,7 @@
   "values": [
     "buildcraft:stirling_engine",
     "buildcraft:combustion_engine",
+    "buildcraft:pump",
     {
       "id": "buildcraft:power_tester",
       "required": false

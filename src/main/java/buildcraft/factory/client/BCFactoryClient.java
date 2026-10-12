@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import buildcraft.BuildCraft;
 import buildcraft.factory.BCFactoryBlocks;
+import buildcraft.factory.client.render.RenderPump;
 import buildcraft.factory.client.render.RenderTank;
 
 @Mod.EventBusSubscriber(modid = BuildCraft.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -22,5 +23,6 @@ public final class BCFactoryClient {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(BCFactoryBlocks.TANK_TILE.get(), RenderTank::new);
+        event.registerBlockEntityRenderer(BCFactoryBlocks.PUMP_TILE.get(), RenderPump::new);
     }
 }

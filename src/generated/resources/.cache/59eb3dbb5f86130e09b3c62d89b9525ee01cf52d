@@ -1,6 +1,7 @@
-// 1.20.1	2026-10-12T16:46:12.2871727	Loot Tables
+// 1.20.1	2026-10-12T17:01:49.0525158	Loot Tables
 c21809addc58ab140075c66b458cd9dfd4662000 data/buildcraft/loot_tables/blocks/combustion_engine.json
 98904efe9f73db2978ae89b49ce67e00a90e478d data/buildcraft/loot_tables/blocks/power_tester.json
+8fdd081b07f00c98c1daec846094a03934f2804f data/buildcraft/loot_tables/blocks/pump.json
 604b01d975055f698cb350b1d28671e707a8de1c data/buildcraft/loot_tables/blocks/redstone_engine.json
 f05860b6a77b2fad7bd93d4ed247576fa769c737 data/buildcraft/loot_tables/blocks/stirling_engine.json
 6d403d2dc7e2118da59699a3517a83e79f831090 data/buildcraft/loot_tables/blocks/tank.json

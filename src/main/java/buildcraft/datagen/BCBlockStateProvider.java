@@ -54,6 +54,14 @@ public class BCBlockStateProvider extends BlockStateProvider {
             )))
             .build());
 
+        simpleBlock(BCFactoryBlocks.PUMP.get(), models().cube(
+            "block/pump", modLoc("block/pump/bottom"), modLoc("block/pump/top"), modLoc("block/pump/side"),
+            modLoc("block/pump/side"), modLoc("block/pump/side"), modLoc("block/pump/side")
+        ).texture("particle", modLoc("block/pump/side")));
+        // Drawn by the machine above it: the model is only used for particles
+        simpleBlock(BCFactoryBlocks.TUBE.get(), models().getBuilder("block/tube")
+            .texture("particle", modLoc("block/pump/tube")));
+
         // A placeholder: the real model is generated from the pipe at runtime
         simpleBlock(BCTransportBlocks.PIPE_HOLDER.get(), models().getExistingFile(modLoc("block/pipe_holder")));
     }
