@@ -14,11 +14,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -34,8 +31,6 @@ import buildcraft.api.mj.IMjConnector;
 import buildcraft.api.mj.IMjReceiver;
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.mj.MjCapabilityHelper;
-import buildcraft.api.tools.IToolWrench;
-import buildcraft.api.transport.pipe.IItemPipe;
 
 import buildcraft.lib.block.VanillaRotationHandlers;
 import buildcraft.lib.tile.ITickable;
@@ -260,15 +255,6 @@ public abstract class TileEngineBase extends TileBC implements ITickable {
 
     @Nonnull
     protected abstract IMjConnector createConnector();
-
-    /** Block interactions happen before item ones, so engines with a GUI must let wrenches (to rotate the engine) and
-     * pipes (to place them against the engine) through.
-     *
-     * @return True if the player is holding something that should be used on the engine rather than open its GUI. */
-    protected static boolean isHoldingTool(Player player, InteractionHand hand) {
-        Item item = player.getItemInHand(hand).getItem();
-        return item instanceof IToolWrench || item instanceof IItemPipe;
-    }
 
     @Override
     public void tick() {

@@ -1,4 +1,5 @@
-// 1.20.1	2026-10-12T20:34:49.7017454	Loot Tables
+// 1.20.1	2026-10-12T20:52:25.4269778	Loot Tables
+be29287f9a1731ac150dde15dbc75e44f79562dc data/buildcraft/loot_tables/blocks/chute.json
 c21809addc58ab140075c66b458cd9dfd4662000 data/buildcraft/loot_tables/blocks/combustion_engine.json
 a35f68d388243b10c956b2599972b2b1bfeab8a6 data/buildcraft/loot_tables/blocks/distiller.json
 7374c9f2bbf22684b79110973372017562d93d4f data/buildcraft/loot_tables/blocks/heat_exchange.json

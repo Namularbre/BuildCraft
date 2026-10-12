@@ -26,6 +26,7 @@ import buildcraft.core.BCCoreBlocks;
 import buildcraft.energy.BCEnergyBlocks;
 import buildcraft.energy.BCEnergyFluids;
 import buildcraft.factory.BCFactoryBlocks;
+import buildcraft.factory.block.BlockChute;
 import buildcraft.factory.block.BlockDistiller;
 import buildcraft.factory.block.BlockHeatExchange.EnumExchangePart;
 import buildcraft.factory.block.BlockHeatExchange;
@@ -74,12 +75,45 @@ public class BCBlockStateProvider extends BlockStateProvider {
             .rotationY(BlockDistiller.modelRotation(state.getValue(BlockDistiller.FACING)))
             .build());
         heatExchange();
+        chute();
         // Drawn by the machine above it: the model is only used for particles
         simpleBlock(BCFactoryBlocks.TUBE.get(), models().getBuilder("block/tube")
             .texture("particle", modLoc("block/pump/tube")));
 
         // A placeholder: the real model is generated from the pipe at runtime
         simpleBlock(BCTransportBlocks.PIPE_HOLDER.get(), models().getExistingFile(modLoc("block/pipe_holder")));
+    }
+
+    /** The funnel turned towards the opening, and a small spout towards each inventory it sends items to (the
+     * rotations of 1.12). */
+    private void chute() {
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(BCFactoryBlocks.CHUTE.get());
+        ModelFile main = models().getExistingFile(modLoc("block/chute"));
+        ModelFile spout = models().getExistingFile(modLoc("block/chute_connected"));
+        for (Direction facing : Direction.values()) {
+            int[] rotation = switch (facing) {
+                case UP -> new int[] { 0, 0 };
+                case DOWN -> new int[] { 180, 0 };
+                case NORTH -> new int[] { 90, 0 };
+                case EAST -> new int[] { 90, 90 };
+                case SOUTH -> new int[] { 90, 180 };
+                case WEST -> new int[] { 90, 270 };
+            };
+            builder.part().modelFile(main).rotationX(rotation[0]).rotationY(rotation[1]).addModel()
+                .condition(BlockChute.FACING, facing);
+        }
+        for (Direction side : Direction.values()) {
+            int[] rotation = switch (side) {
+                case UP -> new int[] { 180, 0 };
+                case DOWN -> new int[] { 0, 0 };
+                case NORTH -> new int[] { 90, 180 };
+                case EAST -> new int[] { 90, 270 };
+                case SOUTH -> new int[] { 90, 0 };
+                case WEST -> new int[] { 90, 90 };
+            };
+            builder.part().modelFile(spout).rotationX(rotation[0]).rotationY(rotation[1]).addModel()
+                .condition(BlockChute.CONNECTED.get(side), true);
+        }
     }
 
     /** Built from parts: the inner pipe always shows, and the rest depends on which part of a heat exchanger the

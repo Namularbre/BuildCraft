@@ -37,6 +37,7 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuConstructor;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.block.Block;
@@ -52,6 +53,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import buildcraft.api.core.BCLog;
 import buildcraft.api.core.IPlayerOwned;
+import buildcraft.api.tools.IToolWrench;
+import buildcraft.api.transport.pipe.IItemPipe;
 
 import buildcraft.lib.cap.CapabilityHelper;
 import buildcraft.lib.misc.data.IdAllocator;
@@ -178,6 +181,15 @@ public abstract class TileBC extends BlockEntity implements IPayloadReceiver, IP
 
     public void onPlayerClose(Player player) {
         usingPlayers.remove(player);
+    }
+
+    /** Block interactions happen before item ones, so blocks with a GUI must let wrenches (to rotate the block) and
+     * pipes (to place them against the block) through.
+     *
+     * @return True if the player is holding something that should be used on the block rather than open its GUI. */
+    protected static boolean isHoldingTool(Player player, InteractionHand hand) {
+        Item item = player.getItemInHand(hand).getItem();
+        return item instanceof IToolWrench || item instanceof IItemPipe;
     }
 
     public InteractionResult onActivated(Player player, InteractionHand hand, BlockHitResult hit) {

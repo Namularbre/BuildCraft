@@ -6,13 +6,18 @@
 
 package buildcraft.factory.client;
 
+import net.minecraft.client.gui.screens.MenuScreens;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import buildcraft.BuildCraft;
 import buildcraft.factory.BCFactoryBlocks;
+import buildcraft.factory.BCFactoryMenus;
+import buildcraft.factory.client.gui.GuiChute;
 import buildcraft.factory.client.render.RenderDistiller;
 import buildcraft.factory.client.render.RenderHeatExchange;
 import buildcraft.factory.client.render.RenderMiner;
@@ -21,6 +26,11 @@ import buildcraft.factory.client.render.RenderTank;
 @Mod.EventBusSubscriber(modid = BuildCraft.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class BCFactoryClient {
     private BCFactoryClient() {}
+
+    @SubscribeEvent
+    public static void clientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> MenuScreens.register(BCFactoryMenus.CHUTE.get(), GuiChute::new));
+    }
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {

@@ -6,6 +6,7 @@
     "buildcraft:mining_well",
     "buildcraft:distiller",
     "buildcraft:heat_exchange",
+    "buildcraft:chute",
     {
       "id": "buildcraft:power_tester",
       "required": false
