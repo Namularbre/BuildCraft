@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "buildcraft:clay_fluid_pipe"
+    }
+  ],
+  "result": {
+    "item": "buildcraft:clay_item_pipe"
+  }
+}

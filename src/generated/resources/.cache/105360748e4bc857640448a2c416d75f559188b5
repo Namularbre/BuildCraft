@@ -1,10 +1,12 @@
-// 1.20.1	2026-10-14T00:25:38.1190546	Item Models: buildcraft
+// 1.20.1	2026-10-14T00:39:45.0425541	Item Models: buildcraft
 599b6003dbe28c528cebe2d3ebf097f5c54f2e42 assets/buildcraft/models/item/advanced_crafting_table.json
 d2069c3f75ced0d1af479d1df57851ae6b44b5dd assets/buildcraft/models/item/architect_table.json
 efd3bf6432cd66ca8f8f91950c9ae9cfaf2e737d assets/buildcraft/models/item/assembly_table.json
 fc532d8923f450294e07edfd2198126d4872a144 assets/buildcraft/models/item/autoworkbench_item.json
 b82146395b531bf737f4f54c9eba1fb592fb5a94 assets/buildcraft/models/item/builder.json
 1d18a91184439da5d75dc396886d4c709e81ec5d assets/buildcraft/models/item/chute.json
+41ee88522e98adfc4abf103aff57ae3204f461a4 assets/buildcraft/models/item/clay_fluid_pipe.json
+8d082c155dadf9378403bc68bfa7df0085004ad8 assets/buildcraft/models/item/clay_item_pipe.json
 cf0c0a207b01646a7ff4f97cae2b5758148e907d assets/buildcraft/models/item/cobblestone_fluid_pipe.json
 3c81600c442df01f43096805a373fc208b478473 assets/buildcraft/models/item/cobblestone_item_pipe.json
 a7e89f443758502b0ec9588475021dc0c5ac39f6 assets/buildcraft/models/item/cobblestone_power_pipe.json
@@ -50,6 +52,7 @@ f4eaa8e573cc77baa6f08deacf5ed2b8eee2e093 assets/buildcraft/models/item/lapis_ite
 acf6b2547edeb7207be27956b4015bb2d965648a assets/buildcraft/models/item/laser.json
 eba82ea528f6b7f0c5e0410409960ad2d14dc82f assets/buildcraft/models/item/marker_volume.json
 215c667cbbd86df2c08d16125c60ccd0b0eba2d7 assets/buildcraft/models/item/mining_well.json
+42f8c1d219e8436525d4d4405607401711115f3f assets/buildcraft/models/item/obsidian_item_pipe.json
 ccb409a9823b4acef1a35d92257f6d9b84b074f4 assets/buildcraft/models/item/oil_bucket.json
 d4419a4995254ebb7a1bbcfd4a4b0d2bc86b65ad assets/buildcraft/models/item/oil_dense_bucket.json
 d93a9a19027733c68c6128fac6344ed18010d70d assets/buildcraft/models/item/oil_dense_heat_1_bucket.json

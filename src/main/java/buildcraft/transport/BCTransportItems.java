@@ -40,6 +40,8 @@ public final class BCTransportItems {
     public static final RegistryObject<ItemPipeHolder> PIPE_VOID_ITEM = pipe(BCTransportPipes.VOID_ITEM);
     public static final RegistryObject<ItemPipeHolder> PIPE_LAPIS_ITEM = pipe(BCTransportPipes.LAPIS_ITEM);
     public static final RegistryObject<ItemPipeHolder> PIPE_DAIZULI_ITEM = pipe(BCTransportPipes.DAIZULI_ITEM);
+    public static final RegistryObject<ItemPipeHolder> PIPE_CLAY_ITEM = pipe(BCTransportPipes.CLAY_ITEM);
+    public static final RegistryObject<ItemPipeHolder> PIPE_OBSIDIAN_ITEM = pipe(BCTransportPipes.OBSIDIAN_ITEM);
     public static final RegistryObject<ItemPipeHolder> PIPE_DIAMOND_WOOD_ITEM =
         pipe(BCTransportPipes.DIAMOND_WOOD_ITEM);
     public static final RegistryObject<ItemPipeHolder> PIPE_EMZULI_ITEM = pipe(BCTransportPipes.EMZULI_ITEM);
@@ -60,6 +62,7 @@ public final class BCTransportItems {
     public static final RegistryObject<ItemPipeHolder> PIPE_GOLD_FLUID = pipe(BCTransportPipes.GOLD_FLUID);
     public static final RegistryObject<ItemPipeHolder> PIPE_SANDSTONE_FLUID = pipe(BCTransportPipes.SANDSTONE_FLUID);
     public static final RegistryObject<ItemPipeHolder> PIPE_IRON_FLUID = pipe(BCTransportPipes.IRON_FLUID);
+    public static final RegistryObject<ItemPipeHolder> PIPE_CLAY_FLUID = pipe(BCTransportPipes.CLAY_FLUID);
     public static final RegistryObject<ItemPipeHolder> PIPE_DIAMOND_WOOD_FLUID =
         pipe(BCTransportPipes.DIAMOND_WOOD_FLUID);
     public static final RegistryObject<ItemPipeHolder> PIPE_DIAMOND_FLUID = pipe(BCTransportPipes.DIAMOND_FLUID);
