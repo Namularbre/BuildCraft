@@ -21,9 +21,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
+import buildcraft.api.core.EnumPipePart;
 import buildcraft.api.mj.ILaserTarget;
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.recipes.IngredientStack;
+import buildcraft.api.tiles.IHasWork;
+import buildcraft.api.tiles.TilesAPI;
 
 import buildcraft.lib.misc.data.AverageLong;
 import buildcraft.lib.tile.ITickable;
@@ -40,6 +43,7 @@ public abstract class TileLaserTableBase extends TileBC implements ILaserTarget,
 
     protected TileLaserTableBase(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+        caps.addCapabilityInstance(TilesAPI.CAP_HAS_WORK, (IHasWork) () -> getTarget() > 0, EnumPipePart.VALUES);
     }
 
     /** @return The power needed to finish the current work, or 0 if there is nothing to do. */

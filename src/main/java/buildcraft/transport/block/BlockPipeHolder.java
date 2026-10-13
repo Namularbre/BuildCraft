@@ -289,9 +289,38 @@ public class BlockPipeHolder extends BlockBCTile {
         return ItemStack.EMPTY;
     }
 
+    // Redstone
+
+    /** @param direction The side of the redstone dust that looks at the pipe (so it is on the opposite side). */
     @Override
     public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos,
         @Nullable Direction direction) {
+        if (direction != null && level.getBlockEntity(pos) instanceof TilePipeHolder tile) {
+            PipePluggable plug = tile.getPluggable(direction.getOpposite());
+            return plug != null && plug.canConnectToRedstone();
+        }
         return false;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isSignalSource(BlockState state) {
+        return true;
+    }
+
+    /** @param direction The direction from the block that looks at the pipe to the pipe. */
+    @Override
+    @SuppressWarnings("deprecation")
+    public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        if (level.getBlockEntity(pos) instanceof TilePipeHolder tile) {
+            return tile.getRedstoneOutput(direction.getOpposite());
+        }
+        return 0;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        return getSignal(state, level, pos, direction);
     }
 }

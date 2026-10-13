@@ -19,10 +19,17 @@ import buildcraft.silicon.BCSiliconBlocks;
 import buildcraft.silicon.BCSiliconMenus;
 import buildcraft.silicon.client.gui.GuiAdvancedCraftingTable;
 import buildcraft.silicon.client.gui.GuiAssemblyTable;
+import buildcraft.silicon.client.gui.GuiGate;
 import buildcraft.silicon.client.render.RenderLaser;
+import buildcraft.silicon.plug.PluggableGate;
+import buildcraft.transport.client.model.PlugModels;
 
 @Mod.EventBusSubscriber(modid = BuildCraft.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class BCSiliconClient {
+    static {
+        PlugModels.registerDynamic(PluggableGate.KeyPlugGate.class, GatePlugModel::boxes);
+    }
+
     private BCSiliconClient() {}
 
     @SubscribeEvent
@@ -30,6 +37,7 @@ public final class BCSiliconClient {
         event.enqueueWork(() -> {
             MenuScreens.register(BCSiliconMenus.ASSEMBLY_TABLE.get(), GuiAssemblyTable::new);
             MenuScreens.register(BCSiliconMenus.ADVANCED_CRAFTING_TABLE.get(), GuiAdvancedCraftingTable::new);
+            MenuScreens.register(BCSiliconMenus.GATE.get(), GuiGate::new);
         });
     }
 

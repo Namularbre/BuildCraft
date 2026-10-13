@@ -27,6 +27,8 @@ import buildcraft.api.mj.MjBattery;
 import buildcraft.api.mj.MjCapabilityHelper;
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
 import buildcraft.api.recipes.IRefineryRecipeManager.IDistillationRecipe;
+import buildcraft.api.tiles.IHasWork;
+import buildcraft.api.tiles.TilesAPI;
 
 import buildcraft.lib.fluid.RestrictedFluidHandler;
 import buildcraft.lib.misc.data.AverageLong;
@@ -89,6 +91,7 @@ public class TileDistiller extends TileBC implements ITickable {
             ForgeCapabilities.FLUID_HANDLER, RestrictedFluidHandler.drainOnly(tankLiquidOut), EnumPipePart.DOWN
         );
         caps.addProvider(mjCaps);
+        caps.addCapabilityInstance(TilesAPI.CAP_HAS_WORK, (IHasWork) () -> !tankIn.isEmpty(), EnumPipePart.VALUES);
     }
 
     private static boolean isDistillable(FluidStack fluid) {

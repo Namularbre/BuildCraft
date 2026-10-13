@@ -16,6 +16,7 @@ import buildcraft.api.fuels.BuildcraftFuelRegistry;
 import buildcraft.api.mj.IMjToRfStatus;
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
+import buildcraft.api.tiles.TilesAPI;
 
 import buildcraft.lib.fluid.CoolantRegistry;
 import buildcraft.lib.fluid.FuelRegistry;
@@ -41,6 +42,7 @@ public final class BCLib {
 
         BCRegistries.register(modBus);
         modBus.addListener(MjAPI::registerCapabilities);
+        modBus.addListener(TilesAPI::registerCapabilities);
         modBus.addListener(BCLib::commonSetup);
     }
 

@@ -20,10 +20,13 @@ import net.minecraft.world.phys.AABB;
 
 import net.minecraftforge.fml.LogicalSide;
 
+import buildcraft.api.core.EnumPipePart;
 import buildcraft.api.mj.IMjReceiver;
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.mj.MjBattery;
 import buildcraft.api.mj.MjCapabilityHelper;
+import buildcraft.api.tiles.IHasWork;
+import buildcraft.api.tiles.TilesAPI;
 
 import buildcraft.lib.misc.data.IdAllocator;
 import buildcraft.lib.tile.ITickable;
@@ -54,6 +57,7 @@ public abstract class TileMiner extends TileBC implements ITickable {
     public TileMiner(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         caps.addProvider(mjCaps);
+        caps.addCapabilityInstance(TilesAPI.CAP_HAS_WORK, (IHasWork) () -> !isComplete(), EnumPipePart.VALUES);
     }
 
     protected abstract void mine();

@@ -38,6 +38,10 @@ import buildcraft.factory.BCFactoryItems;
 import buildcraft.silicon.BCSiliconBlocks;
 import buildcraft.silicon.BCSiliconItems;
 import buildcraft.silicon.EnumRedstoneChipset;
+import buildcraft.silicon.gate.EnumGateLogic;
+import buildcraft.silicon.gate.EnumGateMaterial;
+import buildcraft.silicon.gate.EnumGateModifier;
+import buildcraft.silicon.gate.GateVariant;
 import buildcraft.transport.BCTransportItems;
 
 /** Crafting recipes, ported from the 1.12 recipe JSONs (ore dictionary entries became tags). */
@@ -317,6 +321,65 @@ public class BCRecipeProvider extends RecipeProvider {
             out, BCTransportItems.PIPE_DIAMOND_ITEM.get(), BCTransportItems.PIPE_DIAMOND_FLUID.get(), sealant
         );
         pipeUpgrade(out, BCTransportItems.PIPE_VOID_ITEM.get(), BCTransportItems.PIPE_VOID_FLUID.get(), sealant);
+
+        // Some of the basic gates can be made in a crafting table (the others need an assembly table)
+        Ingredient plug = Ingredient.of(BCTransportItems.PLUG_BLOCKER.get(), Items.COBBLESTONE);
+        gate(out, EnumGateMaterial.CLAY_BRICK, EnumGateModifier.NO_MODIFIER, Ingredient.of(Items.BRICK), plug);
+        gate(out, EnumGateMaterial.IRON, EnumGateModifier.NO_MODIFIER, Ingredient.of(Tags.Items.INGOTS_IRON), plug);
+        gate(out, EnumGateMaterial.NETHER_BRICK, EnumGateModifier.NO_MODIFIER, Ingredient.of(Items.NETHER_BRICK),
+            plug);
+        Ingredient ironGate = Ingredient.of(
+            BCSiliconItems.gate(new GateVariant(EnumGateLogic.AND, EnumGateMaterial.IRON, EnumGateModifier.NO_MODIFIER))
+        );
+        gate(out, EnumGateMaterial.IRON, EnumGateModifier.LAPIS, Ingredient.of(Tags.Items.GEMS_LAPIS), ironGate);
+        gate(out, EnumGateMaterial.IRON, EnumGateModifier.QUARTZ, Ingredient.of(Tags.Items.GEMS_QUARTZ), ironGate);
+
+        // AND gates can be turned into OR gates, and back
+        for (EnumGateMaterial material : EnumGateMaterial.VALUES) {
+            if (!material.canBeModified) {
+                continue;
+            }
+            for (EnumGateModifier modifier : EnumGateModifier.VALUES) {
+                Item and = BCSiliconItems.gate(new GateVariant(EnumGateLogic.AND, material, modifier));
+                Item or = BCSiliconItems.gate(new GateVariant(EnumGateLogic.OR, material, modifier));
+                gateSwap(out, and, or);
+                gateSwap(out, or, and);
+            }
+        }
+    }
+
+    /** A gate made of 4 of the given material around redstone, or with the given material around the center item. */
+    private static void gate(Consumer<FinishedRecipe> out, EnumGateMaterial material, EnumGateModifier modifier,
+        Ingredient around, Ingredient center) {
+        Item result = BCSiliconItems.gate(new GateVariant(EnumGateLogic.AND, material, modifier));
+        if (modifier == EnumGateModifier.NO_MODIFIER) {
+            ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, result)
+                .pattern(" m ")
+                .pattern("mrm")
+                .pattern(" b ")
+                .define('m', around)
+                .define('r', Tags.Items.DUSTS_REDSTONE)
+                .define('b', center)
+                .unlockedBy("has_redstone", has(Tags.Items.DUSTS_REDSTONE))
+                .save(out);
+        } else {
+            ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, result)
+                .pattern(" m ")
+                .pattern("mgm")
+                .pattern(" m ")
+                .define('m', around)
+                .define('g', center)
+                .unlockedBy("has_gate", has(center.getItems()[0].getItem()))
+                .save(out);
+        }
+    }
+
+    private static void gateSwap(Consumer<FinishedRecipe> out, Item from, Item to) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, to)
+            .requires(from)
+            .unlockedBy("has_gate", has(from))
+            .save(out, ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID,
+                ForgeRegistries.ITEMS.getKey(to).getPath() + "_from_" + ForgeRegistries.ITEMS.getKey(from).getPath()));
     }
 
     /** Turns a pipe into another by adding an item, and back again (losing the item). */

@@ -17,6 +17,7 @@ public final class BCSilicon {
         BCSiliconBlocks.init();
         BCSiliconItems.init();
         BCSiliconMenus.init();
+        BCSiliconPlugs.init();
         context.getModEventBus().addListener(BCSilicon::commonSetup);
     }
 

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gate": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "buildcraft:gate_nether_brick_and"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "buildcraft:gate_nether_brick_or_from_gate_nether_brick_and"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_gate",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "buildcraft:gate_nether_brick_or_from_gate_nether_brick_and"
+    ]
+  },
+  "sends_telemetry_event": false
+}

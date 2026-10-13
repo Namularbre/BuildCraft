@@ -21,11 +21,15 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.LogicalSide;
 
 import buildcraft.api.transport.pipe.IPipeHolder;
+import buildcraft.api.transport.pipe.IPipeHolder.IWriter;
 import buildcraft.api.transport.pipe.IPipeHolder.PipeMessageReceiver;
 
 /** Something attached to one side of a pipe (like a blocker, a gate or a facade). Pluggables also receive the pipe's
  * events, like behaviours and flows. */
 public abstract class PipePluggable {
+    /** The type of the messages of the pipe holder that are passed on to {@link #readPayload}. */
+    public static final int NET_UPDATE = 2;
+
     public final PluggableDefinition definition;
     public final IPipeHolder holder;
     public final Direction side;
@@ -50,6 +54,22 @@ public abstract class PipePluggable {
 
     public final void scheduleNetworkUpdate() {
         holder.scheduleNetworkUpdate(PipeMessageReceiver.PLUGGABLES[side.ordinal()]);
+    }
+
+    /** Sends a message to this pluggable on every client watching the pipe, which reads it in {@link #readPayload}. */
+    public final void sendMessage(IWriter writer) {
+        holder.sendMessage(PipeMessageReceiver.PLUGGABLES[side.ordinal()], buffer -> {
+            buffer.writeByte(NET_UPDATE);
+            writer.write(buffer);
+        });
+    }
+
+    /** Like {@link #sendMessage(IWriter)}, but only to the players that have a GUI of the pipe open. */
+    public final void sendGuiMessage(IWriter writer) {
+        holder.sendGuiMessage(PipeMessageReceiver.PLUGGABLES[side.ordinal()], buffer -> {
+            buffer.writeByte(NET_UPDATE);
+            writer.write(buffer);
+        });
     }
 
     public void onTick() {}
@@ -95,6 +115,7 @@ public abstract class PipePluggable {
         return null;
     }
 
+    /** @return True if redstone dust next to this side of the pipe should connect to it. */
     public boolean canConnectToRedstone() {
         return false;
     }

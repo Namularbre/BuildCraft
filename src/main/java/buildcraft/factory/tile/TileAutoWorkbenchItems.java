@@ -35,6 +35,8 @@ import buildcraft.api.mj.IMjConnector;
 import buildcraft.api.mj.IMjRedstoneReceiver;
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.mj.MjCapabilityHelper;
+import buildcraft.api.tiles.IHasWork;
+import buildcraft.api.tiles.TilesAPI;
 
 import buildcraft.lib.tile.ITickable;
 import buildcraft.lib.tile.TileBC;
@@ -99,6 +101,7 @@ public class TileAutoWorkbenchItems extends TileBC implements ITickable, IMjReds
         Arrays.fill(materialFilters, ItemStack.EMPTY);
         caps.addCapabilityInstance(ForgeCapabilities.ITEM_HANDLER, new ExternalInventory(), EnumPipePart.VALUES);
         caps.addProvider(mjCaps);
+        caps.addCapabilityInstance(TilesAPI.CAP_HAS_WORK, (IHasWork) () -> powerStored > 0, EnumPipePart.VALUES);
     }
 
     @Override

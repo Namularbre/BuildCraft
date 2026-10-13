@@ -6,6 +6,7 @@
 
 package buildcraft.transport.tile;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
@@ -65,7 +66,7 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
     /** The models of the pluggables on each side (null where there isn't one, or it isn't drawn in the model). */
     public static final ModelProperty<PluggableModelKey[]> PLUG_KEYS = new ModelProperty<>();
     // What pluggable messages hold
-    private static final int PLUG_REMOVE = 0, PLUG_CREATE = 1, PLUG_UPDATE = 2;
+    private static final int PLUG_REMOVE = 0, PLUG_CREATE = 1, PLUG_UPDATE = PipePluggable.NET_UPDATE;
 
     protected static final IdAllocator IDS = TileBC.IDS.makeChild("pipe");
 
@@ -102,6 +103,9 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
     private final Set<PipeMessageReceiver> networkGuiUpdates = EnumSet.noneOf(PipeMessageReceiver.class);
     /** The saved pipe, if its definition couldn't be loaded. Kept so that the pipe isn't lost forever. */
     private CompoundTag unknownData;
+    /** The redstone signal emitted on each side. Reset every tick: gates have to set it again to keep it on. */
+    private int[] redstoneValues = new int[6];
+    private int[] oldRedstoneValues = new int[6];
 
     public TilePipeHolder(BlockPos pos, BlockState state) {
         super(BCTransportBlocks.PIPE_HOLDER_TILE.get(), pos, state);
@@ -307,6 +311,7 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
 
     @Override
     public void tick() {
+        redstoneValues = new int[6];
         if (pipe != null) {
             pipe.onTick();
         }
@@ -336,6 +341,20 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
         if (scheduleRenderUpdate) {
             scheduleRenderUpdate = false;
             redrawBlock();
+        }
+
+        if (!level.isClientSide && !Arrays.equals(redstoneValues, oldRedstoneValues)) {
+            // Set first, as the neighbours read the new signal while they are updated
+            int[] previous = oldRedstoneValues;
+            oldRedstoneValues = redstoneValues;
+            Block block = getBlockState().getBlock();
+            level.updateNeighborsAt(worldPosition, block);
+            for (Direction face : Direction.values()) {
+                if (previous[face.ordinal()] != redstoneValues[face.ordinal()]) {
+                    // The signal is strong, so it goes through the block next to the pipe too
+                    level.updateNeighborsAt(worldPosition.relative(face), block);
+                }
+            }
         }
 
         if (!level.isClientSide) {
@@ -472,6 +491,29 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
             }
         }
         return null;
+    }
+
+    @Override
+    public int getRedstoneInput(@Nullable Direction side) {
+        if (side == null) {
+            return level.getBestNeighborSignal(worldPosition);
+        }
+        return level.getSignal(worldPosition.relative(side), side);
+    }
+
+    @Override
+    public boolean setRedstoneOutput(@Nullable Direction side, int value) {
+        if (side == null) {
+            Arrays.fill(redstoneValues, value);
+        } else {
+            redstoneValues[side.ordinal()] = value;
+        }
+        return true;
+    }
+
+    /** @return The redstone signal that the pipe emitted on the given side during the last tick. */
+    public int getRedstoneOutput(Direction side) {
+        return oldRedstoneValues[side.ordinal()];
     }
 
     @Override

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "g": {
+      "item": "buildcraft:gate_iron_and"
+    },
+    "m": {
+      "tag": "forge:gems/lapis"
+    }
+  },
+  "pattern": [
+    " m ",
+    "mgm",
+    " m "
+  ],
+  "result": {
+    "item": "buildcraft:gate_iron_and_lapis"
+  },
+  "show_notification": true
+}

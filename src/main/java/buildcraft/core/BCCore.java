@@ -12,8 +12,10 @@ import net.minecraft.world.item.ItemStack;
 
 import net.minecraftforge.registries.RegistryObject;
 
-import buildcraft.BuildCraft;
 import buildcraft.lib.registry.BCRegistries;
+
+import buildcraft.BuildCraft;
+import buildcraft.core.statements.BCCoreStatements;
 
 /** The core module: tools, gears, and the redstone engine. */
 public final class BCCore {
@@ -33,5 +35,6 @@ public final class BCCore {
     public static void init() {
         BCCoreBlocks.init();
         BCCoreItems.init();
+        BCCoreStatements.init();
     }
 }

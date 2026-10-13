@@ -17,7 +17,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import buildcraft.api.transport.pluggable.PipePluggable;
 
 
-/** Designates a tile that can contain a pipe. (Pluggables, wires and gates are not ported yet.) */
+/** Designates a tile that can contain a pipe. (Wires are not ported yet.) */
 public interface IPipeHolder {
     Level getPipeWorld();
 
@@ -54,6 +54,17 @@ public interface IPipeHolder {
 
 
     GameProfile getOwner();
+
+    /** @param side The side to look at, or null for the strongest signal around the pipe.
+     * @return The redstone signal (from 0 to 15) that the pipe receives. */
+    int getRedstoneInput(@Nullable Direction side);
+
+    /** Sets the redstone signal that the pipe emits. Outputs are reset every tick, so this must be called every tick
+     * to keep emitting a signal. Server side only.
+     *
+     * @param side The side to emit on, or null for every side.
+     * @return Whether the signal was set. */
+    boolean setRedstoneOutput(@Nullable Direction side, int value);
 
     /** @return True if at least 1 handler received this event, false if not. */
     boolean fireEvent(PipeEvent event);

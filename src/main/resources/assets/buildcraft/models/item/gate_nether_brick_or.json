@@ -1,0 +1,107 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "material": "minecraft:block/nether_bricks",
+    "lamp": "buildcraft:block/gate/gate_off",
+    "logic": "buildcraft:block/gate/gate_or",
+    "particle": "minecraft:block/nether_bricks"
+  },
+  "elements": [
+    {
+      "from": [
+        7,
+        5,
+        5
+      ],
+      "to": [
+        9.01,
+        11,
+        11
+      ],
+      "faces": {
+        "down": {
+          "texture": "#material"
+        },
+        "up": {
+          "texture": "#material"
+        },
+        "north": {
+          "texture": "#material"
+        },
+        "south": {
+          "texture": "#material"
+        },
+        "west": {
+          "texture": "#material"
+        },
+        "east": {
+          "texture": "#material"
+        }
+      }
+    },
+    {
+      "from": [
+        6.9,
+        6,
+        6
+      ],
+      "to": [
+        9.1,
+        10,
+        10
+      ],
+      "faces": {
+        "down": {
+          "texture": "#lamp"
+        },
+        "up": {
+          "texture": "#lamp"
+        },
+        "north": {
+          "texture": "#lamp"
+        },
+        "south": {
+          "texture": "#lamp"
+        },
+        "west": {
+          "texture": "#lamp"
+        },
+        "east": {
+          "texture": "#lamp"
+        }
+      }
+    },
+    {
+      "from": [
+        6.8,
+        7,
+        7
+      ],
+      "to": [
+        9.2,
+        9,
+        9
+      ],
+      "faces": {
+        "down": {
+          "texture": "#logic"
+        },
+        "up": {
+          "texture": "#logic"
+        },
+        "north": {
+          "texture": "#logic"
+        },
+        "south": {
+          "texture": "#logic"
+        },
+        "west": {
+          "texture": "#logic"
+        },
+        "east": {
+          "texture": "#logic"
+        }
+      }
+    }
+  ]
+}

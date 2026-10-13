@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "buildcraft:gate_gold_and_lapis"
+    }
+  ],
+  "result": {
+    "item": "buildcraft:gate_gold_or_lapis"
+  }
+}

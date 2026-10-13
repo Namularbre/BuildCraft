@@ -15,6 +15,7 @@ import buildcraft.lib.registry.BCRegistries;
 
 import buildcraft.silicon.container.ContainerAdvancedCraftingTable;
 import buildcraft.silicon.container.ContainerAssemblyTable;
+import buildcraft.silicon.container.ContainerGate;
 
 public final class BCSiliconMenus {
     public static final RegistryObject<MenuType<ContainerAssemblyTable>> ASSEMBLY_TABLE =
@@ -24,6 +25,9 @@ public final class BCSiliconMenus {
         BCRegistries.MENU_TYPES.register(
             "advanced_crafting_table", () -> IForgeMenuType.create(ContainerAdvancedCraftingTable::new)
         );
+
+    public static final RegistryObject<MenuType<ContainerGate>> GATE =
+        BCRegistries.MENU_TYPES.register("gate", () -> IForgeMenuType.create(ContainerGate::new));
 
     private BCSiliconMenus() {}
 

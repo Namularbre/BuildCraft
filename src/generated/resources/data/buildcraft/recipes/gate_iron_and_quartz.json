@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "g": {
+      "item": "buildcraft:gate_iron_and"
+    },
+    "m": {
+      "tag": "forge:gems/quartz"
+    }
+  },
+  "pattern": [
+    " m ",
+    "mgm",
+    " m "
+  ],
+  "result": {
+    "item": "buildcraft:gate_iron_and_quartz"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gate": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "buildcraft:gate_iron_and_quartz"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "buildcraft:gate_iron_or_quartz_from_gate_iron_and_quartz"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_gate",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "buildcraft:gate_iron_or_quartz_from_gate_iron_and_quartz"
+    ]
+  },
+  "sends_telemetry_event": false
+}
