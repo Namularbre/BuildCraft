@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "buildcraft:structure_pipe"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "buildcraft:plug_blocker"
+  }
+}

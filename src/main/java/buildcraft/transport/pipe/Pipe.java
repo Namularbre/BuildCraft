@@ -37,6 +37,7 @@ import buildcraft.api.transport.pipe.PipeDefinition;
 import buildcraft.api.transport.pipe.PipeEventConnectionChange;
 import buildcraft.api.transport.pipe.PipeFaceTex;
 import buildcraft.api.transport.pipe.PipeFlow;
+import buildcraft.api.transport.pluggable.PipePluggable;
 
 /** A pipe inside a {@link IPipeHolder}: its definition, plus the behaviour and flow that the definition created. */
 public final class Pipe implements IPipe {
@@ -241,12 +242,20 @@ public final class Pipe implements IPipe {
         types.clear();
 
         for (Direction facing : Direction.values()) {
+            PipePluggable plug = getHolder().getPluggable(facing);
+            if (plug != null && plug.isBlocking()) {
+                continue;
+            }
             BlockEntity oTile = getHolder().getNeighbourTile(facing);
             if (oTile == null) {
                 continue;
             }
             IPipe oPipe = getHolder().getNeighbourPipe(facing);
             if (oPipe != null) {
+                PipePluggable oPlug = oPipe.getHolder().getPluggable(facing.getOpposite());
+                if (oPlug != null && oPlug.isBlocking()) {
+                    continue;
+                }
                 if (oPipe.getBehaviour() != null && canPipesConnect(facing, this, oPipe)) {
                     connected.put(facing, DEFAULT_CONNECTION_DISTANCE);
                     types.put(facing, ConnectedType.PIPE);

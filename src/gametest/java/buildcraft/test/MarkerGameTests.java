@@ -29,9 +29,12 @@ import buildcraft.core.tile.TileMarkerVolume;
 @PrefixGameTestTemplate(false)
 public class MarkerGameTests {
     private static final String BIG = "gametest/empty7x7x7";
+    // Tests are placed next to each other: each test puts its markers at a different height, so that markers of
+    // different tests are never in line (and connect to each other)
     private static final BlockPos CORNER = new BlockPos(2, 1, 1);
     private static final BlockPos ALONG_X = new BlockPos(6, 1, 1);
     private static final BlockPos ALONG_Z = new BlockPos(2, 1, 5);
+    private static final BlockPos QUARRY_CORNER = CORNER.above();
 
     /** Clicking a marker connects it to the markers in line with it, which mark out a box. Removing one of them
      * breaks the box apart once fewer than 2 are left. */
@@ -57,25 +60,29 @@ public class MarkerGameTests {
     /** A quarry placed right next to a box of markers takes it as its area, and the markers go. */
     @GameTest(template = BIG)
     public static void quarryUsesMarkers(GameTestHelper helper) {
-        placeMarkers(helper);
-        marker(helper, CORNER).tryConnect();
-        BlockPos quarryPos = CORNER.west();
+        placeMarkers(helper, 1);
+        marker(helper, QUARRY_CORNER).tryConnect();
+        BlockPos quarryPos = QUARRY_CORNER.west();
         helper.setBlock(quarryPos, BCBuildersBlocks.QUARRY.get().defaultBlockState()
             .setValue(BlockQuarry.FACING, Direction.WEST));
         TileQuarry quarry = (TileQuarry) helper.getBlockEntity(quarryPos);
         quarry.onPlacedBy(null, ItemStack.EMPTY);
 
         Box frame = quarry.getFrameBox();
-        helper.assertTrue(frame != null && frame.min().equals(helper.absolutePos(CORNER))
-            && frame.max().equals(helper.absolutePos(new BlockPos(6, 5, 5))),
+        helper.assertTrue(frame != null && frame.min().equals(helper.absolutePos(QUARRY_CORNER))
+            && frame.max().equals(helper.absolutePos(new BlockPos(6, 6, 5))),
             "The frame should follow the markers: " + frame);
-        helper.assertBlockNotPresent(BCCoreBlocks.MARKER_VOLUME.get(), CORNER);
-        helper.assertBlockNotPresent(BCCoreBlocks.MARKER_VOLUME.get(), ALONG_X);
+        helper.assertBlockNotPresent(BCCoreBlocks.MARKER_VOLUME.get(), QUARRY_CORNER);
+        helper.assertBlockNotPresent(BCCoreBlocks.MARKER_VOLUME.get(), ALONG_X.above());
         helper.succeed();
     }
 
     private static void placeMarkers(GameTestHelper helper) {
-        for (BlockPos pos : new BlockPos[] { CORNER, ALONG_X, ALONG_Z }) {
+        placeMarkers(helper, 0);
+    }
+
+    private static void placeMarkers(GameTestHelper helper, int up) {
+        for (BlockPos pos : new BlockPos[] { CORNER.above(up), ALONG_X.above(up), ALONG_Z.above(up) }) {
             helper.setBlock(pos.below(), Blocks.STONE);
             helper.setBlock(pos, BCCoreBlocks.MARKER_VOLUME.get());
         }

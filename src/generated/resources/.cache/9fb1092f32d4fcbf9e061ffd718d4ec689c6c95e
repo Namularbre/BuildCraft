@@ -1,4 +1,5 @@
-// 1.20.1	2026-10-13T00:03:22.015541	Recipes
+// 1.20.1	2026-10-13T11:05:55.8825028	Recipes
+426815b71078e7b84841207a01647f34ec5d28d7 data/buildcraft/advancements/recipes/building_blocks/structure_pipe.json
 4b98a241bbf735254a8a8a160cabb08b0980f83b data/buildcraft/advancements/recipes/misc/advanced_crafting_table.json
 7e4ba0562e562bee61c3567c9a77fedfbfd77300 data/buildcraft/advancements/recipes/misc/assembly_table.json
 2e2a97af27918323b4060658a3d91af618935769 data/buildcraft/advancements/recipes/misc/autoworkbench_item.json
@@ -40,6 +41,8 @@ cd4fd1c0b53bcc27e83353d963997ac3f31a6ec3 data/buildcraft/advancements/recipes/tr
 57fe1555d1082c47bcdd2a1dcc364a3b654fdc71 data/buildcraft/advancements/recipes/transportation/iron_fluid_pipe.json
 1f7426bf4df5fcbe6945690a1e409485db6aa07a data/buildcraft/advancements/recipes/transportation/iron_fluid_pipe_undo.json
 eef4570b757f054a54b20721c4d33130f40a3fd6 data/buildcraft/advancements/recipes/transportation/iron_item_pipe.json
+2f3c5a5850e10bb2e301a080bc816ea03fb1a5b0 data/buildcraft/advancements/recipes/transportation/plug_blocker.json
+22176746c88ad4669af399a31d0c22a3657e7c23 data/buildcraft/advancements/recipes/transportation/plug_power_adaptor.json
 ca04500f5cd56135124dd61fb2d411bfd9b15ea5 data/buildcraft/advancements/recipes/transportation/quartz_fluid_pipe.json
 6a73477d76b0eceb87219b76eb1f232509d420c9 data/buildcraft/advancements/recipes/transportation/quartz_fluid_pipe_undo.json
 b2a0334d58295aa13fb8eb802bbf77a54fd3fad2 data/buildcraft/advancements/recipes/transportation/quartz_item_pipe.json
@@ -94,6 +97,8 @@ cf41c1403132d45d7bb29028a1cd633439510389 data/buildcraft/recipes/laser.json
 dca699762b3b770eaf3d1eab223bfbfe3835a6bd data/buildcraft/recipes/marker_volume.json
 a135cf7eaca9e57d05dfde83f2f69915bfbe7f8d data/buildcraft/recipes/mining_well.json
 5e1599a04186defdfb4c32ff2cf7df06db35a8c3 data/buildcraft/recipes/pipe_sealant.json
+2e762bc1bcb3f3199597d3c0d0675812f47ba155 data/buildcraft/recipes/plug_blocker.json
+4aa7e2b0ef28e398b0328225ae2e1bf790805d73 data/buildcraft/recipes/plug_power_adaptor.json
 2a3331410399fe0801c27627a7392908790883a8 data/buildcraft/recipes/pump.json
 ec640c63b9db20b97b39144afdf29416998393eb data/buildcraft/recipes/quarry.json
 505fbef1a82a76bc128ebab4b31515123c51ef65 data/buildcraft/recipes/quartz_fluid_pipe.json
@@ -114,6 +119,7 @@ c000d163eb265f2d4e4bf15a6e1ec8d2ff44bd8d data/buildcraft/recipes/stone_fluid_pip
 a87d895b6d357fa89b3c69e7d220560c0bc66675 data/buildcraft/recipes/stone_item_pipe.json
 9623c1b391192178e8bb91b7fbe7c47588af4bdb data/buildcraft/recipes/stone_power_pipe.json
 87d08d9cfb5eab611ecbbd4c628bf45309347e5c data/buildcraft/recipes/stone_power_pipe_undo.json
+383c00fc647ce36daa886ce7538741670d88af67 data/buildcraft/recipes/structure_pipe.json
 37387f0429feb943b44886a8ef522a786145ae00 data/buildcraft/recipes/tank.json
 ba3a2500a12e6eaad06fb32aba95799cb31dd35b data/buildcraft/recipes/void_fluid_pipe.json
 eedc58456bcee3a3af3b86b397a4ec035cb0be70 data/buildcraft/recipes/void_fluid_pipe_undo.json

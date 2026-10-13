@@ -16,6 +16,7 @@ public final class BCTransport {
 
     public static void init(IEventBus modBus) {
         BCTransportPipes.init();
+        BCTransportPlugs.init();
         BCTransportBlocks.init();
         BCTransportItems.init();
         BCTransportMenus.init();

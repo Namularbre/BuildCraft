@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import net.minecraftforge.common.capabilities.Capability;
 
+import buildcraft.api.transport.pluggable.PipePluggable;
+
 
 /** Designates a tile that can contain a pipe. (Pluggables, wires and gates are not ported yet.) */
 public interface IPipeHolder {
@@ -32,6 +34,16 @@ public interface IPipeHolder {
 
     @Nullable
     BlockEntity getNeighbourTile(Direction side);
+
+    /** @return The pluggable on the given side of the pipe, if there is one. */
+    @Nullable
+    PipePluggable getPluggable(@Nullable Direction side);
+
+    /** Puts the given pluggable on the given side (or removes the one there, if null). Server side only.
+     *
+     * @return The pluggable that was there before. */
+    @Nullable
+    PipePluggable replacePluggable(Direction side, @Nullable PipePluggable with);
 
     @Nullable
     IPipe getNeighbourPipe(Direction side);

@@ -38,6 +38,7 @@ import net.minecraftforge.client.model.data.ModelData;
 
 import buildcraft.api.transport.pipe.PipeDefinition;
 import buildcraft.api.transport.pipe.PipeFaceTex;
+import buildcraft.api.transport.pluggable.PluggableModelKey;
 
 import buildcraft.transport.pipe.PipeModelKey;
 import buildcraft.transport.tile.TilePipeHolder;
@@ -52,6 +53,7 @@ public class PipeBakedModel implements IDynamicBakedModel {
 
     private final ResourceLocation modelId;
     private final Map<PipeModelKey, List<BakedQuad>> cache = new ConcurrentHashMap<>();
+    private final Map<PluggableModelKey, List<BakedQuad>> plugCache = new ConcurrentHashMap<>();
 
     public PipeBakedModel(ResourceLocation modelId) {
         this.modelId = modelId;
@@ -69,7 +71,57 @@ public class PipeBakedModel implements IDynamicBakedModel {
         if (key == null || key.definition == null) {
             return List.of();
         }
-        return cache.computeIfAbsent(key, this::generate);
+        List<BakedQuad> pipe = cache.computeIfAbsent(key, this::generate);
+        PluggableModelKey[] plugs = data.get(TilePipeHolder.PLUG_KEYS);
+        if (plugs == null) {
+            return pipe;
+        }
+        List<BakedQuad> all = null;
+        for (PluggableModelKey plug : plugs) {
+            if (plug != null) {
+                if (all == null) {
+                    all = new ArrayList<>(pipe);
+                }
+                all.addAll(plugCache.computeIfAbsent(plug, this::generatePlug));
+            }
+        }
+        return all == null ? pipe : all;
+    }
+
+    /** The boxes of the pluggable's model, turned from the west side to its side. */
+    private List<BakedQuad> generatePlug(PluggableModelKey key) {
+        List<PlugModels.Box> boxes = PlugModels.get(key);
+        if (boxes == null) {
+            return List.of();
+        }
+        List<BakedQuad> quads = new ArrayList<>();
+        for (PlugModels.Box box : boxes) {
+            float[] a = rotateFromWest(box.from(), key.side);
+            float[] b = rotateFromWest(box.to(), key.side);
+            Vector3f from = new Vector3f(Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.min(a[2], b[2]));
+            Vector3f to = new Vector3f(Math.max(a[0], b[0]), Math.max(a[1], b[1]), Math.max(a[2], b[2]));
+            TextureAtlasSprite sprite = getSprite(box.texture().toString());
+            for (Direction face : Direction.values()) {
+                float[] min = { from.x, from.y, from.z };
+                float[] max = { to.x, to.y, to.z };
+                Vector3f[] flat = faceBox(face, min, max);
+                quads.add(bake(flat[0], flat[1], face, sprite));
+            }
+        }
+        return quads;
+    }
+
+    /** Turns a point (in pixels) of a model on the west side so that it is on the given side. */
+    private static float[] rotateFromWest(float[] p, Direction side) {
+        float x = p[0], y = p[1], z = p[2];
+        return switch (side) {
+            case WEST -> new float[] { x, y, z };
+            case EAST -> new float[] { 16 - x, y, 16 - z };
+            case NORTH -> new float[] { 16 - z, y, x };
+            case SOUTH -> new float[] { z, y, 16 - x };
+            case DOWN -> new float[] { y, x, z };
+            case UP -> new float[] { 16 - y, 16 - x, z };
+        };
     }
 
     private List<BakedQuad> generate(PipeModelKey key) {

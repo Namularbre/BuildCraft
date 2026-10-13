@@ -27,12 +27,14 @@ import buildcraft.transport.pipe.behaviour.PipeBehaviourIron;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourQuartz;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourSandstone;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourStone;
+import buildcraft.transport.pipe.behaviour.PipeBehaviourStructure;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourVoid;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourWood;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourWoodPower;
 import buildcraft.transport.pipe.flow.PipeFlowFluids;
 import buildcraft.transport.pipe.flow.PipeFlowItems;
 import buildcraft.transport.pipe.flow.PipeFlowPower;
+import buildcraft.transport.pipe.flow.PipeFlowStructure;
 
 /** Every pipe definition. Must be loaded while BuildCraft is the active mod, as definitions take their namespace from
  * it. */
@@ -45,7 +47,12 @@ public final class BCTransportPipes {
         PipeApi.flowItems = new PipeFlowType(PipeFlowItems::new, PipeFlowItems::new);
         PipeApi.flowPower = new PipeFlowType(PipeFlowPower::new, PipeFlowPower::new);
         PipeApi.flowFluids = new PipeFlowType(PipeFlowFluids::new, PipeFlowFluids::new);
+        PipeApi.flowStructure = new PipeFlowType(PipeFlowStructure::new, PipeFlowStructure::new);
     }
+
+    public static final PipeDefinition STRUCTURE = new PipeDefinitionBuilder(BuildCraft.MODID)
+        .logic(PipeBehaviourStructure::new, PipeBehaviourStructure::new).enableColouring()
+        .id("structure").tex("structure").flow(PipeApi.flowStructure).define();
 
     public static final PipeDefinition WOOD_ITEM = itemPipe(
         "wood_item", PipeBehaviourWood::new, PipeBehaviourWood::new, "_clear", "_filled"

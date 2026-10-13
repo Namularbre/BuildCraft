@@ -90,6 +90,9 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_IRON_ITEM.get(), "Iron Transport Pipe");
             add(BCTransportItems.PIPE_VOID_ITEM.get(), "Void Transport Pipe");
             add(BCTransportItems.PIPE_DIAMOND_ITEM.get(), "Diamond Transport Pipe");
+            add(BCTransportItems.PIPE_STRUCTURE.get(), "Structure Pipe");
+            add(BCTransportItems.PLUG_BLOCKER.get(), "Pipe Plug");
+            add(BCTransportItems.PLUG_POWER_ADAPTOR.get(), "Power Adapter");
             add(BCTransportItems.PIPE_DIAMOND_FLUID.get(), "Diamond Fluid Pipe");
             add("buildcraft.gui.diamond_pipe", "Filters");
             add(BCTransportItems.PIPE_WOOD_POWER.get(), "Wooden Kinesis Pipe");
@@ -186,6 +189,9 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_IRON_ITEM.get(), "Tuyau de transport en fer");
             add(BCTransportItems.PIPE_VOID_ITEM.get(), "Tuyau d'évacuation");
             add(BCTransportItems.PIPE_DIAMOND_ITEM.get(), "Tuyau de transport en diamant");
+            add(BCTransportItems.PIPE_STRUCTURE.get(), "Tuyau de structure");
+            add(BCTransportItems.PLUG_BLOCKER.get(), "Bouchon de tuyau");
+            add(BCTransportItems.PLUG_POWER_ADAPTOR.get(), "Adaptateur d'énergie");
             add(BCTransportItems.PIPE_DIAMOND_FLUID.get(), "Tuyau à fluide en diamant");
             add("buildcraft.gui.diamond_pipe", "Filtres");
             add(BCTransportItems.PIPE_WOOD_POWER.get(), "Tuyau cinétique en bois");

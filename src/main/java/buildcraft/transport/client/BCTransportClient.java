@@ -6,6 +6,8 @@
 
 package buildcraft.transport.client;
 
+import java.util.List;
+
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -23,11 +25,26 @@ import buildcraft.transport.BCTransportBlocks;
 import buildcraft.transport.BCTransportMenus;
 import buildcraft.transport.client.gui.GuiDiamondPipe;
 import buildcraft.transport.client.model.PipeBakedModel;
+import buildcraft.transport.client.model.PlugModels;
 import buildcraft.transport.client.render.RenderPipeHolder;
+import buildcraft.transport.plug.PluggableBlocker;
+import buildcraft.transport.plug.PluggablePowerAdaptor;
 
 @Mod.EventBusSubscriber(modid = BuildCraft.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class BCTransportClient {
     private BCTransportClient() {}
+
+    static {
+        ResourceLocation plug = ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "block/pipe/plug");
+        ResourceLocation adaptor = ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "block/pipe/power_adapter");
+        PlugModels.register(PluggableBlocker.Key.class, List.of(
+            new PlugModels.Box(new float[] { 2, 4, 4 }, new float[] { 4.01f, 12, 12 }, plug)
+        ));
+        PlugModels.register(PluggablePowerAdaptor.Key.class, List.of(
+            new PlugModels.Box(new float[] { 2, 4, 4 }, new float[] { 4.01f, 12, 12 }, adaptor),
+            new PlugModels.Box(new float[] { 0, 3, 3 }, new float[] { 2, 13, 13 }, adaptor)
+        ));
+    }
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {

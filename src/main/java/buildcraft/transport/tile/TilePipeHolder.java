@@ -18,6 +18,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -44,6 +45,9 @@ import buildcraft.api.transport.pipe.PipeApi;
 import buildcraft.api.transport.pipe.PipeDefinition;
 import buildcraft.api.transport.pipe.PipeEvent;
 import buildcraft.api.transport.pipe.PipeFlow;
+import buildcraft.api.transport.pluggable.PipePluggable;
+import buildcraft.api.transport.pluggable.PluggableDefinition;
+import buildcraft.api.transport.pluggable.PluggableModelKey;
 
 import buildcraft.lib.misc.data.IdAllocator;
 import buildcraft.lib.tile.ITickable;
@@ -58,6 +62,10 @@ import buildcraft.transport.pipe.PipeModelKey;
 public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
     /** The model of the pipe, for its dynamic block model. */
     public static final ModelProperty<PipeModelKey> MODEL_KEY = new ModelProperty<>();
+    /** The models of the pluggables on each side (null where there isn't one, or it isn't drawn in the model). */
+    public static final ModelProperty<PluggableModelKey[]> PLUG_KEYS = new ModelProperty<>();
+    // What pluggable messages hold
+    private static final int PLUG_REMOVE = 0, PLUG_CREATE = 1, PLUG_UPDATE = 2;
 
     protected static final IdAllocator IDS = TileBC.IDS.makeChild("pipe");
 
@@ -75,8 +83,20 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
         return NET_UPDATE_MULTI + 1 + type.ordinal();
     }
 
+    /** @return The side of the pluggable that the given message id is for, or null if it isn't for a pluggable. */
+    @Nullable
+    private static Direction getPlugSide(int id) {
+        for (Direction side : Direction.values()) {
+            if (id == getReceiverId(PipeMessageReceiver.PLUGGABLES[side.ordinal()])) {
+                return side;
+            }
+        }
+        return null;
+    }
+
     public final PipeEventBus eventBus = new PipeEventBus();
     private Pipe pipe;
+    private final PipePluggable[] pluggables = new PipePluggable[6];
     private boolean scheduleRenderUpdate = true;
     private final Set<PipeMessageReceiver> networkUpdates = EnumSet.noneOf(PipeMessageReceiver.class);
     private final Set<PipeMessageReceiver> networkGuiUpdates = EnumSet.noneOf(PipeMessageReceiver.class);
@@ -118,6 +138,17 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
         } else if (unknownData != null) {
             nbt.put("pipe", unknownData);
         }
+        CompoundTag plugs = new CompoundTag();
+        for (Direction side : Direction.values()) {
+            PipePluggable plug = pluggables[side.ordinal()];
+            if (plug != null) {
+                CompoundTag plugTag = new CompoundTag();
+                plugTag.putString("id", plug.definition.identifier.toString());
+                plugTag.put("data", plug.writeToNbt());
+                plugs.put(side.getSerializedName(), plugTag);
+            }
+        }
+        nbt.put("plugs", plugs);
     }
 
     @Override
@@ -132,6 +163,91 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
                 // Unfortunately we can't throw an exception because then this tile won't persist :/
                 BCLog.logger.warn("[transport.pipe] Couldn't load the pipe at {}: {}", worldPosition, e.getMessage());
                 unknownData = pipeTag.copy();
+            }
+        }
+        CompoundTag plugs = nbt.getCompound("plugs");
+        for (Direction side : Direction.values()) {
+            PipePluggable plug = null;
+            if (plugs.contains(side.getSerializedName())) {
+                CompoundTag plugTag = plugs.getCompound(side.getSerializedName());
+                PluggableDefinition definition = PipeApi.pluggableRegistry.getDefinition(
+                    ResourceLocation.parse(plugTag.getString("id"))
+                );
+                if (definition == null) {
+                    BCLog.logger.warn("[transport.pipe] Unknown pluggable '{}' at {}", plugTag.getString("id"),
+                        worldPosition);
+                } else {
+                    plug = definition.readFromNbt(this, side, plugTag.getCompound("data"));
+                }
+            }
+            setPluggable(side, plug);
+        }
+    }
+
+    // Pluggables
+
+    @Nullable
+    @Override
+    public PipePluggable getPluggable(@Nullable Direction side) {
+        return side == null ? null : pluggables[side.ordinal()];
+    }
+
+    @Nullable
+    @Override
+    public PipePluggable replacePluggable(Direction side, @Nullable PipePluggable with) {
+        PipePluggable old = setPluggable(side, with);
+        if (level != null && !level.isClientSide) {
+            sendMessage(PipeMessageReceiver.PLUGGABLES[side.ordinal()], buffer -> writePlugCreation(buffer, with));
+            if (pipe != null) {
+                pipe.markForUpdate();
+            }
+            // The pipe next to this one may connect differently now
+            level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
+            setChanged();
+        }
+        return old;
+    }
+
+    /** Swaps the pluggable on the given side, without telling anyone. */
+    private PipePluggable setPluggable(Direction side, @Nullable PipePluggable with) {
+        PipePluggable old = pluggables[side.ordinal()];
+        if (old != null) {
+            eventBus.unregisterHandler(old);
+        }
+        pluggables[side.ordinal()] = with;
+        if (with != null) {
+            eventBus.registerHandler(with);
+        }
+        caps.invalidate();
+        scheduleRenderUpdate();
+        return old;
+    }
+
+    private static void writePlugCreation(FriendlyByteBuf buffer, @Nullable PipePluggable plug) {
+        if (plug == null) {
+            buffer.writeByte(PLUG_REMOVE);
+        } else {
+            buffer.writeByte(PLUG_CREATE);
+            buffer.writeResourceLocation(plug.definition.identifier);
+            plug.writeCreationPayload(buffer);
+        }
+    }
+
+    private void readPlugMessage(Direction side, FriendlyByteBuf buffer, LogicalSide netSide) {
+        int type = buffer.readUnsignedByte();
+        if (type == PLUG_REMOVE) {
+            setPluggable(side, null);
+        } else if (type == PLUG_CREATE) {
+            ResourceLocation id = buffer.readResourceLocation();
+            PluggableDefinition definition = PipeApi.pluggableRegistry.getDefinition(id);
+            if (definition == null) {
+                throw new IllegalStateException("Unknown pluggable " + id);
+            }
+            setPluggable(side, definition.loadFromBuffer(this, side, buffer));
+        } else if (type == PLUG_UPDATE) {
+            PipePluggable plug = pluggables[side.ordinal()];
+            if (plug != null) {
+                plug.readPayload(buffer, netSide);
             }
         }
     }
@@ -177,6 +293,11 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
 
     /** Adds the pipe item, and everything inside the pipe. */
     public void addDrops(NonNullList<ItemStack> toDrop) {
+        for (PipePluggable plug : pluggables) {
+            if (plug != null) {
+                plug.addDrops(toDrop);
+            }
+        }
         if (pipe != null) {
             pipe.addDrops(toDrop);
         }
@@ -188,6 +309,11 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
     public void tick() {
         if (pipe != null) {
             pipe.onTick();
+        }
+        for (PipePluggable plug : pluggables) {
+            if (plug != null) {
+                plug.onTick();
+            }
         }
 
         // Send network updates
@@ -232,6 +358,17 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
                     buffer.writeBoolean(true);
                     pipe.writeCreationPayload(buffer);
                 }
+                for (PipePluggable plug : pluggables) {
+                    writePlugCreation(buffer, plug);
+                }
+            } else if (getPlugSide(id) != null) {
+                PipePluggable plug = pluggables[getPlugSide(id).ordinal()];
+                if (plug == null) {
+                    buffer.writeByte(PLUG_REMOVE);
+                } else {
+                    buffer.writeByte(PLUG_UPDATE);
+                    plug.writePayload(buffer, side);
+                }
             } else if (id == NET_UPDATE_PIPE_BEHAVIOUR) {
                 if (pipe == null) {
                     buffer.writeBoolean(false);
@@ -262,7 +399,12 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
                 } else if (pipe != null) {
                     setPipe(null);
                 }
+                for (Direction face : Direction.values()) {
+                    readPlugMessage(face, buffer, side);
+                }
                 scheduleRenderUpdate();
+            } else if (getPlugSide(id) != null) {
+                readPlugMessage(getPlugSide(id), buffer, side);
             } else if (id == NET_UPDATE_PIPE_BEHAVIOUR) {
                 if (buffer.readBoolean()) {
                     if (pipe == null) {
@@ -367,6 +509,16 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
+        PipePluggable plug = getPluggable(facing);
+        if (plug != null) {
+            LazyOptional<T> val = plug.getCapability(capability);
+            if (val.isPresent()) {
+                return val;
+            }
+            if (plug.isBlocking()) {
+                return LazyOptional.empty();
+            }
+        }
         if (pipe != null && capability != PipeApi.CAP_PIPE && capability != PipeApi.CAP_PIPE_HOLDER) {
             LazyOptional<T> val = pipe.getCapability(capability, facing);
             if (val.isPresent()) {
@@ -381,6 +533,11 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
     @Nonnull
     @Override
     public ModelData getModelData() {
-        return ModelData.builder().with(MODEL_KEY, pipe == null ? PipeModelKey.DEFAULT_KEY : pipe.getModel()).build();
+        PluggableModelKey[] plugKeys = new PluggableModelKey[6];
+        for (int i = 0; i < 6; i++) {
+            plugKeys[i] = pluggables[i] == null ? null : pluggables[i].getModelRenderKey();
+        }
+        return ModelData.builder().with(MODEL_KEY, pipe == null ? PipeModelKey.DEFAULT_KEY : pipe.getModel())
+            .with(PLUG_KEYS, plugKeys).build();
     }
 }

@@ -16,6 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 import buildcraft.api.transport.pipe.PipeApi;
 import buildcraft.api.transport.pipe.PipeDefinition;
 
+import buildcraft.lib.item.ItemPluggableSimple;
 import buildcraft.lib.registry.BCRegistries;
 
 import buildcraft.transport.item.ItemPipeHolder;
@@ -52,6 +53,15 @@ public final class BCTransportItems {
     public static final RegistryObject<ItemPipeHolder> PIPE_IRON_FLUID = pipe(BCTransportPipes.IRON_FLUID);
     public static final RegistryObject<ItemPipeHolder> PIPE_DIAMOND_FLUID = pipe(BCTransportPipes.DIAMOND_FLUID);
     public static final RegistryObject<ItemPipeHolder> PIPE_VOID_FLUID = pipe(BCTransportPipes.VOID_FLUID);
+
+    public static final RegistryObject<ItemPipeHolder> PIPE_STRUCTURE = pipe(BCTransportPipes.STRUCTURE);
+
+    public static final RegistryObject<ItemPluggableSimple> PLUG_BLOCKER = BCRegistries.ITEMS.register(
+        "plug_blocker", () -> new ItemPluggableSimple(new Item.Properties(), BCTransportPlugs.BLOCKER)
+    );
+    public static final RegistryObject<ItemPluggableSimple> PLUG_POWER_ADAPTOR = BCRegistries.ITEMS.register(
+        "plug_power_adaptor", () -> new ItemPluggableSimple(new Item.Properties(), BCTransportPlugs.POWER_ADAPTOR)
+    );
 
     /** Turns item pipes into fluid pipes. */
     public static final RegistryObject<Item> PIPE_SEALANT =

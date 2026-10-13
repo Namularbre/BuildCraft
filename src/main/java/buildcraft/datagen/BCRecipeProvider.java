@@ -258,6 +258,27 @@ public class BCRecipeProvider extends RecipeProvider {
         pipe(out, BCTransportItems.PIPE_SANDSTONE_ITEM.get(), Ingredient.of(Tags.Items.SANDSTONE));
         pipe(out, BCTransportItems.PIPE_IRON_ITEM.get(), Ingredient.of(Tags.Items.INGOTS_IRON));
         pipe(out, BCTransportItems.PIPE_DIAMOND_ITEM.get(), Ingredient.of(Tags.Items.GEMS_DIAMOND));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BCTransportItems.PIPE_STRUCTURE.get(), 8)
+            .pattern("cgc")
+            .define('c', Tags.Items.COBBLESTONE)
+            .define('g', Items.GRAVEL)
+            .unlockedBy("has_gravel", has(Items.GRAVEL))
+            .save(out);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BCTransportItems.PLUG_BLOCKER.get(), 4)
+            .requires(BCTransportItems.PIPE_STRUCTURE.get())
+            .unlockedBy("has_structure_pipe", has(BCTransportItems.PIPE_STRUCTURE.get()))
+            .save(out);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, BCTransportItems.PLUG_POWER_ADAPTOR.get(), 4)
+            .pattern("sis")
+            .pattern("sgs")
+            .pattern("srs")
+            .define('s', BCTransportItems.PIPE_STRUCTURE.get())
+            .define('i', Tags.Items.INGOTS_GOLD)
+            .define('g', BCTags.Items.GEARS_STONE)
+            .define('r', Tags.Items.DUSTS_REDSTONE)
+            .unlockedBy("has_structure_pipe", has(BCTransportItems.PIPE_STRUCTURE.get()))
+            .save(out);
         pipe(
             out, BCTransportItems.PIPE_VOID_ITEM.get(), Ingredient.of(Tags.Items.DYES_BLACK),
             Ingredient.of(Tags.Items.DUSTS_REDSTONE)

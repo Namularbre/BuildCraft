@@ -21,8 +21,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -33,7 +35,9 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import buildcraft.api.core.EnumPipePart;
+import buildcraft.api.transport.IItemPluggable;
 import buildcraft.api.transport.pipe.PipeApi;
+import buildcraft.api.transport.pluggable.PipePluggable;
 
 import buildcraft.lib.block.BlockBCTile;
 import buildcraft.lib.tile.TileBC;
@@ -104,7 +108,59 @@ public class BlockPipeHolder extends BlockBCTile {
                 mask |= 1 << dir.ordinal();
             }
         }
-        return SHAPES[mask];
+        VoxelShape shape = SHAPES[mask];
+        if (level.getBlockEntity(pos) instanceof TilePipeHolder tile) {
+            for (Direction dir : Direction.values()) {
+                PipePluggable plug = tile.getPluggable(dir);
+                if (plug != null) {
+                    shape = Shapes.or(shape, Shapes.create(plug.getBoundingBox()));
+                }
+            }
+        }
+        return shape;
+    }
+
+    /** @return The side of the pluggable that the given (world) position is on, or null if it isn't on one. */
+    @Nullable
+    private static Direction getPluggableAt(TilePipeHolder tile, BlockPos pos, Vec3 location) {
+        Vec3 local = location.subtract(pos.getX(), pos.getY(), pos.getZ());
+        for (Direction dir : Direction.values()) {
+            PipePluggable plug = tile.getPluggable(dir);
+            if (plug != null && plug.getBoundingBox().inflate(1e-4).contains(local)) {
+                return dir;
+            }
+        }
+        return null;
+    }
+
+    /** @return The side of the pluggable that the player is looking at, if it is closer than the pipe itself. */
+    @Nullable
+    private static Direction getPluggableLookedAt(TilePipeHolder tile, BlockPos pos, Player player) {
+        Vec3 eye = player.getEyePosition();
+        Vec3 end = eye.add(player.getViewVector(1).scale(player.getBlockReach() + 1));
+        Direction best = null;
+        double bestDist = Double.MAX_VALUE;
+        for (Direction dir : Direction.values()) {
+            PipePluggable plug = tile.getPluggable(dir);
+            if (plug != null) {
+                var hit = plug.getBoundingBox().move(pos).clip(eye, end);
+                if (hit.isPresent() && hit.get().distanceToSqr(eye) < bestDist) {
+                    bestDist = hit.get().distanceToSqr(eye);
+                    best = dir;
+                }
+            }
+        }
+        if (best == null) {
+            return null;
+        }
+        Pipe pipe = tile.getPipe();
+        if (pipe != null) {
+            var pipeHit = SHAPES[0].bounds().move(pos).clip(eye, end);
+            if (pipeHit.isPresent() && pipeHit.get().distanceToSqr(eye) < bestDist) {
+                return null;
+            }
+        }
+        return best;
     }
 
     /** @return The part of the pipe that the given hit is on: the center, or one of the connections. */
@@ -137,6 +193,29 @@ public class BlockPipeHolder extends BlockBCTile {
         }
         EnumPipePart part = getPartHit(pos, hit.getLocation());
         Vec3 local = hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
+        if (level.getBlockEntity(pos) instanceof TilePipeHolder tile) {
+            Direction plugSide = getPluggableAt(tile, pos, hit.getLocation());
+            if (plugSide != null) {
+                PipePluggable plug = tile.getPluggable(plugSide);
+                return plug.onPluggableActivate(player, hit, (float) local.x, (float) local.y, (float) local.z)
+                    ? InteractionResult.CONSUME : InteractionResult.PASS;
+            }
+            ItemStack held = player.getItemInHand(hand);
+            if (held.getItem() instanceof IItemPluggable itemPlug) {
+                Direction side = part.face != null ? part.face : hit.getDirection();
+                if (tile.getPluggable(side) == null) {
+                    PipePluggable plug = itemPlug.onPlace(held, tile, side, player, hand);
+                    if (plug != null) {
+                        tile.replacePluggable(side, plug);
+                        plug.onPlacedBy(player);
+                        if (!player.getAbilities().instabuild) {
+                            held.shrink(1);
+                        }
+                        return InteractionResult.CONSUME;
+                    }
+                }
+            }
+        }
         if (pipe.getBehaviour().onPipeActivate(
             player, hit, (float) local.x, (float) local.y, (float) local.z, part
         )) {
@@ -167,9 +246,39 @@ public class BlockPipeHolder extends BlockBCTile {
         return drops;
     }
 
+    /** Breaking a pluggable only removes it (not the pipe). */
+    @Override
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest,
+        FluidState fluid) {
+        if (level.getBlockEntity(pos) instanceof TilePipeHolder tile) {
+            Direction plugSide = getPluggableLookedAt(tile, pos, player);
+            if (plugSide != null) {
+                if (!level.isClientSide) {
+                    PipePluggable removed = tile.replacePluggable(plugSide, null);
+                    if (removed != null) {
+                        removed.onRemove();
+                        if (!player.getAbilities().instabuild) {
+                            NonNullList<ItemStack> drops = NonNullList.create();
+                            removed.addDrops(drops);
+                            drops.forEach(stack -> Block.popResource(level, pos, stack));
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
+    }
+
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos,
         Player player) {
+        if (level.getBlockEntity(pos) instanceof TilePipeHolder tile) {
+            Direction plugSide = getPluggableAt(tile, pos, target.getLocation());
+            if (plugSide != null) {
+                return tile.getPluggable(plugSide).getPickStack();
+            }
+        }
         Pipe pipe = getPipe(level, pos);
         if (pipe != null) {
             Item item = (Item) PipeApi.pipeRegistry.getItemForPipe(pipe.getDefinition());
