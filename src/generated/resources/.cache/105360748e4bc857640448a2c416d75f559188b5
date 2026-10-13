@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-13T23:35:34.1251135	Item Models: buildcraft
+// 1.20.1	2026-10-14T00:08:54.5504237	Item Models: buildcraft
 599b6003dbe28c528cebe2d3ebf097f5c54f2e42 assets/buildcraft/models/item/advanced_crafting_table.json
 d2069c3f75ced0d1af479d1df57851ae6b44b5dd assets/buildcraft/models/item/architect_table.json
 efd3bf6432cd66ca8f8f91950c9ae9cfaf2e737d assets/buildcraft/models/item/assembly_table.json
@@ -9,6 +9,7 @@ cf0c0a207b01646a7ff4f97cae2b5758148e907d assets/buildcraft/models/item/cobblesto
 3c81600c442df01f43096805a373fc208b478473 assets/buildcraft/models/item/cobblestone_item_pipe.json
 a7e89f443758502b0ec9588475021dc0c5ac39f6 assets/buildcraft/models/item/cobblestone_power_pipe.json
 359bcbc597d992d8abfc56b7a1e8e50261224278 assets/buildcraft/models/item/combustion_engine.json
+b894dca152d28b5f294144c189f6ff7f56081fa2 assets/buildcraft/models/item/daizuli_item_pipe.json
 3fa3cbc02b659ef36ba60872fdefb5d7fc9e66be assets/buildcraft/models/item/diamond_chipset.json
 707bc52c7a26fc0be396dbbd67a6591cea844a98 assets/buildcraft/models/item/diamond_fluid_pipe.json
 41335712397375917a9add5a1582bc85e7292b6b assets/buildcraft/models/item/diamond_gear.json
@@ -42,6 +43,7 @@ c26918555b15c555e5a0ce7740d352eff79a2ab8 assets/buildcraft/models/item/gold_powe
 61b205b424bdd985924b0e3c53e772f860a6cb4b assets/buildcraft/models/item/iron_fluid_pipe.json
 a099eb89cb96ee7dd93f7f3d32f1f9791ab1d771 assets/buildcraft/models/item/iron_gear.json
 544f0f0e22fb2a042e0b7100af5f704ea477b0a2 assets/buildcraft/models/item/iron_item_pipe.json
+f4eaa8e573cc77baa6f08deacf5ed2b8eee2e093 assets/buildcraft/models/item/lapis_item_pipe.json
 acf6b2547edeb7207be27956b4015bb2d965648a assets/buildcraft/models/item/laser.json
 eba82ea528f6b7f0c5e0410409960ad2d14dc82f assets/buildcraft/models/item/marker_volume.json
 215c667cbbd86df2c08d16125c60ccd0b0eba2d7 assets/buildcraft/models/item/mining_well.json

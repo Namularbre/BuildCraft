@@ -90,6 +90,8 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_IRON_ITEM.get(), "Iron Transport Pipe");
             add(BCTransportItems.PIPE_VOID_ITEM.get(), "Void Transport Pipe");
             add(BCTransportItems.PIPE_DIAMOND_ITEM.get(), "Diamond Transport Pipe");
+            add(BCTransportItems.PIPE_LAPIS_ITEM.get(), "Lapis Transport Pipe");
+            add(BCTransportItems.PIPE_DAIZULI_ITEM.get(), "Daizuli Transport Pipe");
             add(BCTransportItems.PIPE_STRUCTURE.get(), "Structure Pipe");
             add(BCTransportItems.PLUG_BLOCKER.get(), "Pipe Plug");
             add(BCTransportItems.PLUG_POWER_ADAPTOR.get(), "Power Adapter");
@@ -185,6 +187,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add("buildcraft.gate.trigger.pipe.containsFluids", "Fluid Traversing");
             add("buildcraft.gate.trigger.pipe.requestsEnergy", "Power Requested");
             add("buildcraft.gate.action.pipe.direction", "Face the %s side");
+            add("buildcraft.gate.action.pipe.item.color", "Paint Items %s");
             add("buildcraft.gate.action.pipe.wire", "%s Pipe Signal");
             add("buildcraft.gate.trigger.pipe.wire.active", "%s Pipe Signal On");
             add("buildcraft.gate.trigger.pipe.wire.inactive", "%s Pipe Signal Off");
@@ -357,6 +360,8 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_IRON_ITEM.get(), "Tuyau de transport en fer");
             add(BCTransportItems.PIPE_VOID_ITEM.get(), "Tuyau d'évacuation");
             add(BCTransportItems.PIPE_DIAMOND_ITEM.get(), "Tuyau de transport en diamant");
+            add(BCTransportItems.PIPE_LAPIS_ITEM.get(), "Tuyau de transport en lapis");
+            add(BCTransportItems.PIPE_DAIZULI_ITEM.get(), "Tuyau de transport daizuli");
             add(BCTransportItems.PIPE_STRUCTURE.get(), "Tuyau de structure");
             add(BCTransportItems.PLUG_BLOCKER.get(), "Bouchon de tuyau");
             add(BCTransportItems.PLUG_POWER_ADAPTOR.get(), "Adaptateur d'énergie");
@@ -455,6 +460,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add("buildcraft.gate.trigger.pipe.containsFluids", "Fluide en transit");
             add("buildcraft.gate.trigger.pipe.requestsEnergy", "Énergie demandée");
             add("buildcraft.gate.action.pipe.direction", "Tourner vers le côté %s");
+            add("buildcraft.gate.action.pipe.item.color", "Peindre les objets en %s");
             add("buildcraft.gate.action.pipe.wire", "Signal de tuyau (%s)");
             add("buildcraft.gate.trigger.pipe.wire.active", "Signal de tuyau (%s) allumé");
             add("buildcraft.gate.trigger.pipe.wire.inactive", "Signal de tuyau (%s) éteint");

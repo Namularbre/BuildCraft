@@ -318,6 +318,9 @@ public class BCRecipeProvider extends RecipeProvider {
         pipe(out, BCTransportItems.PIPE_SANDSTONE_ITEM.get(), Ingredient.of(Tags.Items.SANDSTONE));
         pipe(out, BCTransportItems.PIPE_IRON_ITEM.get(), Ingredient.of(Tags.Items.INGOTS_IRON));
         pipe(out, BCTransportItems.PIPE_DIAMOND_ITEM.get(), Ingredient.of(Tags.Items.GEMS_DIAMOND));
+        pipe(out, BCTransportItems.PIPE_LAPIS_ITEM.get(), Ingredient.of(Tags.Items.STORAGE_BLOCKS_LAPIS));
+        pipe(out, BCTransportItems.PIPE_DAIZULI_ITEM.get(), Ingredient.of(Tags.Items.STORAGE_BLOCKS_LAPIS),
+            Ingredient.of(Tags.Items.GEMS_DIAMOND));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BCTransportItems.PIPE_STRUCTURE.get(), 8)
             .pattern("cgc")

@@ -21,12 +21,14 @@ public final class BCTransportStatements {
     /** For each colour: "on", then "off". */
     public static final TriggerPipeSignal[] TRIGGER_PIPE_SIGNAL = new TriggerPipeSignal[2 * 16];
     public static final ActionPipeSignal[] ACTION_PIPE_SIGNAL = new ActionPipeSignal[16];
+    public static final ActionPipeColor[] ACTION_PIPE_COLOUR = new ActionPipeColor[16];
 
     static {
         for (DyeColor colour : DyeColor.values()) {
             TRIGGER_PIPE_SIGNAL[colour.ordinal() * 2] = new TriggerPipeSignal(true, colour);
             TRIGGER_PIPE_SIGNAL[colour.ordinal() * 2 + 1] = new TriggerPipeSignal(false, colour);
             ACTION_PIPE_SIGNAL[colour.ordinal()] = new ActionPipeSignal(colour);
+            ACTION_PIPE_COLOUR[colour.ordinal()] = new ActionPipeColor(colour);
         }
         for (Direction face : Direction.values()) {
             ACTION_PIPE_DIRECTION[face.ordinal()] = new ActionPipeDirection(face);

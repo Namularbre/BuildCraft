@@ -6,6 +6,8 @@
 
 package buildcraft.transport;
 
+import java.util.Arrays;
+
 import net.minecraft.core.Direction;
 
 import buildcraft.api.mj.MjAPI;
@@ -20,10 +22,12 @@ import buildcraft.api.transport.pipe.PipeFlowType;
 import buildcraft.BuildCraft;
 import buildcraft.transport.pipe.PipeRegistry;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourCobble;
+import buildcraft.transport.pipe.behaviour.PipeBehaviourDaizuli;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourDiamondFluid;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourDiamondItem;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourGold;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourIron;
+import buildcraft.transport.pipe.behaviour.PipeBehaviourLapis;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourQuartz;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourSandstone;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourStone;
@@ -79,6 +83,17 @@ public final class BCTransportPipes {
     public static final PipeDefinition VOID_ITEM = itemPipe(
         "void_item", PipeBehaviourVoid::new, PipeBehaviourVoid::new
     );
+    /** One texture for each colour (in {@link net.minecraft.world.item.DyeColor#getId()} order). */
+    private static final String[] COLOUR_SUFFIXES = {
+        "_white", "_orange", "_magenta", "_light_blue", "_yellow", "_lime", "_pink", "_gray",
+        "_light_gray", "_cyan", "_purple", "_blue", "_brown", "_green", "_red", "_black"
+    };
+    public static final PipeDefinition LAPIS_ITEM = itemPipe(
+        "lapis_item", PipeBehaviourLapis::new, PipeBehaviourLapis::new, COLOUR_SUFFIXES
+    );
+    public static final PipeDefinition DAIZULI_ITEM = itemPipe(
+        "daizuli_item", PipeBehaviourDaizuli::new, PipeBehaviourDaizuli::new, withFilled(COLOUR_SUFFIXES)
+    );
 
     public static final PipeDefinition WOOD_POWER = powerPipe(
         "wood_power", PipeBehaviourWoodPower::new, PipeBehaviourWoodPower::new, 16, 128, true, "_clear", "_filled"
@@ -126,6 +141,12 @@ public final class BCTransportPipes {
     );
 
     private BCTransportPipes() {}
+
+    private static String[] withFilled(String[] suffixes) {
+        String[] all = Arrays.copyOf(suffixes, suffixes.length + 1);
+        all[suffixes.length] = "_filled";
+        return all;
+    }
 
     private static PipeDefinition itemPipe(String id, IPipeCreator creator, IPipeLoader loader,
         String... textureSuffixes) {

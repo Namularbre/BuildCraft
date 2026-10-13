@@ -38,6 +38,8 @@ public final class BCTransportItems {
     public static final RegistryObject<ItemPipeHolder> PIPE_IRON_ITEM = pipe(BCTransportPipes.IRON_ITEM);
     public static final RegistryObject<ItemPipeHolder> PIPE_DIAMOND_ITEM = pipe(BCTransportPipes.DIAMOND_ITEM);
     public static final RegistryObject<ItemPipeHolder> PIPE_VOID_ITEM = pipe(BCTransportPipes.VOID_ITEM);
+    public static final RegistryObject<ItemPipeHolder> PIPE_LAPIS_ITEM = pipe(BCTransportPipes.LAPIS_ITEM);
+    public static final RegistryObject<ItemPipeHolder> PIPE_DAIZULI_ITEM = pipe(BCTransportPipes.DAIZULI_ITEM);
 
     public static final RegistryObject<ItemPipeHolder> PIPE_WOOD_POWER = pipe(BCTransportPipes.WOOD_POWER);
     public static final RegistryObject<ItemPipeHolder> PIPE_COBBLESTONE_POWER =
