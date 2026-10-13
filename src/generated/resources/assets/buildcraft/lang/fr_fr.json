@@ -26,6 +26,10 @@
   "buildcraft.direction.south": "sud",
   "buildcraft.direction.up": "haut",
   "buildcraft.direction.west": "ouest",
+  "buildcraft.facade": "Façade : %s",
+  "buildcraft.facade.hollow": "Façade creuse : %s",
+  "buildcraft.facade.phased": "Façade à phases",
+  "buildcraft.facade.unknown": "Inconnue",
   "buildcraft.fluid.heat_0": "%s (§bFroid§r)",
   "buildcraft.fluid.heat_1": "%s (§6Chaud§r)",
   "buildcraft.fluid.heat_2": "%s (§cBrûlant§r)",
@@ -123,6 +127,7 @@
   "item.buildcraft.iron_item_pipe": "Tuyau de transport en fer",
   "item.buildcraft.pipe_sealant": "Enduit étanche",
   "item.buildcraft.plug_blocker": "Bouchon de tuyau",
+  "item.buildcraft.plug_facade": "Façade",
   "item.buildcraft.plug_light_sensor": "Capteur de lumière",
   "item.buildcraft.plug_power_adaptor": "Adaptateur d'énergie",
   "item.buildcraft.plug_pulsar": "Pulsar",
@@ -147,5 +152,6 @@
   "item.buildcraft.wood_item_pipe": "Tuyau de transport en bois",
   "item.buildcraft.wood_power_pipe": "Tuyau cinétique en bois",
   "item.buildcraft.wrench": "Clé à molette",
+  "itemGroup.buildcraft.facades": "Façades BuildCraft",
   "itemGroup.buildcraft.main": "BuildCraft"
 }

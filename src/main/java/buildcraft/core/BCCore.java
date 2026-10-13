@@ -12,6 +12,8 @@ import net.minecraft.world.item.ItemStack;
 
 import net.minecraftforge.registries.RegistryObject;
 
+import buildcraft.api.facades.IFacadeItem;
+
 import buildcraft.lib.registry.BCRegistries;
 
 import buildcraft.BuildCraft;
@@ -25,7 +27,12 @@ public final class BCCore {
             .icon(() -> new ItemStack(BCCoreItems.WRENCH.get()))
             .displayItems((params, output) -> {
                 // Every item, in registration order
-                BCRegistries.ITEMS.getEntries().forEach(item -> output.accept(item.get()));
+                BCRegistries.ITEMS.getEntries().forEach(item -> {
+                    // Facades have their own tab, as there is one for nearly every block
+                    if (!(item.get() instanceof IFacadeItem)) {
+                        output.accept(item.get());
+                    }
+                });
             })
             .build()
     );

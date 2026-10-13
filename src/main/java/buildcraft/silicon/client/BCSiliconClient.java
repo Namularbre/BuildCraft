@@ -6,21 +6,30 @@
 
 package buildcraft.silicon.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import buildcraft.BuildCraft;
 import buildcraft.silicon.BCSiliconBlocks;
+import buildcraft.silicon.BCSiliconItems;
 import buildcraft.silicon.BCSiliconMenus;
 import buildcraft.silicon.client.gui.GuiAdvancedCraftingTable;
 import buildcraft.silicon.client.gui.GuiAssemblyTable;
 import buildcraft.silicon.client.gui.GuiGate;
 import buildcraft.silicon.client.render.RenderLaser;
+import buildcraft.silicon.item.ItemPluggableFacade;
 import buildcraft.silicon.plug.PluggableGate;
 import buildcraft.transport.client.model.PlugModels;
 
@@ -29,6 +38,7 @@ public final class BCSiliconClient {
     static {
         PlugModels.registerDynamic(PluggableGate.KeyPlugGate.class, GatePlugModel::boxes);
         SiliconPlugModels.register();
+        FacadeModels.register();
     }
 
     private BCSiliconClient() {}
@@ -45,5 +55,26 @@ public final class BCSiliconClient {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(BCSiliconBlocks.LASER_TILE.get(), RenderLaser::new);
+    }
+
+    @SubscribeEvent
+    public static void replaceFacadeModel(ModelEvent.ModifyBakingResult event) {
+        FacadeModels.clearCache();
+        ModelResourceLocation location = new ModelResourceLocation(
+            ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "plug_facade"), "inventory"
+        );
+        BakedModel original = event.getModels().get(location);
+        if (original != null) {
+            event.getModels().put(location, new FacadeItemModel(original));
+        }
+    }
+
+    /** Facade items are tinted like the block they look like. */
+    @SubscribeEvent
+    public static void registerItemColours(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, tintIndex) -> {
+            BlockState state = ItemPluggableFacade.getStates(stack).phasedStates[0].stateInfo.state;
+            return tintIndex < 0 ? -1 : Minecraft.getInstance().getBlockColors().getColor(state, null, null, tintIndex);
+        }, BCSiliconItems.PLUG_FACADE.get());
     }
 }

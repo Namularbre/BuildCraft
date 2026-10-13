@@ -35,6 +35,7 @@ import buildcraft.silicon.gate.EnumGateMaterial;
 import buildcraft.silicon.gate.EnumGateModifier;
 import buildcraft.silicon.gate.GateVariant;
 import buildcraft.silicon.item.ItemPluggableLens;
+import buildcraft.silicon.recipe.FacadeAssemblyRecipe;
 
 /** The assembly table recipes, with the values of 1.12. */
 public final class BCSiliconRecipes {
@@ -80,6 +81,8 @@ public final class BCSiliconRecipes {
             lens(colour, IngredientStack.of(glass), bars);
         }
         lens(null, IngredientStack.of(Items.GLASS), bars);
+
+        AssemblyRecipeRegistry.register(FacadeAssemblyRecipe.INSTANCE);
     }
 
     private static void lens(@Nullable DyeColor colour, IngredientStack glass, IngredientStack bars) {

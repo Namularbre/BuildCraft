@@ -95,6 +95,12 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PLUG_POWER_ADAPTOR.get(), "Power Adapter");
             add(BCTransportItems.PIPE_DIAMOND_FLUID.get(), "Diamond Fluid Pipe");
             add("buildcraft.gui.diamond_pipe", "Filters");
+            add("itemGroup.buildcraft.facades", "BuildCraft Facades");
+            add("buildcraft.facade", "Facade: %s");
+            add("buildcraft.facade.hollow", "Hollow Facade: %s");
+            add("buildcraft.facade.phased", "Phased Facade");
+            add("buildcraft.facade.unknown", "Unknown");
+            add("item.buildcraft.plug_facade", "Facade");
             add("buildcraft.gate.trigger.pipe.containsItems", "Items Traversing");
             add("buildcraft.gate.trigger.pipe.containsFluids", "Fluid Traversing");
             add("buildcraft.gate.trigger.pipe.requestsEnergy", "Power Requested");
@@ -257,6 +263,12 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PLUG_POWER_ADAPTOR.get(), "Adaptateur d'énergie");
             add(BCTransportItems.PIPE_DIAMOND_FLUID.get(), "Tuyau à fluide en diamant");
             add("buildcraft.gui.diamond_pipe", "Filtres");
+            add("itemGroup.buildcraft.facades", "Façades BuildCraft");
+            add("buildcraft.facade", "Façade : %s");
+            add("buildcraft.facade.hollow", "Façade creuse : %s");
+            add("buildcraft.facade.phased", "Façade à phases");
+            add("buildcraft.facade.unknown", "Inconnue");
+            add("item.buildcraft.plug_facade", "Façade");
             add("buildcraft.gate.trigger.pipe.containsItems", "Objets en transit");
             add("buildcraft.gate.trigger.pipe.containsFluids", "Fluide en transit");
             add("buildcraft.gate.trigger.pipe.requestsEnergy", "Énergie demandée");

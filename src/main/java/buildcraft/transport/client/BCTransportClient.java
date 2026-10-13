@@ -8,17 +8,23 @@ package buildcraft.transport.client;
 
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+
+import buildcraft.api.facades.IFacade;
 
 import buildcraft.BuildCraft;
 import buildcraft.transport.BCTransportBlocks;
@@ -29,6 +35,7 @@ import buildcraft.transport.client.model.PlugModels;
 import buildcraft.transport.client.render.RenderPipeHolder;
 import buildcraft.transport.plug.PluggableBlocker;
 import buildcraft.transport.plug.PluggablePowerAdaptor;
+import buildcraft.transport.tile.TilePipeHolder;
 
 @Mod.EventBusSubscriber(modid = BuildCraft.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class BCTransportClient {
@@ -49,6 +56,24 @@ public final class BCTransportClient {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> MenuScreens.register(BCTransportMenus.DIAMOND_PIPE.get(), GuiDiamondPipe::new));
+    }
+
+    /** Tints the quads of plugs that look like blocks (like a facade of grass) like the block would be. */
+    @SubscribeEvent
+    public static void registerBlockColours(RegisterColorHandlersEvent.Block event) {
+        event.register((state, level, pos, tintIndex) -> {
+            if (tintIndex < PlugModels.TINT_OFFSET || level == null || pos == null) {
+                return -1;
+            }
+            int index = tintIndex - PlugModels.TINT_OFFSET;
+            Direction side = Direction.from3DDataValue(index / 100);
+            if (level.getBlockEntity(pos) instanceof TilePipeHolder tile
+                && tile.getPluggable(side) instanceof IFacade facade) {
+                BlockState facadeState = facade.getPhasedStates()[0].getState().getBlockState();
+                return Minecraft.getInstance().getBlockColors().getColor(facadeState, level, pos, index % 100);
+            }
+            return -1;
+        }, BCTransportBlocks.PIPE_HOLDER.get());
     }
 
     @SubscribeEvent

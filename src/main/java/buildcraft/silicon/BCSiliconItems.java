@@ -23,6 +23,7 @@ import buildcraft.lib.item.ItemPluggableSimple;
 import buildcraft.lib.registry.BCRegistries;
 
 import buildcraft.silicon.gate.GateVariant;
+import buildcraft.silicon.item.ItemPluggableFacade;
 import buildcraft.silicon.item.ItemPluggableGate;
 import buildcraft.silicon.item.ItemPluggableLens;
 import buildcraft.silicon.item.ItemPluggablePulsar;
@@ -68,6 +69,9 @@ public final class BCSiliconItems {
             }
         }
     }
+
+    public static final RegistryObject<ItemPluggableFacade> PLUG_FACADE =
+        BCRegistries.ITEMS.register("plug_facade", () -> new ItemPluggableFacade(new Item.Properties()));
 
     private BCSiliconItems() {}
 

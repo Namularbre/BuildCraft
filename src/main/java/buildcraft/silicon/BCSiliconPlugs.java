@@ -12,6 +12,7 @@ import buildcraft.api.transport.pipe.PipeApi;
 import buildcraft.api.transport.pluggable.PluggableDefinition;
 
 import buildcraft.BuildCraft;
+import buildcraft.silicon.plug.PluggableFacade;
 import buildcraft.silicon.plug.PluggableGate;
 import buildcraft.silicon.plug.PluggableLens;
 import buildcraft.silicon.plug.PluggableLightSensor;
@@ -23,6 +24,7 @@ public final class BCSiliconPlugs {
     public static final PluggableDefinition PULSAR;
     public static final PluggableDefinition LIGHT_SENSOR;
     public static final PluggableDefinition LENS;
+    public static final PluggableDefinition FACADE;
 
     static {
         // The registry is set up by the transport module, which is loaded first
@@ -35,6 +37,8 @@ public final class BCSiliconPlugs {
         PipeApi.pluggableRegistry.register(LIGHT_SENSOR);
         LENS = new PluggableDefinition(id("lens"), PluggableLens::new, PluggableLens::new);
         PipeApi.pluggableRegistry.register(LENS);
+        FACADE = new PluggableDefinition(id("facade"), PluggableFacade::new, PluggableFacade::new);
+        PipeApi.pluggableRegistry.register(FACADE);
     }
 
     private BCSiliconPlugs() {}

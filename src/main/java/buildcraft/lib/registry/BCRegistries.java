@@ -10,6 +10,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -40,6 +41,8 @@ public final class BCRegistries {
         DeferredRegister.create(ForgeRegistries.FLUIDS, BuildCraft.MODID);
     public static final DeferredRegister<Feature<?>> FEATURES =
         DeferredRegister.create(ForgeRegistries.FEATURES, BuildCraft.MODID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS =
+        DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, BuildCraft.MODID);
 
     private BCRegistries() {}
 
@@ -52,5 +55,6 @@ public final class BCRegistries {
         FLUID_TYPES.register(modBus);
         FLUIDS.register(modBus);
         FEATURES.register(modBus);
+        RECIPE_SERIALIZERS.register(modBus);
     }
 }

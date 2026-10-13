@@ -14,6 +14,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -37,6 +38,7 @@ import buildcraft.factory.BCFactoryBlocks;
 import buildcraft.factory.BCFactoryItems;
 import buildcraft.silicon.BCSiliconBlocks;
 import buildcraft.silicon.BCSiliconItems;
+import buildcraft.silicon.BCSiliconRecipeSerializers;
 import buildcraft.silicon.EnumRedstoneChipset;
 import buildcraft.silicon.gate.EnumGateLogic;
 import buildcraft.silicon.gate.EnumGateMaterial;
@@ -333,6 +335,10 @@ public class BCRecipeProvider extends RecipeProvider {
         );
         gate(out, EnumGateMaterial.IRON, EnumGateModifier.LAPIS, Ingredient.of(Tags.Items.GEMS_LAPIS), ironGate);
         gate(out, EnumGateMaterial.IRON, EnumGateModifier.QUARTZ, Ingredient.of(Tags.Items.GEMS_QUARTZ), ironGate);
+
+        // A facade turns into a hollow facade, and back
+        SpecialRecipeBuilder.special(BCSiliconRecipeSerializers.FACADE_SWAP.get())
+            .save(out, ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "facade_swap").toString());
 
         // AND gates can be turned into OR gates, and back
         for (EnumGateMaterial material : EnumGateMaterial.VALUES) {

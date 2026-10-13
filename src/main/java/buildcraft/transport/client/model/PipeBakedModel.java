@@ -50,10 +50,15 @@ public class PipeBakedModel implements IDynamicBakedModel {
     private static final float MIN = 4;
     private static final float MAX = 12;
     private static final ChunkRenderTypeSet RENDER_TYPES = ChunkRenderTypeSet.of(RenderType.cutout());
+    private static final ChunkRenderTypeSet RENDER_TYPES_TRANSLUCENT =
+        ChunkRenderTypeSet.of(RenderType.cutout(), RenderType.translucent());
 
     private final ResourceLocation modelId;
     private final Map<PipeModelKey, List<BakedQuad>> cache = new ConcurrentHashMap<>();
-    private final Map<PluggableModelKey, List<BakedQuad>> plugCache = new ConcurrentHashMap<>();
+    private final Map<PluggableModelKey, PlugQuads> plugCache = new ConcurrentHashMap<>();
+
+    /** The quads of a pluggable, split by the layer they are drawn in. */
+    private record PlugQuads(List<BakedQuad> cutout, List<BakedQuad> translucent) {}
 
     public PipeBakedModel(ResourceLocation modelId) {
         this.modelId = modelId;
@@ -71,7 +76,8 @@ public class PipeBakedModel implements IDynamicBakedModel {
         if (key == null || key.definition == null) {
             return List.of();
         }
-        List<BakedQuad> pipe = cache.computeIfAbsent(key, this::generate);
+        boolean translucentOnly = renderType == RenderType.translucent();
+        List<BakedQuad> pipe = translucentOnly ? List.of() : cache.computeIfAbsent(key, this::generate);
         PluggableModelKey[] plugs = data.get(TilePipeHolder.PLUG_KEYS);
         if (plugs == null) {
             return pipe;
@@ -82,33 +88,44 @@ public class PipeBakedModel implements IDynamicBakedModel {
                 if (all == null) {
                     all = new ArrayList<>(pipe);
                 }
-                all.addAll(plugCache.computeIfAbsent(plug, this::generatePlug));
+                PlugQuads quads = plugCache.computeIfAbsent(plug, this::generatePlug);
+                if (renderType == null || !translucentOnly) {
+                    all.addAll(quads.cutout());
+                }
+                if (renderType == null || translucentOnly) {
+                    all.addAll(quads.translucent());
+                }
             }
         }
         return all == null ? pipe : all;
     }
 
     /** The boxes of the pluggable's model, turned from the west side to its side. */
-    private List<BakedQuad> generatePlug(PluggableModelKey key) {
+    private PlugQuads generatePlug(PluggableModelKey key) {
         List<PlugModels.Box> boxes = PlugModels.get(key);
         if (boxes == null) {
-            return List.of();
+            return new PlugQuads(List.of(), List.of());
         }
-        List<BakedQuad> quads = new ArrayList<>();
+        List<BakedQuad> cutout = new ArrayList<>();
+        List<BakedQuad> translucent = new ArrayList<>();
         for (PlugModels.Box box : boxes) {
-            float[] a = rotateFromWest(box.from(), key.side);
-            float[] b = rotateFromWest(box.to(), key.side);
+            float[] a = box.rotated() ? rotateFromWest(box.from(), key.side) : box.from();
+            float[] b = box.rotated() ? rotateFromWest(box.to(), key.side) : box.to();
             Vector3f from = new Vector3f(Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.min(a[2], b[2]));
             Vector3f to = new Vector3f(Math.max(a[0], b[0]), Math.max(a[1], b[1]), Math.max(a[2], b[2]));
-            TextureAtlasSprite sprite = getSprite(box.texture().toString());
             for (Direction face : Direction.values()) {
                 float[] min = { from.x, from.y, from.z };
                 float[] max = { to.x, to.y, to.z };
                 Vector3f[] flat = faceBox(face, min, max);
-                quads.add(bake(flat[0], flat[1], face, sprite));
+                for (PlugModels.Layer layer : box.getLayers(face)) {
+                    TextureAtlasSprite sprite = getSprite(layer.texture().toString());
+                    int tint = layer.tintIndex() < 0 ? -1 : PlugModels.encodeTint(key.side, layer.tintIndex());
+                    (box.translucent() ? translucent : cutout).add(bakeFace(flat[0], flat[1], face, sprite, tint,
+                        modelId));
+                }
             }
         }
-        return quads;
+        return new PlugQuads(cutout, translucent);
     }
 
     /** Turns a point (in pixels) of a model on the west side so that it is on the given side. */
@@ -186,8 +203,16 @@ public class PipeBakedModel implements IDynamicBakedModel {
     }
 
     private BakedQuad bake(Vector3f from, Vector3f to, Direction face, TextureAtlasSprite sprite) {
+        return bakeFace(from, to, face, sprite, -1, modelId);
+    }
+
+    /** Bakes a single face (from a flat box), with the texture lined up with the block grid.
+     *
+     * @param tintIndex The tint index of the quad, or -1 if it isn't tinted. */
+    public static BakedQuad bakeFace(Vector3f from, Vector3f to, Direction face, TextureAtlasSprite sprite,
+        int tintIndex, ResourceLocation modelId) {
         BlockFaceUV uv = new BlockFaceUV(autoUv(face, from, to), 0);
-        BlockElementFace elementFace = new BlockElementFace(null, -1, "", uv);
+        BlockElementFace elementFace = new BlockElementFace(null, tintIndex, "", uv);
         return BAKERY.bakeQuad(from, to, elementFace, sprite, face, BlockModelRotation.X0_Y0, null, true, modelId);
     }
 
@@ -261,6 +286,14 @@ public class PipeBakedModel implements IDynamicBakedModel {
     @Override
     public ChunkRenderTypeSet getRenderTypes(@Nonnull BlockState state, @Nonnull RandomSource rand,
         @Nonnull ModelData data) {
+        PluggableModelKey[] plugs = data.get(TilePipeHolder.PLUG_KEYS);
+        if (plugs != null) {
+            for (PluggableModelKey plug : plugs) {
+                if (plug != null && !plugCache.computeIfAbsent(plug, this::generatePlug).translucent().isEmpty()) {
+                    return RENDER_TYPES_TRANSLUCENT;
+                }
+            }
+        }
         return RENDER_TYPES;
     }
 }

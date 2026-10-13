@@ -26,6 +26,10 @@
   "buildcraft.direction.south": "south",
   "buildcraft.direction.up": "top",
   "buildcraft.direction.west": "west",
+  "buildcraft.facade": "Facade: %s",
+  "buildcraft.facade.hollow": "Hollow Facade: %s",
+  "buildcraft.facade.phased": "Phased Facade",
+  "buildcraft.facade.unknown": "Unknown",
   "buildcraft.fluid.heat_0": "%s (§bCool§r)",
   "buildcraft.fluid.heat_1": "%s (§6Hot§r)",
   "buildcraft.fluid.heat_2": "%s (§cSearing§r)",
@@ -123,6 +127,7 @@
   "item.buildcraft.iron_item_pipe": "Iron Transport Pipe",
   "item.buildcraft.pipe_sealant": "Pipe Sealant",
   "item.buildcraft.plug_blocker": "Pipe Plug",
+  "item.buildcraft.plug_facade": "Facade",
   "item.buildcraft.plug_light_sensor": "Light Sensor",
   "item.buildcraft.plug_power_adaptor": "Power Adapter",
   "item.buildcraft.plug_pulsar": "Pulsar",
@@ -147,5 +152,6 @@
   "item.buildcraft.wood_item_pipe": "Wooden Transport Pipe",
   "item.buildcraft.wood_power_pipe": "Wooden Kinesis Pipe",
   "item.buildcraft.wrench": "Wrench",
+  "itemGroup.buildcraft.facades": "BuildCraft Facades",
   "itemGroup.buildcraft.main": "BuildCraft"
 }
