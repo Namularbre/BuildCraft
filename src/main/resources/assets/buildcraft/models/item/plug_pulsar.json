@@ -1,0 +1,74 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "static": "buildcraft:block/plug/pulsar_static",
+    "lamp": "buildcraft:block/plug/pulsar_dynamic_off",
+    "particle": "buildcraft:block/plug/pulsar_static"
+  },
+  "elements": [
+    {
+      "from": [
+        7,
+        5,
+        5
+      ],
+      "to": [
+        9.01,
+        11,
+        11
+      ],
+      "faces": {
+        "down": {
+          "texture": "#static"
+        },
+        "up": {
+          "texture": "#static"
+        },
+        "north": {
+          "texture": "#static"
+        },
+        "south": {
+          "texture": "#static"
+        },
+        "west": {
+          "texture": "#static"
+        },
+        "east": {
+          "texture": "#static"
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        6,
+        6
+      ],
+      "to": [
+        9.5,
+        10,
+        10
+      ],
+      "faces": {
+        "down": {
+          "texture": "#lamp"
+        },
+        "up": {
+          "texture": "#lamp"
+        },
+        "north": {
+          "texture": "#lamp"
+        },
+        "south": {
+          "texture": "#lamp"
+        },
+        "west": {
+          "texture": "#lamp"
+        },
+        "east": {
+          "texture": "#lamp"
+        }
+      }
+    }
+  ]
+}

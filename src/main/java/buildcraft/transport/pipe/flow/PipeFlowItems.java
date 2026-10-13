@@ -41,13 +41,16 @@ import buildcraft.api.transport.pipe.IPipe;
 import buildcraft.api.transport.pipe.IPipe.ConnectedType;
 import buildcraft.api.transport.pipe.IPipeHolder;
 import buildcraft.api.transport.pipe.PipeApi;
+import buildcraft.api.transport.pipe.PipeEventHandler;
 import buildcraft.api.transport.pipe.PipeEventItem;
+import buildcraft.api.transport.pipe.PipeEventStatement;
 import buildcraft.api.transport.pipe.PipeFlow;
 
 import buildcraft.lib.inventory.ItemTransactorHelper;
 import buildcraft.lib.misc.data.DelayedList;
 
 import buildcraft.transport.pipe.behaviour.PipeBehaviourStone;
+import buildcraft.transport.statements.BCTransportStatements;
 
 /** Moves items through pipes. Items travel from the side they entered to the center, where events decide where they
  * should go next, and then to the side they leave through. */
@@ -589,6 +592,26 @@ public final class PipeFlowItems extends PipeFlow implements IFlowItems {
         }
         items.add(item.timeToDest, item);
         sendItemDataToClient(item);
+    }
+
+    @PipeEventHandler
+    public static void addTriggers(PipeEventStatement.AddTriggerInternal event) {
+        event.triggers.add(BCTransportStatements.TRIGGER_ITEMS_TRAVERSING);
+    }
+
+    /** @return True if an item matching the filter (or any item, if it is empty) is in the pipe. */
+    public boolean containsItemMatching(ItemStack filter) {
+        if (filter.isEmpty()) {
+            return doesContainItems();
+        }
+        for (List<TravellingItem> list : items.getAllElements()) {
+            for (TravellingItem item : list) {
+                if (ItemStack.isSameItemSameTags(filter, item.stack)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public boolean doesContainItems() {

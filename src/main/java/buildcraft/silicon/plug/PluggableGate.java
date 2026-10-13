@@ -35,21 +35,24 @@ import buildcraft.transport.tile.TilePipeHolder;
 
 /** A gate on the side of a pipe. */
 public class PluggableGate extends PipePluggable {
-    private static final AABB[] BOXES = new AABB[6];
+    private static final AABB[] BOXES = boxes();
 
-    static {
+    /** @return The box of a gate (or of a plug of the same size) on each side. */
+    static AABB[] boxes() {
+        AABB[] boxes = new AABB[6];
         double ll = 2 / 16.0;
         double lu = 4 / 16.0;
         double ul = 12 / 16.0;
         double uu = 14 / 16.0;
         double min = 5 / 16.0;
         double max = 11 / 16.0;
-        BOXES[Direction.DOWN.ordinal()] = new AABB(min, ll, min, max, lu, max);
-        BOXES[Direction.UP.ordinal()] = new AABB(min, ul, min, max, uu, max);
-        BOXES[Direction.NORTH.ordinal()] = new AABB(min, min, ll, max, max, lu);
-        BOXES[Direction.SOUTH.ordinal()] = new AABB(min, min, ul, max, max, uu);
-        BOXES[Direction.WEST.ordinal()] = new AABB(ll, min, min, lu, max, max);
-        BOXES[Direction.EAST.ordinal()] = new AABB(ul, min, min, uu, max, max);
+        boxes[Direction.DOWN.ordinal()] = new AABB(min, ll, min, max, lu, max);
+        boxes[Direction.UP.ordinal()] = new AABB(min, ul, min, max, uu, max);
+        boxes[Direction.NORTH.ordinal()] = new AABB(min, min, ll, max, max, lu);
+        boxes[Direction.SOUTH.ordinal()] = new AABB(min, min, ul, max, max, uu);
+        boxes[Direction.WEST.ordinal()] = new AABB(ll, min, min, lu, max, max);
+        boxes[Direction.EAST.ordinal()] = new AABB(ul, min, min, uu, max, max);
+        return boxes;
     }
 
     public final GateLogic logic;

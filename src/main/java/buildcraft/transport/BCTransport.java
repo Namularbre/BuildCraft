@@ -10,6 +10,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 
 import buildcraft.api.transport.pipe.PipeApi;
 
+import buildcraft.transport.statements.BCTransportStatements;
+
 /** The transport module: pipes. */
 public final class BCTransport {
     private BCTransport() {}
@@ -17,6 +19,7 @@ public final class BCTransport {
     public static void init(IEventBus modBus) {
         BCTransportPipes.init();
         BCTransportPlugs.init();
+        BCTransportStatements.init();
         BCTransportBlocks.init();
         BCTransportItems.init();
         BCTransportMenus.init();

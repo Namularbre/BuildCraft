@@ -10,12 +10,17 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.recipes.AssemblyRecipeBasic;
@@ -24,10 +29,12 @@ import buildcraft.api.recipes.IngredientStack;
 import buildcraft.lib.recipe.AssemblyRecipeRegistry;
 
 import buildcraft.BuildCraft;
+import buildcraft.core.BCCoreBlocks;
 import buildcraft.silicon.gate.EnumGateLogic;
 import buildcraft.silicon.gate.EnumGateMaterial;
 import buildcraft.silicon.gate.EnumGateModifier;
 import buildcraft.silicon.gate.GateVariant;
+import buildcraft.silicon.item.ItemPluggableLens;
 
 /** The assembly table recipes, with the values of 1.12. */
 public final class BCSiliconRecipes {
@@ -58,6 +65,33 @@ public final class BCSiliconRecipes {
         gateModifier(100_000, EnumGateMaterial.GOLD, EnumGateModifier.LAPIS, lapis);
         gateModifier(140_000, EnumGateMaterial.GOLD, EnumGateModifier.QUARTZ, quartz);
         gateModifier(180_000, EnumGateMaterial.GOLD, EnumGateModifier.DIAMOND, diamond);
+
+        register("plug_pulsar", 1_000, new ItemStack(BCSiliconItems.PLUG_PULSAR.get()), Set.of(
+            IngredientStack.of(BCCoreBlocks.ENGINE_REDSTONE.get()),
+            new IngredientStack(Ingredient.of(Tags.Items.INGOTS_IRON), 2)
+        ));
+        register("plug_light_sensor", 500, new ItemStack(BCSiliconItems.PLUG_LIGHT_SENSOR.get()),
+            Set.of(IngredientStack.of(Items.DAYLIGHT_DETECTOR)));
+        IngredientStack bars = IngredientStack.of(Items.IRON_BARS);
+        for (DyeColor colour : DyeColor.values()) {
+            Item glass = ForgeRegistries.ITEMS.getValue(
+                ResourceLocation.withDefaultNamespace(colour.getName() + "_stained_glass")
+            );
+            lens(colour, IngredientStack.of(glass), bars);
+        }
+        lens(null, IngredientStack.of(Items.GLASS), bars);
+    }
+
+    private static void lens(@Nullable DyeColor colour, IngredientStack glass, IngredientStack bars) {
+        ItemStack lens = new ItemStack(BCSiliconItems.lens(colour, false));
+        register(ItemPluggableLens.getItemName(colour, false), 500, lens, Set.of(glass));
+        ItemStack filter = new ItemStack(BCSiliconItems.lens(colour, true));
+        register(ItemPluggableLens.getItemName(colour, true), 500, filter, Set.of(glass, bars));
+    }
+
+    private static void register(String name, long mj, ItemStack output, Set<IngredientStack> input) {
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, name);
+        AssemblyRecipeRegistry.register(new AssemblyRecipeBasic(id, mj * MjAPI.MJ, input, output));
     }
 
     /** Both the AND and OR gates (without modifier) of the given material, from a chipset (and more). */

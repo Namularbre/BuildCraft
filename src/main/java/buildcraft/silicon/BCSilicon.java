@@ -9,6 +9,8 @@ package buildcraft.silicon;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+import buildcraft.silicon.statement.BCSiliconStatements;
+
 /** The silicon module: lasers, and the tables they power. */
 public final class BCSilicon {
     private BCSilicon() {}
@@ -18,6 +20,7 @@ public final class BCSilicon {
         BCSiliconItems.init();
         BCSiliconMenus.init();
         BCSiliconPlugs.init();
+        BCSiliconStatements.init();
         context.getModEventBus().addListener(BCSilicon::commonSetup);
     }
 

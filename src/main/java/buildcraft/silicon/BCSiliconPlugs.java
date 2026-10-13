@@ -13,19 +13,35 @@ import buildcraft.api.transport.pluggable.PluggableDefinition;
 
 import buildcraft.BuildCraft;
 import buildcraft.silicon.plug.PluggableGate;
+import buildcraft.silicon.plug.PluggableLens;
+import buildcraft.silicon.plug.PluggableLightSensor;
+import buildcraft.silicon.plug.PluggablePulsar;
 
 /** The pluggables of the silicon module. */
 public final class BCSiliconPlugs {
     public static final PluggableDefinition GATE;
+    public static final PluggableDefinition PULSAR;
+    public static final PluggableDefinition LIGHT_SENSOR;
+    public static final PluggableDefinition LENS;
 
     static {
         // The registry is set up by the transport module, which is loaded first
         GATE = new PluggableDefinition(ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "gate"),
             PluggableGate::new, PluggableGate::new);
         PipeApi.pluggableRegistry.register(GATE);
+        PULSAR = new PluggableDefinition(id("pulsar"), PluggablePulsar::new, PluggablePulsar::new);
+        PipeApi.pluggableRegistry.register(PULSAR);
+        LIGHT_SENSOR = new PluggableDefinition(id("light_sensor"), PluggableLightSensor::new);
+        PipeApi.pluggableRegistry.register(LIGHT_SENSOR);
+        LENS = new PluggableDefinition(id("lens"), PluggableLens::new, PluggableLens::new);
+        PipeApi.pluggableRegistry.register(LENS);
     }
 
     private BCSiliconPlugs() {}
+
+    private static ResourceLocation id(String name) {
+        return ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, name);
+    }
 
     /** Loads this class, so that every pluggable is defined. */
     static void init() {}

@@ -23,8 +23,14 @@ import buildcraft.api.tools.IToolWrench;
 import buildcraft.api.transport.pipe.IPipe;
 import buildcraft.api.transport.pipe.IPipeHolder.PipeMessageReceiver;
 import buildcraft.api.transport.pipe.PipeBehaviour;
+import buildcraft.api.transport.pipe.PipeEventActionActivate;
+import buildcraft.api.transport.pipe.PipeEventHandler;
+import buildcraft.api.transport.pipe.PipeEventStatement;
 
 import buildcraft.lib.block.VanillaRotationHandlers;
+
+import buildcraft.transport.statements.ActionPipeDirection;
+import buildcraft.transport.statements.BCTransportStatements;
 
 /** A pipe that points in one direction, which the wrench can change. */
 public abstract class PipeBehaviourDirectional extends PipeBehaviour {
@@ -118,6 +124,22 @@ public abstract class PipeBehaviourDirectional extends PipeBehaviour {
             }
         }
         return false;
+    }
+
+    @PipeEventHandler
+    public void addActions(PipeEventStatement.AddActionInternal event) {
+        for (Direction face : Direction.values()) {
+            if (canFaceDirection(face)) {
+                event.actions.add(BCTransportStatements.ACTION_PIPE_DIRECTION[face.ordinal()]);
+            }
+        }
+    }
+
+    @PipeEventHandler
+    public void onActionActivate(PipeEventActionActivate event) {
+        if (event.action instanceof ActionPipeDirection action && canFaceDirection(action.direction)) {
+            setCurrentDir(action.direction);
+        }
     }
 
     @Nullable

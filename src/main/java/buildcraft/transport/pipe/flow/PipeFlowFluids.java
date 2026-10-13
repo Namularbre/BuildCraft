@@ -44,7 +44,11 @@ import buildcraft.api.transport.pipe.PipeApi.FluidTransferInfo;
 import buildcraft.api.transport.pipe.PipeEventFluid;
 import buildcraft.api.transport.pipe.PipeEventFluid.OnMoveToCentre;
 import buildcraft.api.transport.pipe.PipeEventFluid.PreMoveToCentre;
+import buildcraft.api.transport.pipe.PipeEventHandler;
+import buildcraft.api.transport.pipe.PipeEventStatement;
 import buildcraft.api.transport.pipe.PipeFlow;
+
+import buildcraft.transport.statements.BCTransportStatements;
 
 /** Moves fluids through pipes. The pipe has a section per side plus one in the center: fluid moves from the input
  * sides to the center, and from the center to the output sides, with a delay in each section. A section that recently
@@ -139,6 +143,11 @@ public class PipeFlowFluids extends PipeFlow implements IFlowFluid {
             return sectionCaps.get(EnumPipePart.fromFacing(facing)).cast();
         }
         return super.getCapability(capability, facing);
+    }
+
+    @PipeEventHandler
+    public static void addTriggers(PipeEventStatement.AddTriggerInternal event) {
+        event.triggers.add(BCTransportStatements.TRIGGER_FLUIDS_TRAVERSING);
     }
 
     public boolean doesContainFluid() {

@@ -6,18 +6,26 @@
 
 package buildcraft.silicon;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 
 import net.minecraftforge.registries.RegistryObject;
 
+import buildcraft.lib.item.ItemPluggableSimple;
 import buildcraft.lib.registry.BCRegistries;
 
 import buildcraft.silicon.gate.GateVariant;
 import buildcraft.silicon.item.ItemPluggableGate;
+import buildcraft.silicon.item.ItemPluggableLens;
+import buildcraft.silicon.item.ItemPluggablePulsar;
 
 public final class BCSiliconItems {
     public static final Map<EnumRedstoneChipset, RegistryObject<Item>> CHIPSETS =
@@ -40,7 +48,32 @@ public final class BCSiliconItems {
         }
     }
 
+    public static final RegistryObject<ItemPluggablePulsar> PLUG_PULSAR =
+        BCRegistries.ITEMS.register("plug_pulsar", () -> new ItemPluggablePulsar(new Item.Properties()));
+    public static final RegistryObject<ItemPluggableSimple> PLUG_LIGHT_SENSOR = BCRegistries.ITEMS.register(
+        "plug_light_sensor", () -> new ItemPluggableSimple(new Item.Properties(), BCSiliconPlugs.LIGHT_SENSOR)
+    );
+
+    /** The lenses and filters of every colour, then the clear ones. */
+    public static final Map<String, RegistryObject<ItemPluggableLens>> LENSES = new LinkedHashMap<>();
+
+    static {
+        List<DyeColor> colours = new ArrayList<>(List.of(DyeColor.values()));
+        colours.add(null);
+        for (DyeColor colour : colours) {
+            for (boolean filter : new boolean[] { false, true }) {
+                String name = ItemPluggableLens.getItemName(colour, filter);
+                LENSES.put(name, BCRegistries.ITEMS.register(name,
+                    () -> new ItemPluggableLens(new Item.Properties(), colour, filter)));
+            }
+        }
+    }
+
     private BCSiliconItems() {}
+
+    public static ItemPluggableLens lens(@Nullable DyeColor colour, boolean isFilter) {
+        return LENSES.get(ItemPluggableLens.getItemName(colour, isFilter)).get();
+    }
 
     public static Item chipset(EnumRedstoneChipset chipset) {
         return CHIPSETS.get(chipset).get();

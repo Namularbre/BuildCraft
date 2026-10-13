@@ -28,6 +28,7 @@ import buildcraft.transport.client.model.PlugModels;
 public final class BCSiliconClient {
     static {
         PlugModels.registerDynamic(PluggableGate.KeyPlugGate.class, GatePlugModel::boxes);
+        SiliconPlugModels.register();
     }
 
     private BCSiliconClient() {}
