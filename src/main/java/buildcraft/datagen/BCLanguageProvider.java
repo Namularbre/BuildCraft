@@ -164,6 +164,9 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add("buildcraft.facade", "Facade: %s");
             add("buildcraft.facade.hollow", "Hollow Facade: %s");
             add("buildcraft.facade.phased", "Phased Facade");
+            add("buildcraft.facade.phased.default", "Default: %s");
+            add("buildcraft.facade.phased.state", "%s signal: %s");
+            add("buildcraft.facade.phased.hollow", "Hollow");
             add("buildcraft.facade.unknown", "Unknown");
             add("item.buildcraft.plug_facade", "Facade");
             add("buildcraft.gate.trigger.pipe.containsItems", "Items Traversing");
@@ -417,6 +420,9 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add("buildcraft.facade", "Façade : %s");
             add("buildcraft.facade.hollow", "Façade creuse : %s");
             add("buildcraft.facade.phased", "Façade à phases");
+            add("buildcraft.facade.phased.default", "Par défaut : %s");
+            add("buildcraft.facade.phased.state", "Signal %s : %s");
+            add("buildcraft.facade.phased.hollow", "Creuse");
             add("buildcraft.facade.unknown", "Inconnue");
             add("item.buildcraft.plug_facade", "Façade");
             add("buildcraft.gate.trigger.pipe.containsItems", "Objets en transit");

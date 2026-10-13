@@ -54,7 +54,7 @@ public class FacadeItemModel extends BakedModelWrapper<BakedModel> {
         public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel level,
             @Nullable LivingEntity entity, int seed) {
             FacadeInstance states = ItemPluggableFacade.getStates(stack);
-            BlockState state = states.phasedStates[0].stateInfo.state;
+            BlockState state = states.getCurrentStateForStack().stateInfo.state;
             if (state.isAir()) {
                 return FacadeItemModel.this.originalModel;
             }

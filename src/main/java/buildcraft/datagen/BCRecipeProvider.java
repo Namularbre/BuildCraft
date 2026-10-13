@@ -393,6 +393,9 @@ public class BCRecipeProvider extends RecipeProvider {
         // A facade turns into a hollow facade, and back
         SpecialRecipeBuilder.special(BCSiliconRecipeSerializers.FACADE_SWAP.get())
             .save(out, ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "facade_swap").toString());
+        // Two facades and a pipe wire make a phased facade
+        SpecialRecipeBuilder.special(BCSiliconRecipeSerializers.FACADE_PHASED.get())
+            .save(out, ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "facade_phased").toString());
 
         // AND gates can be turned into OR gates, and back
         for (EnumGateMaterial material : EnumGateMaterial.VALUES) {

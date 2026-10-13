@@ -73,7 +73,7 @@ public final class BCSiliconClient {
     @SubscribeEvent
     public static void registerItemColours(RegisterColorHandlersEvent.Item event) {
         event.register((stack, tintIndex) -> {
-            BlockState state = ItemPluggableFacade.getStates(stack).phasedStates[0].stateInfo.state;
+            BlockState state = ItemPluggableFacade.getStates(stack).getCurrentStateForStack().stateInfo.state;
             return tintIndex < 0 ? -1 : Minecraft.getInstance().getBlockColors().getColor(state, null, null, tintIndex);
         }, BCSiliconItems.PLUG_FACADE.get());
     }

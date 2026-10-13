@@ -16,9 +16,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import net.minecraftforge.fml.LogicalSide;
+
 import buildcraft.api.facades.FacadeType;
 import buildcraft.api.facades.IFacade;
 import buildcraft.api.facades.IFacadePhasedState;
+import buildcraft.api.transport.IWireManager;
 import buildcraft.api.transport.pipe.IPipeHolder;
 import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.api.transport.pluggable.PluggableDefinition;
@@ -85,7 +88,32 @@ public class PluggableFacade extends PipePluggable implements IFacade {
         buffer.writeByte(activeState);
     }
 
+    @Override
+    public void writePayload(FriendlyByteBuf buffer, LogicalSide side) {
+        buffer.writeByte(activeState);
+    }
+
+    @Override
+    public void readPayload(FriendlyByteBuf buffer, LogicalSide side) {
+        activeState = Mth.clamp(buffer.readUnsignedByte(), 0, states.phasedStates.length - 1);
+        holder.scheduleRenderUpdate();
+    }
+
     // Pluggable methods
+
+    /** Phased facades show the state of the first powered wire colour of the pipe (or else the default one). */
+    @Override
+    public void onTick() {
+        if (states.phasedStates.length == 1 || holder.getPipeWorld().isClientSide) {
+            return;
+        }
+        IWireManager wires = holder.getWireManager();
+        int newState = states.getActiveState(wires::isAnyPowered);
+        if (newState != activeState) {
+            activeState = newState;
+            scheduleNetworkUpdate();
+        }
+    }
 
     @Override
     public AABB getBoundingBox() {

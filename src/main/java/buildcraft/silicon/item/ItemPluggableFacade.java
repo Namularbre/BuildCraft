@@ -94,6 +94,21 @@ public class ItemPluggableFacade extends Item implements IItemPluggable, IFacade
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         FacadeInstance states = getStates(stack);
+        if (states.phasedStates.length > 1) {
+            // Which block the facade looks like, for each wire colour
+            for (FacadePhasedState phased : states.phasedStates) {
+                Component name = getStateDisplayName(phased);
+                tooltip.add((phased.activeColour == null
+                    ? Component.translatable("buildcraft.facade.phased.default", name)
+                    : Component.translatable("buildcraft.facade.phased.state",
+                        Component.translatable("color.minecraft." + phased.activeColour.getName()), name)
+                ).withStyle(ChatFormatting.GRAY));
+            }
+            if (states.isHollow) {
+                tooltip.add(Component.translatable("buildcraft.facade.phased.hollow").withStyle(ChatFormatting.GRAY));
+            }
+            return;
+        }
         BlockState state = states.phasedStates[0].stateInfo.state;
         if (flag.isAdvanced()) {
             tooltip.add(Component.literal(String.valueOf(BuiltInRegistries.BLOCK.getKey(state.getBlock())))

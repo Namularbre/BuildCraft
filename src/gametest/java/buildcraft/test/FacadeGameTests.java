@@ -19,24 +19,40 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.TransientCraftingContainer;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 import net.minecraftforge.gametest.GameTestHolder;
 import net.minecraftforge.gametest.PrefixGameTestTemplate;
 
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.transport.EnumWirePart;
+
+import buildcraft.lib.statement.ActionWrapper.ActionWrapperInternal;
+import buildcraft.lib.statement.TriggerWrapper.TriggerWrapperInternal;
+
 import buildcraft.BuildCraft;
+import buildcraft.core.statements.BCCoreStatements;
 import buildcraft.silicon.BCSiliconItems;
+import buildcraft.silicon.BCSiliconPlugs;
+import buildcraft.silicon.gate.EnumGateLogic;
+import buildcraft.silicon.gate.EnumGateMaterial;
+import buildcraft.silicon.gate.EnumGateModifier;
+import buildcraft.silicon.gate.GateVariant;
 import buildcraft.silicon.item.ItemPluggableFacade;
 import buildcraft.silicon.plug.FacadeInstance;
 import buildcraft.silicon.plug.FacadeStateManager;
 import buildcraft.silicon.plug.PluggableFacade;
+import buildcraft.silicon.plug.PluggableGate;
 import buildcraft.silicon.recipe.FacadeAssemblyRecipe;
 import buildcraft.transport.BCTransportBlocks;
 import buildcraft.transport.BCTransportItems;
+import buildcraft.transport.statements.BCTransportStatements;
 import buildcraft.transport.tile.TilePipeHolder;
 
 @GameTestHolder(BuildCraft.MODID)
@@ -79,18 +95,7 @@ public class FacadeGameTests {
     @GameTest(template = EMPTY)
     public static void facadesSwapHollowInCraftingGrids(GameTestHelper helper) {
         ItemStack facade = stoneFacade(false);
-        AbstractContainerMenu menu = new AbstractContainerMenu(null, -1) {
-            @Override
-            public ItemStack quickMoveStack(Player player, int index) {
-                return ItemStack.EMPTY;
-            }
-
-            @Override
-            public boolean stillValid(Player player) {
-                return true;
-            }
-        };
-        TransientCraftingContainer grid = new TransientCraftingContainer(menu, 3, 3);
+        TransientCraftingContainer grid = new TransientCraftingContainer(dummyMenu(), 3, 3);
         grid.setItem(4, facade);
         ItemStack result = helper.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid,
             helper.getLevel()).map(r -> r.assemble(grid, helper.getLevel().registryAccess())).orElse(ItemStack.EMPTY);
@@ -125,6 +130,64 @@ public class FacadeGameTests {
             helper.assertTrue(!pipe.getPipe().isConnected(Direction.EAST), "A full facade blocks the pipe");
             helper.assertTrue(pipe.getPipe().isConnected(Direction.WEST), "A hollow facade doesn't");
         });
+    }
+
+    /** Two facades and a wire make a phased facade, which looks like the second facade while the wire is powered. */
+    @GameTest(template = EMPTY)
+    public static void phasedFacadesFollowWires(GameTestHelper helper) {
+        TransientCraftingContainer grid = new TransientCraftingContainer(dummyMenu(), 3, 3);
+        grid.setItem(0, stoneFacade(false));
+        grid.setItem(1, facade(Blocks.GLASS));
+        grid.setItem(2, new ItemStack(BCTransportItems.wire(DyeColor.RED)));
+        ItemStack phased = helper.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid,
+            helper.getLevel()).map(r -> r.assemble(grid, helper.getLevel().registryAccess())).orElse(ItemStack.EMPTY);
+        FacadeInstance states = ItemPluggableFacade.getStates(phased);
+        helper.assertTrue(states.phasedStates.length == 2 && states.phasedStates[1].activeColour == DyeColor.RED,
+            "The facade should be phased, got " + phased);
+        grid.setItem(0, phased);
+        helper.assertTrue(helper.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid,
+            helper.getLevel()).isEmpty(), "There already is a red state");
+
+        TilePipeHolder pipe = placePipe(helper);
+        pipe.wireManager.addPart(EnumWirePart.EAST_UP_SOUTH, DyeColor.RED);
+        place(helper, pipe, Direction.EAST, phased);
+        PluggableFacade facade = (PluggableFacade) pipe.getPluggable(Direction.EAST);
+        PluggableGate gate = new PluggableGate(BCSiliconPlugs.GATE, pipe, Direction.NORTH,
+            new GateVariant(EnumGateLogic.AND, EnumGateMaterial.IRON, EnumGateModifier.NO_MODIFIER));
+        pipe.replacePluggable(Direction.NORTH, gate);
+        gate.logic.setAction(0, new ActionWrapperInternal(
+            BCTransportStatements.ACTION_PIPE_SIGNAL[DyeColor.RED.ordinal()]
+        ), new IStatementParameter[0]);
+        helper.runAfterDelay(3, () -> {
+            helper.assertTrue(facade.getActiveBlockState() == Blocks.STONE.defaultBlockState(), "No signal yet");
+            gate.logic.setTrigger(0, new TriggerWrapperInternal(BCCoreStatements.TRIGGER_TRUE),
+                new IStatementParameter[0]);
+        });
+        helper.runAfterDelay(6, () -> {
+            helper.assertTrue(facade.getActiveBlockState() == Blocks.GLASS.defaultBlockState(),
+                "The facade should look like glass while the wire is powered");
+            helper.succeed();
+        });
+    }
+
+    private static AbstractContainerMenu dummyMenu() {
+        return new AbstractContainerMenu(null, -1) {
+            @Override
+            public ItemStack quickMoveStack(Player player, int index) {
+                return ItemStack.EMPTY;
+            }
+
+            @Override
+            public boolean stillValid(Player player) {
+                return true;
+            }
+        };
+    }
+
+    private static ItemStack facade(Block block) {
+        return BCSiliconItems.PLUG_FACADE.get().createItemStack(
+            FacadeInstance.createSingle(FacadeStateManager.getInfoForBlock(block), false)
+        );
     }
 
     private static ItemStack stoneFacade(boolean hollow) {

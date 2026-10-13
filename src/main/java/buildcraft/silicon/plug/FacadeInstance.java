@@ -6,10 +6,16 @@
 
 package buildcraft.silicon.plug;
 
+import java.util.Arrays;
+import java.util.function.Predicate;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.DyeColor;
 
 import buildcraft.api.facades.FacadeType;
 import buildcraft.api.facades.IFacade;
@@ -73,6 +79,51 @@ public class FacadeInstance implements IFacade {
         for (FacadePhasedState phasedState : phasedStates) {
             phasedState.writeToBuffer(buf);
         }
+    }
+
+    /** @return True if no state of this facade is already shown for the given colour (or by default, for null). */
+    public boolean canAddColour(@Nullable DyeColor colour) {
+        for (FacadePhasedState state : phasedStates) {
+            if (state.activeColour == colour) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /** @return This facade with one more state, or null if there already is one for the colour of the state. */
+    @Nullable
+    public FacadeInstance withState(FacadePhasedState state) {
+        if (!canAddColour(state.activeColour) || phasedStates.length >= 17) {
+            return null;
+        }
+        FacadePhasedState[] newStates = Arrays.copyOf(phasedStates, phasedStates.length + 1);
+        newStates[phasedStates.length] = state;
+        return new FacadeInstance(newStates, isHollow);
+    }
+
+    /** @return The state to show while the given wire colours are powered: the first state whose colour is powered,
+     *         or else the default one. */
+    public int getActiveState(Predicate<DyeColor> isPowered) {
+        int defaultState = 0;
+        for (int i = 0; i < phasedStates.length; i++) {
+            DyeColor colour = phasedStates[i].activeColour;
+            if (colour == null) {
+                defaultState = i;
+            } else if (isPowered.test(colour)) {
+                return i;
+            }
+        }
+        return defaultState;
+    }
+
+    /** @return The state to draw for an item: phased facades go through each of their states, one after the other. */
+    public FacadePhasedState getCurrentStateForStack() {
+        if (phasedStates.length == 1) {
+            return phasedStates[0];
+        }
+        long now = System.currentTimeMillis() / 500;
+        return phasedStates[(int) (now % phasedStates.length)];
     }
 
     public FacadeInstance withSwappedIsHollow() {

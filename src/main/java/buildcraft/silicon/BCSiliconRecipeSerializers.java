@@ -12,12 +12,17 @@ import net.minecraftforge.registries.RegistryObject;
 
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.silicon.recipe.FacadePhasedRecipe;
 import buildcraft.silicon.recipe.FacadeSwapRecipe;
 
 public final class BCSiliconRecipeSerializers {
     public static final RegistryObject<SimpleCraftingRecipeSerializer<FacadeSwapRecipe>> FACADE_SWAP =
         BCRegistries.RECIPE_SERIALIZERS.register("facade_swap",
             () -> new SimpleCraftingRecipeSerializer<>(FacadeSwapRecipe::new));
+
+    public static final RegistryObject<SimpleCraftingRecipeSerializer<FacadePhasedRecipe>> FACADE_PHASED =
+        BCRegistries.RECIPE_SERIALIZERS.register("facade_phased",
+            () -> new SimpleCraftingRecipeSerializer<>(FacadePhasedRecipe::new));
 
     private BCSiliconRecipeSerializers() {}
 
