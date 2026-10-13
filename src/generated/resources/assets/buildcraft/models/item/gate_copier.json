@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "overrides": [
+    {
+      "model": "buildcraft:item/gate_copier_full",
+      "predicate": {
+        "buildcraft:full": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "buildcraft:item/gate_copier/empty"
+  }
+}

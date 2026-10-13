@@ -164,6 +164,18 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add("buildcraft.facade", "Facade: %s");
             add("buildcraft.facade.hollow", "Hollow Facade: %s");
             add("buildcraft.facade.phased", "Phased Facade");
+            add("item.buildcraft.gate_copier", "Gate Copier");
+            add("buildcraft.item.nonclean.usage", "Sneak and use in the air to clear");
+            add("buildcraft.chat.gate_copier.clear", "Gate information cleared.");
+            add("buildcraft.chat.gate_copier.gate_copied", "Copied gate information to copier.");
+            add("buildcraft.chat.gate_copier.gate_pasted", "Pasted copied data to gate.");
+            add("buildcraft.chat.gate_copier.no_information", "No gate information stored!");
+            add("buildcraft.chat.gate_copier.warning.action_parameters", "Warning: Target has less action parameters!");
+            add("buildcraft.chat.gate_copier.warning.logic", "Warning: Target has different logic type!");
+            add("buildcraft.chat.gate_copier.warning.load", "Warning: Gate triggers/actions might be missing!");
+            add("buildcraft.chat.gate_copier.warning.slots", "Warning: Target has less slots!");
+            add("buildcraft.chat.gate_copier.warning.trigger_parameters",
+                "Warning: Target has less trigger parameters!");
             add("buildcraft.facade.phased.default", "Default: %s");
             add("buildcraft.facade.phased.state", "%s signal: %s");
             add("buildcraft.facade.phased.hollow", "Hollow");
@@ -420,6 +432,20 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add("buildcraft.facade", "Façade : %s");
             add("buildcraft.facade.hollow", "Façade creuse : %s");
             add("buildcraft.facade.phased", "Façade à phases");
+            add("item.buildcraft.gate_copier", "Copieur de portes");
+            add("buildcraft.item.nonclean.usage", "Accroupi, utiliser dans le vide pour l'effacer");
+            add("buildcraft.chat.gate_copier.clear", "Configuration de porte effacée.");
+            add("buildcraft.chat.gate_copier.gate_copied", "Configuration de la porte copiée.");
+            add("buildcraft.chat.gate_copier.gate_pasted", "Configuration collée sur la porte.");
+            add("buildcraft.chat.gate_copier.no_information", "Cette porte n'a rien à copier !");
+            add("buildcraft.chat.gate_copier.warning.action_parameters",
+                "Attention : la porte a moins de paramètres d'action !");
+            add("buildcraft.chat.gate_copier.warning.logic", "Attention : la porte a une logique différente !");
+            add("buildcraft.chat.gate_copier.warning.load",
+                "Attention : des déclencheurs ou des actions n'ont pas pu être collés !");
+            add("buildcraft.chat.gate_copier.warning.slots", "Attention : la porte a moins d'emplacements !");
+            add("buildcraft.chat.gate_copier.warning.trigger_parameters",
+                "Attention : la porte a moins de paramètres de déclencheur !");
             add("buildcraft.facade.phased.default", "Par défaut : %s");
             add("buildcraft.facade.phased.state", "Signal %s : %s");
             add("buildcraft.facade.phased.hollow", "Creuse");

@@ -8,6 +8,7 @@ package buildcraft.silicon.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
@@ -29,6 +30,7 @@ import buildcraft.silicon.client.gui.GuiAdvancedCraftingTable;
 import buildcraft.silicon.client.gui.GuiAssemblyTable;
 import buildcraft.silicon.client.gui.GuiGate;
 import buildcraft.silicon.client.render.RenderLaser;
+import buildcraft.silicon.item.ItemGateCopier;
 import buildcraft.silicon.item.ItemPluggableFacade;
 import buildcraft.silicon.plug.PluggableGate;
 import buildcraft.transport.client.model.PlugModels;
@@ -46,6 +48,10 @@ public final class BCSiliconClient {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
+            // Gate copiers holding a gate look different
+            ItemProperties.register(BCSiliconItems.GATE_COPIER.get(),
+                ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "full"),
+                (stack, level, entity, seed) -> ItemGateCopier.getCopiedGateData(stack) == null ? 0 : 1);
             MenuScreens.register(BCSiliconMenus.ASSEMBLY_TABLE.get(), GuiAssemblyTable::new);
             MenuScreens.register(BCSiliconMenus.ADVANCED_CRAFTING_TABLE.get(), GuiAdvancedCraftingTable::new);
             MenuScreens.register(BCSiliconMenus.GATE.get(), GuiGate::new);

@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -39,6 +40,10 @@ public class BCItemModelProvider extends ItemModelProvider {
         basicItem(BCCoreItems.GEAR_GOLD.get());
         basicItem(BCCoreItems.GEAR_DIAMOND.get());
         basicItem(BCTransportItems.PIPE_SEALANT.get());
+        ModelFile copierFull = withExistingParent("gate_copier_full", mcLoc("item/handheld"))
+            .texture("layer0", modLoc("item/gate_copier/full"));
+        withExistingParent("gate_copier", mcLoc("item/handheld")).texture("layer0", modLoc("item/gate_copier/empty"))
+            .override().predicate(modLoc("full"), 1).model(copierFull).end();
         for (DyeColor colour : DyeColor.values()) {
             withExistingParent("wire_" + colour.getName(), mcLoc("item/generated"))
                 .texture("layer0", modLoc("item/wire/" + colour.getName()));

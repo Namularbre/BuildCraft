@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-13T18:01:57.5875282	Item Models: buildcraft
+// 1.20.1	2026-10-13T23:35:34.1251135	Item Models: buildcraft
 599b6003dbe28c528cebe2d3ebf097f5c54f2e42 assets/buildcraft/models/item/advanced_crafting_table.json
 d2069c3f75ced0d1af479d1df57851ae6b44b5dd assets/buildcraft/models/item/architect_table.json
 efd3bf6432cd66ca8f8f91950c9ae9cfaf2e737d assets/buildcraft/models/item/assembly_table.json
@@ -30,6 +30,8 @@ af2256e3a2267c3be905050b7cb02562f07bccca assets/buildcraft/models/item/fuel_mixe
 2fc4c5faccb6ff86d8c0d68ef95e27d947308f31 assets/buildcraft/models/item/fuel_mixed_light_bucket.json
 e3f4e7876be647bfae0415e105dd4fc46a039445 assets/buildcraft/models/item/fuel_mixed_light_heat_1_bucket.json
 728843ee71a5159b1f8950f705849dbab8b0248e assets/buildcraft/models/item/fuel_mixed_light_heat_2_bucket.json
+8bfdc2e17eec46f5329e2eb3e6a5e1e6598d7753 assets/buildcraft/models/item/gate_copier.json
+2d7098eb09a39f4b672b536781d249d4e0ed8bcf assets/buildcraft/models/item/gate_copier_full.json
 edb811334f34a1401d2f872926c17adce57195fa assets/buildcraft/models/item/gel.json
 78e62b01a2c0cc60ad8c40bc933f7f5b9bb488cd assets/buildcraft/models/item/gold_chipset.json
 786f9530551198b47000d2a077d4df749c67c222 assets/buildcraft/models/item/gold_fluid_pipe.json

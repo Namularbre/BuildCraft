@@ -18,6 +18,7 @@ import javax.annotation.Nullable;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -475,6 +476,84 @@ public class GateLogic implements IGate, IWireEmitter, IRedstoneStatementContain
             connections[index] = connected;
             sendResolveData();
         }
+    }
+
+    /** @return True if any trigger or action is set (so there is something to copy). */
+    public boolean hasStatements() {
+        for (StatementPair pair : statements) {
+            if (pair.trigger.get() != null || pair.action.get() != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** Replaces the statements of this gate with the ones copied from another gate (see {@link #writeToNbt()}), and
+     * tells the players that have the GUI open. Statements that this gate can't have are left out. Server side only.
+     *
+     * @return Warnings about what couldn't be pasted. */
+    public List<Component> pasteConfig(CompoundTag copied) {
+        GateLogic from = new GateLogic(pluggable, copied);
+        List<Component> warnings = new ArrayList<>();
+        if (from.variant.logic() != variant.logic()) {
+            warnings.add(Component.translatable("buildcraft.chat.gate_copier.warning.logic"));
+        }
+        boolean missing = false;
+        boolean lessTriggerParams = false;
+        boolean lessActionParams = false;
+        for (int s = 0; s < statements.length; s++) {
+            TriggerWrapper trigger = null;
+            IStatementParameter[] triggerParams = new IStatementParameter[0];
+            ActionWrapper action = null;
+            IStatementParameter[] actionParams = new IStatementParameter[0];
+            if (s < from.statements.length) {
+                StatementPair pair = from.statements[s];
+                trigger = pair.trigger.get();
+                triggerParams = pair.trigger.getParameters();
+                action = pair.action.get();
+                actionParams = pair.action.getParameters();
+            }
+            lessTriggerParams |= hasParamsAfter(triggerParams, variant.numTriggerArgs());
+            lessActionParams |= hasParamsAfter(actionParams, variant.numActionArgs());
+            setTrigger(s, null, triggerParams);
+            setTrigger(s, trigger, triggerParams);
+            missing |= trigger != null && statements[s].trigger.get() == null;
+            setAction(s, null, actionParams);
+            setAction(s, action, actionParams);
+            missing |= action != null && statements[s].action.get() == null;
+        }
+        for (int c = 0; c < connections.length; c++) {
+            connections[c] = c < from.connections.length && from.connections[c];
+        }
+        sendResolveData();
+        if (from.statements.length > statements.length) {
+            for (int s = statements.length; s < from.statements.length; s++) {
+                if (from.statements[s].trigger.get() != null || from.statements[s].action.get() != null) {
+                    warnings.add(Component.translatable("buildcraft.chat.gate_copier.warning.slots"));
+                    break;
+                }
+            }
+        }
+        if (lessTriggerParams) {
+            warnings.add(Component.translatable("buildcraft.chat.gate_copier.warning.trigger_parameters"));
+        }
+        if (lessActionParams) {
+            warnings.add(Component.translatable("buildcraft.chat.gate_copier.warning.action_parameters"));
+        }
+        if (missing) {
+            warnings.add(Component.translatable("buildcraft.chat.gate_copier.warning.load"));
+        }
+        return warnings;
+    }
+
+    /** @return True if any of the given parameters (from the given index) is set. */
+    private static boolean hasParamsAfter(IStatementParameter[] params, int from) {
+        for (int i = from; i < params.length; i++) {
+            if (params[i] != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** A trigger, and the action that it activates. */

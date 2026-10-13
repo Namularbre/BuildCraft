@@ -6,8 +6,10 @@
 
 package buildcraft.silicon.plug;
 
+import java.util.List;
 import java.util.Objects;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -33,6 +35,7 @@ import buildcraft.silicon.BCSiliconItems;
 import buildcraft.silicon.container.ContainerGate;
 import buildcraft.silicon.gate.GateLogic;
 import buildcraft.silicon.gate.GateVariant;
+import buildcraft.silicon.item.ItemGateCopier;
 import buildcraft.transport.tile.TilePipeHolder;
 
 /** A gate on the side of a pipe. */
@@ -118,6 +121,10 @@ public class PluggableGate extends PipePluggable implements IWireEmitter {
 
     @Override
     public boolean onPluggableActivate(Player player, HitResult trace, float hitX, float hitY, float hitZ) {
+        if (!player.level().isClientSide && (interactWithCopier(player, player.getMainHandItem())
+            || interactWithCopier(player, player.getOffhandItem()))) {
+            return true;
+        }
         if (player instanceof ServerPlayer serverPlayer && holder.getPipeTile() instanceof TilePipeHolder tile) {
             Component title = logic.variant.getDisplayName();
             NetworkHooks.openScreen(serverPlayer,
@@ -125,6 +132,29 @@ public class PluggableGate extends PipePluggable implements IWireEmitter {
                     buffer.writeBlockPos(tile.getBlockPos());
                     buffer.writeEnum(side);
                 });
+        }
+        return true;
+    }
+
+    /** Pastes the gate copied by the copier on this gate, or copies this gate if the copier is empty.
+     *
+     * @return True if the stack was a gate copier. */
+    private boolean interactWithCopier(Player player, ItemStack stack) {
+        if (!(stack.getItem() instanceof ItemGateCopier)) {
+            return false;
+        }
+        CompoundTag stored = ItemGateCopier.getCopiedGateData(stack);
+        if (stored != null) {
+            List<Component> warnings = logic.pasteConfig(stored);
+            player.displayClientMessage(Component.translatable("buildcraft.chat.gate_copier.gate_pasted"), true);
+            for (Component warning : warnings) {
+                player.sendSystemMessage(warning.copy().withStyle(ChatFormatting.GOLD));
+            }
+        } else if (!logic.hasStatements()) {
+            player.displayClientMessage(Component.translatable("buildcraft.chat.gate_copier.no_information"), true);
+        } else {
+            ItemGateCopier.setCopiedGateData(stack, logic.writeToNbt());
+            player.displayClientMessage(Component.translatable("buildcraft.chat.gate_copier.gate_copied"), true);
         }
         return true;
     }

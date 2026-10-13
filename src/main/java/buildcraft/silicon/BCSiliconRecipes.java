@@ -30,6 +30,7 @@ import buildcraft.lib.recipe.AssemblyRecipeRegistry;
 
 import buildcraft.BuildCraft;
 import buildcraft.core.BCCoreBlocks;
+import buildcraft.core.BCCoreItems;
 import buildcraft.silicon.gate.EnumGateLogic;
 import buildcraft.silicon.gate.EnumGateMaterial;
 import buildcraft.silicon.gate.EnumGateModifier;
@@ -71,6 +72,10 @@ public final class BCSiliconRecipes {
         register("plug_pulsar", 1_000, new ItemStack(BCSiliconItems.PLUG_PULSAR.get()), Set.of(
             IngredientStack.of(BCCoreBlocks.ENGINE_REDSTONE.get()),
             new IngredientStack(Ingredient.of(Tags.Items.INGOTS_IRON), 2)
+        ));
+        register("gate_copier", 500, new ItemStack(BCSiliconItems.GATE_COPIER.get()), Set.of(
+            IngredientStack.of(BCCoreItems.WRENCH.get()),
+            IngredientStack.of(BCSiliconItems.chipset(EnumRedstoneChipset.IRON))
         ));
         register("plug_light_sensor", 500, new ItemStack(BCSiliconItems.PLUG_LIGHT_SENSOR.get()),
             Set.of(IngredientStack.of(Items.DAYLIGHT_DETECTOR)));

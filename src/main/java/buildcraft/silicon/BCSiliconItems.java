@@ -23,6 +23,7 @@ import buildcraft.lib.item.ItemPluggableSimple;
 import buildcraft.lib.registry.BCRegistries;
 
 import buildcraft.silicon.gate.GateVariant;
+import buildcraft.silicon.item.ItemGateCopier;
 import buildcraft.silicon.item.ItemPluggableFacade;
 import buildcraft.silicon.item.ItemPluggableGate;
 import buildcraft.silicon.item.ItemPluggableLens;
@@ -49,6 +50,8 @@ public final class BCSiliconItems {
         }
     }
 
+    public static final RegistryObject<ItemGateCopier> GATE_COPIER =
+        BCRegistries.ITEMS.register("gate_copier", () -> new ItemGateCopier(new Item.Properties()));
     public static final RegistryObject<ItemPluggablePulsar> PLUG_PULSAR =
         BCRegistries.ITEMS.register("plug_pulsar", () -> new ItemPluggablePulsar(new Item.Properties()));
     public static final RegistryObject<ItemPluggableSimple> PLUG_LIGHT_SENSOR = BCRegistries.ITEMS.register(
