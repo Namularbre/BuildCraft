@@ -1,7 +1,9 @@
-// 1.20.1	2026-10-13T16:44:55.5721152	Block States: buildcraft
+// 1.20.1	2026-10-13T17:09:08.166346	Block States: buildcraft
 9509c2e2d64d6b9dc155673edbb152728a981a2e assets/buildcraft/blockstates/advanced_crafting_table.json
+4d3fd47da38388669e645faf2baecfa6fe761fa3 assets/buildcraft/blockstates/architect_table.json
 ca9d637985321401ecdb034c44cd3bef4e910bf5 assets/buildcraft/blockstates/assembly_table.json
 6845a09162a73eb96df9d99eeb983899c211bdf8 assets/buildcraft/blockstates/autoworkbench_item.json
+47718d920e59cdc3943b525e6fe850ed4d7f2b89 assets/buildcraft/blockstates/builder.json
 22632d01aedc59f0f550a8de1dc5bf5e04a0e7f0 assets/buildcraft/blockstates/chute.json
 e409775c2174c4fc4bc9d0ab06360ea312b1c24d assets/buildcraft/blockstates/combustion_engine.json
 fcf1f18e0ccf7049739cdcb26a37c333a809785a assets/buildcraft/blockstates/distiller.json
@@ -51,7 +53,10 @@ d0c5279a670287a62f4955a04f3aac7f2cf3546d assets/buildcraft/blockstates/stirling_
 a06342328e4891300b84f01df41e567458f552dc assets/buildcraft/blockstates/tank.json
 e10babb5484f74b8b0d7d803d46b801811d2e83c assets/buildcraft/blockstates/tube.json
 ffc93e0ca27e1b8b300c432df34083ee8b386651 assets/buildcraft/blockstates/water_gel.json
+b4a048f272246b97b9b6de062e90503cb19da4a3 assets/buildcraft/models/block/architect_table_off.json
+260271008389cbe91368227a55e139b1ef672e80 assets/buildcraft/models/block/architect_table_on.json
 6e699e17f8494fb260872d79509967b99c729e1a assets/buildcraft/models/block/autoworkbench_item.json
+87cd0f5922f39b44ae7b7a55781e1a81605abcda assets/buildcraft/models/block/builder.json
 84814ad9fb7e9b7c615bcffb80887cb888350795 assets/buildcraft/models/block/engine/iron_black.json
 43a640ef3155a0e8b61b1fbdfc8a69cc90f0381c assets/buildcraft/models/block/engine/iron_blue.json
 3acac13876d137aa99bce54da0c6ca414a84b099 assets/buildcraft/models/block/engine/iron_green.json

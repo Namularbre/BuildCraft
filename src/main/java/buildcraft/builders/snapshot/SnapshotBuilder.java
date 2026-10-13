@@ -4,10 +4,9 @@
  * distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/
  */
 
-package buildcraft.builders.filler;
+package buildcraft.builders.snapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -16,21 +15,9 @@ import java.util.stream.IntStream;
 import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
-
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.util.FakePlayerFactory;
 
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.mj.MjBattery;
@@ -38,24 +25,19 @@ import buildcraft.api.mj.MjBattery;
 import buildcraft.lib.misc.BlockUtil;
 import buildcraft.lib.misc.data.Box;
 
-import buildcraft.builders.tile.TileFiller;
 import buildcraft.factory.tile.TileMiningWell;
 
-/** Makes the blocks of a box match a template: the blocks that shouldn't be there are broken (if the filler can
- * excavate), then blocks from the filler's inventory are placed where they should be. */
-public class FillerBuilder {
+/** Makes the blocks of a box match a {@link BuildTarget}: the blocks that shouldn't be there are broken (if the
+ * machine can excavate), then blocks from the machine's inventory are placed where they should be. */
+public class SnapshotBuilder {
     private static final int MAX_QUEUE_SIZE = 16;
     private static final int CHECKS_PER_TICK = 64;
     private static final long MAX_POWER_PER_TICK = 256 * MjAPI.MJ;
 
-    private static final byte UNKNOWN = 0, CORRECT = 1, TO_BREAK = 2, TO_PLACE = 3;
-
-    private final TileFiller tile;
+    private final ISnapshotBuilderTile tile;
     @Nullable
-    private Box box;
-    @Nullable
-    private Template template;
-    private byte[] results;
+    private BuildTarget target;
+    private BuildTarget.Result[] results;
     private int[] breakOrder;
     private int[] placeOrder;
     private int checkIndex;
@@ -67,14 +49,14 @@ public class FillerBuilder {
     public int leftToBreak;
     public int leftToPlace;
 
-    public FillerBuilder(TileFiller tile) {
+    public SnapshotBuilder(ISnapshotBuilderTile tile) {
         this.tile = tile;
     }
 
     /** A block being broken or placed, and the power put into it so far. */
     public static class Task {
         public final BlockPos pos;
-        /** The block to place (empty for break tasks). */
+        /** The items used to place the block (empty for break tasks, or for free blocks). */
         public final ItemStack item;
         public long power;
         public long target;
@@ -90,41 +72,42 @@ public class FillerBuilder {
         }
     }
 
-    /** Changes what to build (or stops building, if either is null). */
-    public void setTarget(@Nullable Box box, @Nullable Template template) {
+    /** Changes what to build (or stops building, if null). */
+    public void setTarget(@Nullable BuildTarget target) {
         cancel();
-        this.box = box;
-        this.template = template;
-        if (box == null || template == null) {
+        this.target = target;
+        if (target == null) {
             results = null;
             return;
         }
-        int size = Template.getDataSize(template.getSize());
-        results = new byte[size];
-        BlockPos min = box.min();
-        BlockPos center = min.offset(template.getSize().getX() / 2, 0, template.getSize().getZ() / 2);
-        BlockPos fillerPos = tile.getBlockPos();
-        // Break from the top down, place from the bottom up (both starting near the middle / the filler)
-        breakOrder = IntStream.range(0, size).boxed().sorted(Comparator.comparingInt((Integer i) -> -pos(i).getY())
-            .thenComparingDouble(i -> pos(i).distSqr(center))).mapToInt(i -> i).toArray();
-        placeOrder = IntStream.range(0, size).boxed().sorted(Comparator.comparingInt((Integer i) -> pos(i).getY())
-            .thenComparingDouble(i -> pos(i).distSqr(fillerPos))).mapToInt(i -> i).toArray();
+        int size = target.count();
+        results = new BuildTarget.Result[size];
+        Box box = target.box;
+        BlockPos center = new BlockPos((box.min().getX() + box.max().getX()) / 2, box.min().getY(),
+            (box.min().getZ() + box.max().getZ()) / 2);
+        BlockPos machine = tile.getBlockPos();
+        // Break from the top down, place from the bottom up (both starting near the middle / the machine)
+        breakOrder = IntStream.range(0, size).boxed()
+            .sorted(Comparator.comparingInt((Integer i) -> -target.worldPos(i).getY())
+                .thenComparingDouble(i -> target.worldPos(i).distSqr(center)))
+            .mapToInt(i -> i).toArray();
+        placeOrder = IntStream.range(0, size).boxed()
+            .sorted(Comparator.comparingInt((Integer i) -> target.worldPos(i).getY())
+                .thenComparingDouble(i -> target.worldPos(i).distSqr(machine)))
+            .mapToInt(i -> i).toArray();
         checkIndex = 0;
         checkedAll = false;
     }
 
-    public boolean hasTarget() {
-        return results != null;
+    @Nullable
+    public BuildTarget getTarget() {
+        return target;
     }
 
-    /** @return True if every block of the box is right. */
+    /** @return True if every block of the box is right (or there is nothing to build). */
     public boolean isFinished() {
         return results == null || (checkedAll && leftToBreak == 0 && leftToPlace == 0 && breakTasks.isEmpty()
             && placeTasks.isEmpty());
-    }
-
-    private BlockPos pos(int index) {
-        return box.min().offset(template.indexToPos(index));
     }
 
     /** Stops every task, giving back the power and the items that they took. */
@@ -149,21 +132,35 @@ public class FillerBuilder {
         }
     }
 
-    private byte check(int index) {
-        BlockPos pos = pos(index);
-        Level level = tile.getLevel();
-        BlockState state = level.getBlockState(pos);
-        byte result;
-        if (template.data.get(index)) {
-            // Any block is fine, as long as there is one (fluids get replaced)
-            result = state.isAir() || state.getBlock() instanceof LiquidBlock ? TO_PLACE : CORRECT;
-        } else if (state.isAir() || state.getBlock() instanceof LiquidBlock || !BlockUtil.canMachineBreak(level, pos)) {
-            result = CORRECT;
-        } else {
-            result = TO_BREAK;
+    private void check(int index) {
+        results[index] = target.check(tile.getLevel(), index, target.worldPos(index));
+    }
+
+    /** @return The items that are still needed to finish (for blueprints, as templates take any block). */
+    public List<ItemStack> getRemainingRequiredItems() {
+        List<ItemStack> all = new ArrayList<>();
+        if (results == null) {
+            return all;
         }
-        results[index] = result;
-        return result;
+        for (int i = 0; i < results.length; i++) {
+            if (results[i] != BuildTarget.Result.TO_PLACE) {
+                continue;
+            }
+            for (ItemStack required : target.getRequiredItems(i)) {
+                boolean merged = false;
+                for (ItemStack stack : all) {
+                    if (ItemStack.isSameItemSameTags(stack, required)) {
+                        stack.grow(required.getCount());
+                        merged = true;
+                        break;
+                    }
+                }
+                if (!merged) {
+                    all.add(required.copy());
+                }
+            }
+        }
+        return all;
     }
 
     /** Called every tick on the server. */
@@ -180,27 +177,27 @@ public class FillerBuilder {
             }
         }
         // Forget the tasks that aren't needed anymore (like a block placed by a player)
-        removeDone(breakTasks, TO_BREAK);
-        removeDone(placeTasks, TO_PLACE);
+        removeDone(breakTasks, BuildTarget.Result.TO_BREAK);
+        removeDone(placeTasks, BuildTarget.Result.TO_PLACE);
 
         leftToBreak = 0;
         leftToPlace = 0;
-        for (byte result : results) {
-            if (result == TO_BREAK) {
+        for (BuildTarget.Result result : results) {
+            if (result == BuildTarget.Result.TO_BREAK) {
                 leftToBreak++;
-            } else if (result == TO_PLACE) {
+            } else if (result == BuildTarget.Result.TO_PLACE) {
                 leftToPlace++;
             }
         }
+        ServerLevel level = (ServerLevel) tile.getLevel();
         if (tile.canExcavate()) {
             for (int index : breakOrder) {
                 if (breakTasks.size() >= MAX_QUEUE_SIZE) {
                     break;
                 }
-                if (results[index] == TO_BREAK && !isQueued(breakTasks, pos(index))) {
-                    BlockPos pos = pos(index);
-                    breakTasks.add(new Task(pos, ItemStack.EMPTY,
-                        TileMiningWell.getBreakPower((ServerLevel) tile.getLevel(), pos)));
+                BlockPos pos = target.worldPos(index);
+                if (results[index] == BuildTarget.Result.TO_BREAK && !isQueued(breakTasks, pos)) {
+                    breakTasks.add(new Task(pos, ItemStack.EMPTY, TileMiningWell.getBreakPower(level, pos)));
                 }
             }
         }
@@ -209,33 +206,29 @@ public class FillerBuilder {
                 if (placeTasks.size() >= MAX_QUEUE_SIZE) {
                     break;
                 }
-                if (results[index] == TO_PLACE && !isQueued(placeTasks, pos(index))) {
-                    ItemStack item = tile.takeBlockItem();
-                    if (item.isEmpty()) {
-                        break;
+                BlockPos pos = target.worldPos(index);
+                if (results[index] == BuildTarget.Result.TO_PLACE && !isQueued(placeTasks, pos)) {
+                    ItemStack items = target.takeItems(tile.getResources(), index);
+                    if (items == null) {
+                        continue;
                     }
-                    BlockPos pos = pos(index);
                     double distance = Math.sqrt(pos.distSqr(tile.getBlockPos()));
-                    placeTasks.add(new Task(pos, item, (long) (distance * 10 * MjAPI.MJ)));
+                    placeTasks.add(new Task(pos, items, (long) (distance * 10 * MjAPI.MJ)));
                 }
             }
         }
-        doTasks();
+        doTasks(level);
     }
 
-    private void removeDone(List<Task> tasks, byte expected) {
+    private void removeDone(List<Task> tasks, BuildTarget.Result expected) {
         for (Iterator<Task> iterator = tasks.iterator(); iterator.hasNext();) {
             Task task = iterator.next();
-            if (box == null || !box.contains(task.pos) || results[index(task.pos)] != expected) {
+            int index = target.indexOf(task.pos);
+            if (index < 0 || results[index] != expected) {
                 iterator.remove();
                 refund(task);
             }
         }
-    }
-
-    private int index(BlockPos pos) {
-        BlockPos rel = pos.subtract(box.min());
-        return template.posToIndex(rel.getX(), rel.getY(), rel.getZ());
     }
 
     private static boolean isQueued(List<Task> tasks, BlockPos pos) {
@@ -247,22 +240,21 @@ public class FillerBuilder {
         return false;
     }
 
-    private void doTasks() {
+    private void doTasks(ServerLevel level) {
         MjBattery battery = tile.getBattery();
         // Less power is used when the battery is low
         long max = Math.min((long) (MAX_POWER_PER_TICK * (double) (battery.getStored() + MAX_POWER_PER_TICK / 10)
             / (battery.getCapacity() * 2)), MAX_POWER_PER_TICK);
-        ServerLevel level = (ServerLevel) tile.getLevel();
         for (Iterator<Task> iterator = breakTasks.iterator(); iterator.hasNext();) {
             Task task = iterator.next();
             task.power += battery.extractPower(0, Math.min(task.target - task.power, max / breakTasks.size()));
             if (task.power >= task.target) {
                 level.destroyBlockProgress(task.pos.hashCode(), task.pos, -1);
-                // Like in 1.12, what the filler breaks is lost
+                // Like in 1.12, what is broken is lost
                 if (BlockUtil.breakBlockAndGetDrops(level, task.pos, tile.getOwner()).isEmpty()) {
                     refund(task);
                 }
-                check(index(task.pos));
+                check(target.indexOf(task.pos));
                 iterator.remove();
             } else {
                 level.destroyBlockProgress(task.pos.hashCode(), task.pos, (int) (task.power * 9 / task.target));
@@ -272,28 +264,14 @@ public class FillerBuilder {
             Task task = iterator.next();
             task.power += battery.extractPower(0, Math.min(task.target - task.power, max / placeTasks.size()));
             if (task.power >= task.target) {
-                if (!place(level, task)) {
+                int index = target.indexOf(task.pos);
+                if (!target.place(level, index, task.pos, task.item, tile.getOwner()) && !task.item.isEmpty()) {
                     tile.returnItem(task.item);
                 }
-                check(index(task.pos));
+                check(index);
                 iterator.remove();
             }
         }
-    }
-
-    /** Places the block of the task, like the owner of the filler would. */
-    private boolean place(ServerLevel level, Task task) {
-        if (!(task.item.getItem() instanceof BlockItem blockItem)) {
-            return false;
-        }
-        FakePlayer player = FakePlayerFactory.get(level, tile.getOwner());
-        ItemStack stack = task.item.copy();
-        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
-        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(task.pos), Direction.UP, task.pos, false);
-        BlockPlaceContext context = new BlockPlaceContext(level, player, InteractionHand.MAIN_HAND, stack, hit);
-        boolean placed = blockItem.place(context).consumesAction();
-        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-        return placed;
     }
 
     // Networking (only the tasks, for rendering)
@@ -339,14 +317,10 @@ public class FillerBuilder {
     public List<ItemStack> getTaskItems() {
         List<ItemStack> items = new ArrayList<>();
         for (Task task : placeTasks) {
-            items.add(task.item);
+            if (!task.item.isEmpty()) {
+                items.add(task.item);
+            }
         }
         return items;
-    }
-
-    @Override
-    public String toString() {
-        return "FillerBuilder[box=" + box + ", breaks=" + breakTasks.size() + ", places=" + placeTasks.size()
-            + ", results=" + (results == null ? null : Arrays.toString(Arrays.copyOf(results, 0))) + "]";
     }
 }

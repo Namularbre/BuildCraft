@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "l": {
+      "tag": "forge:gems/lapis"
+    },
+    "p": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "ppp",
+    "plp",
+    "ppp"
+  ],
+  "result": {
+    "item": "buildcraft:blueprint"
+  },
+  "show_notification": true
+}

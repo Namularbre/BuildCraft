@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "forge:chests/wooden"
+    },
+    "b": {
+      "tag": "forge:dyes/black"
+    },
+    "c": {
+      "item": "minecraft:crafting_table"
+    },
+    "d": {
+      "tag": "forge:gears/diamond"
+    },
+    "m": {
+      "item": "buildcraft:marker_volume"
+    },
+    "y": {
+      "tag": "forge:dyes/yellow"
+    }
+  },
+  "pattern": [
+    "bmb",
+    "ycy",
+    "dCd"
+  ],
+  "result": {
+    "item": "buildcraft:builder"
+  },
+  "show_notification": true
+}

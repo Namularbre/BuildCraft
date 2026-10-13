@@ -29,6 +29,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -36,6 +37,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -62,13 +64,16 @@ import buildcraft.lib.tile.TileBC;
 import buildcraft.builders.BCBuildersBlocks;
 import buildcraft.builders.block.BlockFiller;
 import buildcraft.builders.container.ContainerFiller;
-import buildcraft.builders.filler.FillerBuilder;
 import buildcraft.builders.filler.FillerType;
 import buildcraft.builders.filler.Template;
+import buildcraft.builders.snapshot.ISnapshotBuilderTile;
+import buildcraft.builders.snapshot.SnapshotBuilder;
+import buildcraft.builders.snapshot.TemplateTarget;
 import buildcraft.core.tile.TileMarkerVolume;
 
 /** Fills (or clears) the box of the markers it was placed against with a pattern, using the blocks in its inventory. */
-public class TileFiller extends TileBC implements ITickable, IFillerStatementContainer, IControllable {
+public class TileFiller extends TileBC
+    implements ITickable, IFillerStatementContainer, IControllable, ISnapshotBuilderTile {
     public static final IdAllocator IDS = TileBC.IDS.makeChild("filler");
     public static final int NET_TASKS = IDS.allocId("TASKS");
 
@@ -87,7 +92,7 @@ public class TileFiller extends TileBC implements ITickable, IFillerStatementCon
     private final MjBattery battery = new MjBattery(16_000 * MjAPI.MJ);
     private final MjCapabilityHelper mjCaps = new MjCapabilityHelper(new MjBatteryReceiver(battery));
     public final FullStatement<IFillerPattern> patternStatement = new FullStatement<>(FillerType.INSTANCE, 4);
-    private final FillerBuilder builder = new FillerBuilder(this);
+    private final SnapshotBuilder builder = new SnapshotBuilder(this);
     @Nullable
     private Box box;
     private boolean canExcavate = true;
@@ -150,28 +155,23 @@ public class TileFiller extends TileBC implements ITickable, IFillerStatementCon
         return box;
     }
 
-    public FillerBuilder getBuilder() {
+    public SnapshotBuilder getBuilder() {
         return builder;
     }
 
+    @Override
     public MjBattery getBattery() {
         return battery;
     }
 
     // Inventory
 
-    /** @return A single block item from the inventory (removed from it), or an empty stack if there are none. */
-    public ItemStack takeBlockItem() {
-        for (int slot = 0; slot < invResources.getSlots(); slot++) {
-            ItemStack stack = invResources.extractItem(slot, 1, false);
-            if (!stack.isEmpty()) {
-                return stack;
-            }
-        }
-        return ItemStack.EMPTY;
+    @Override
+    public IItemHandler getResources() {
+        return invResources;
     }
 
-    /** Puts an item back into the inventory (or drops it if it doesn't fit). */
+    @Override
     public void returnItem(ItemStack stack) {
         ItemStack leftOver = ItemHandlerHelper.insertItemStacked(invResources, stack, false);
         if (!leftOver.isEmpty() && level != null) {
@@ -190,6 +190,7 @@ public class TileFiller extends TileBC implements ITickable, IFillerStatementCon
 
     // Settings
 
+    @Override
     public boolean canExcavate() {
         return canExcavate;
     }
@@ -235,7 +236,8 @@ public class TileFiller extends TileBC implements ITickable, IFillerStatementCon
                 }
             }
         }
-        builder.setTarget(template == null ? null : box, template);
+        builder.setTarget(template == null ? null
+            : new TemplateTarget(template.data, template.getSize(), box.min(), Rotation.NONE));
     }
 
     // ITickable

@@ -39,6 +39,8 @@ public final class LaserBeamRenderer {
 
     /** The striped beam that outlines an area that is about to be worked on (like the area of a quarry). */
     public static final ResourceLocation STRIPES_WRITE = beam("stripes_write");
+    /** The striped beam that outlines an area that is being read (like the area that an architect table scans). */
+    public static final ResourceLocation STRIPES_READ = beam("stripes_read");
 
     private static ResourceLocation beam(String name) {
         return ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "block/laser_beam/" + name);

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "tag": "forge:dyes/black"
+    },
+    "c": {
+      "item": "minecraft:crafting_table"
+    },
+    "d": {
+      "tag": "forge:gears/diamond"
+    },
+    "m": {
+      "item": "buildcraft:marker_volume"
+    },
+    "s": {
+      "item": "buildcraft:blueprint"
+    },
+    "y": {
+      "tag": "forge:dyes/yellow"
+    }
+  },
+  "pattern": [
+    "bmb",
+    "ycy",
+    "dsd"
+  ],
+  "result": {
+    "item": "buildcraft:architect_table"
+  },
+  "show_notification": true
+}

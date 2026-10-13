@@ -14,6 +14,8 @@
     "buildcraft:quarry",
     "buildcraft:frame",
     "buildcraft:filler",
+    "buildcraft:builder",
+    "buildcraft:architect_table",
     {
       "id": "buildcraft:power_tester",
       "required": false

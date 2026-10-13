@@ -1,7 +1,9 @@
-// 1.20.1	2026-10-13T16:44:55.5741144	Item Models: buildcraft
+// 1.20.1	2026-10-13T17:09:08.1753457	Item Models: buildcraft
 599b6003dbe28c528cebe2d3ebf097f5c54f2e42 assets/buildcraft/models/item/advanced_crafting_table.json
+d2069c3f75ced0d1af479d1df57851ae6b44b5dd assets/buildcraft/models/item/architect_table.json
 efd3bf6432cd66ca8f8f91950c9ae9cfaf2e737d assets/buildcraft/models/item/assembly_table.json
 fc532d8923f450294e07edfd2198126d4872a144 assets/buildcraft/models/item/autoworkbench_item.json
+b82146395b531bf737f4f54c9eba1fb592fb5a94 assets/buildcraft/models/item/builder.json
 1d18a91184439da5d75dc396886d4c709e81ec5d assets/buildcraft/models/item/chute.json
 cf0c0a207b01646a7ff4f97cae2b5758148e907d assets/buildcraft/models/item/cobblestone_fluid_pipe.json
 3c81600c442df01f43096805a373fc208b478473 assets/buildcraft/models/item/cobblestone_item_pipe.json

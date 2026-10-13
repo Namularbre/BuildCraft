@@ -13,11 +13,18 @@ import net.minecraftforge.registries.RegistryObject;
 
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.builders.container.ContainerArchitectTable;
+import buildcraft.builders.container.ContainerBuilder;
 import buildcraft.builders.container.ContainerFiller;
 
 public final class BCBuildersMenus {
     public static final RegistryObject<MenuType<ContainerFiller>> FILLER =
         BCRegistries.MENU_TYPES.register("filler", () -> IForgeMenuType.create(ContainerFiller::new));
+
+    public static final RegistryObject<MenuType<ContainerArchitectTable>> ARCHITECT_TABLE = BCRegistries.MENU_TYPES
+        .register("architect_table", () -> IForgeMenuType.create(ContainerArchitectTable::new));
+    public static final RegistryObject<MenuType<ContainerBuilder>> BUILDER =
+        BCRegistries.MENU_TYPES.register("builder", () -> IForgeMenuType.create(ContainerBuilder::new));
 
     private BCBuildersMenus() {}
 

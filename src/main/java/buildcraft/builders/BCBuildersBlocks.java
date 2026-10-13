@@ -17,9 +17,15 @@ import net.minecraftforge.registries.RegistryObject;
 
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.builders.block.BlockArchitectTable;
+import buildcraft.builders.block.BlockBuilder;
 import buildcraft.builders.block.BlockFiller;
 import buildcraft.builders.block.BlockFrame;
 import buildcraft.builders.block.BlockQuarry;
+import buildcraft.builders.item.ItemSnapshot;
+import buildcraft.builders.snapshot.Snapshot;
+import buildcraft.builders.tile.TileArchitectTable;
+import buildcraft.builders.tile.TileBuilder;
 import buildcraft.builders.tile.TileFiller;
 import buildcraft.builders.tile.TileQuarry;
 
@@ -56,8 +62,41 @@ public final class BCBuildersBlocks {
             "filler", () -> BlockEntityType.Builder.of(TileFiller::new, FILLER.get()).build(null)
         );
 
+    public static final RegistryObject<BlockArchitectTable> ARCHITECT = BCRegistries.BLOCKS.register(
+        "architect_table", () -> new BlockArchitectTable(
+            BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 10.0f).sound(SoundType.METAL)
+        )
+    );
+
+    @SuppressWarnings("ConstantConditions")
+    public static final RegistryObject<BlockEntityType<TileArchitectTable>> ARCHITECT_TILE =
+        BCRegistries.BLOCK_ENTITY_TYPES.register(
+            "architect_table", () -> BlockEntityType.Builder.of(TileArchitectTable::new, ARCHITECT.get()).build(null)
+        );
+
+    public static final RegistryObject<BlockBuilder> BUILDER = BCRegistries.BLOCKS.register(
+        "builder", () -> new BlockBuilder(
+            BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 10.0f).sound(SoundType.METAL)
+        )
+    );
+
+    @SuppressWarnings("ConstantConditions")
+    public static final RegistryObject<BlockEntityType<TileBuilder>> BUILDER_TILE =
+        BCRegistries.BLOCK_ENTITY_TYPES.register(
+            "builder", () -> BlockEntityType.Builder.of(TileBuilder::new, BUILDER.get()).build(null)
+        );
+
+    public static final RegistryObject<ItemSnapshot> TEMPLATE = BCRegistries.ITEMS.register(
+        "template", () -> new ItemSnapshot(new Item.Properties(), Snapshot.Type.TEMPLATE)
+    );
+    public static final RegistryObject<ItemSnapshot> BLUEPRINT = BCRegistries.ITEMS.register(
+        "blueprint", () -> new ItemSnapshot(new Item.Properties(), Snapshot.Type.BLUEPRINT)
+    );
+
     static {
         BCRegistries.ITEMS.register("quarry", () -> new BlockItem(QUARRY.get(), new Item.Properties()));
+        BCRegistries.ITEMS.register("architect_table", () -> new BlockItem(ARCHITECT.get(), new Item.Properties()));
+        BCRegistries.ITEMS.register("builder", () -> new BlockItem(BUILDER.get(), new Item.Properties()));
         BCRegistries.ITEMS.register("filler", () -> new BlockItem(FILLER.get(), new Item.Properties()));
     }
 

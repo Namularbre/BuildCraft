@@ -95,6 +95,18 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PLUG_POWER_ADAPTOR.get(), "Power Adapter");
             add(BCTransportItems.PIPE_DIAMOND_FLUID.get(), "Diamond Fluid Pipe");
             add("buildcraft.gui.diamond_pipe", "Filters");
+            add("block.buildcraft.architect_table", "Architect Table");
+            add("block.buildcraft.builder", "Builder");
+            add("item.buildcraft.template", "Template");
+            add("item.buildcraft.blueprint", "Blueprint");
+            add("buildcraft.snapshot.blank", "Blank");
+            add("buildcraft.snapshot.author", "By %s");
+            add("buildcraft.architect.no_box",
+                "Place the architect table against connected markers to give it an area");
+            add("buildcraft.gui.architect.name", "Name");
+            add("buildcraft.gui.builder.resources", "Building Resources");
+            add("buildcraft.gui.builder.empty", "Put a blueprint or a template in");
+            add("buildcraft.gui.builder.template", "Templates can be built with any blocks");
             add("block.buildcraft.filler", "Filler");
             add("buildcraft.filler.no_box", "Place the filler against connected markers to give it an area");
             add("buildcraft.gui.filler.resources", "Filling Resources");
@@ -316,6 +328,18 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PLUG_POWER_ADAPTOR.get(), "Adaptateur d'énergie");
             add(BCTransportItems.PIPE_DIAMOND_FLUID.get(), "Tuyau à fluide en diamant");
             add("buildcraft.gui.diamond_pipe", "Filtres");
+            add("block.buildcraft.architect_table", "Table d'architecte");
+            add("block.buildcraft.builder", "Constructeur");
+            add("item.buildcraft.template", "Gabarit");
+            add("item.buildcraft.blueprint", "Plan");
+            add("buildcraft.snapshot.blank", "Vierge");
+            add("buildcraft.snapshot.author", "Par %s");
+            add("buildcraft.architect.no_box",
+                "Posez la table d'architecte contre des marqueurs reliés pour lui donner une zone");
+            add("buildcraft.gui.architect.name", "Nom");
+            add("buildcraft.gui.builder.resources", "Blocs de construction");
+            add("buildcraft.gui.builder.empty", "Mettez un plan ou un gabarit");
+            add("buildcraft.gui.builder.template", "Les gabarits se construisent avec n'importe quels blocs");
             add("block.buildcraft.filler", "Remplisseur");
             add("buildcraft.filler.no_box",
                 "Posez le remplisseur contre des marqueurs reliés pour lui donner une zone");

@@ -1,7 +1,9 @@
-// 1.20.1	2026-10-13T16:44:55.5751144	Loot Tables
+// 1.20.1	2026-10-13T17:09:08.179352	Loot Tables
 2330e84e9a2a1d20291d76b93e31934987d0fc64 data/buildcraft/loot_tables/blocks/advanced_crafting_table.json
+3fe322634f9f15b9d5663012213acc5bfed12a1d data/buildcraft/loot_tables/blocks/architect_table.json
 c3c9c1234ad14c1046832b1bad677bac23c12dc8 data/buildcraft/loot_tables/blocks/assembly_table.json
 338e9dc7bedd91034abc4d5bd03b967d590c1a7a data/buildcraft/loot_tables/blocks/autoworkbench_item.json
+e4086c4bd944e7dc93d9b9edc5e1e8e6710b9252 data/buildcraft/loot_tables/blocks/builder.json
 be29287f9a1731ac150dde15dbc75e44f79562dc data/buildcraft/loot_tables/blocks/chute.json
 c21809addc58ab140075c66b458cd9dfd4662000 data/buildcraft/loot_tables/blocks/combustion_engine.json
 a35f68d388243b10c956b2599972b2b1bfeab8a6 data/buildcraft/loot_tables/blocks/distiller.json

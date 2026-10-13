@@ -125,6 +125,47 @@ public class BCRecipeProvider extends RecipeProvider {
             .unlockedBy("has_lapis", has(Tags.Items.GEMS_LAPIS))
             .save(out);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCBuildersBlocks.TEMPLATE.get())
+            .pattern("ppp")
+            .pattern("pbp")
+            .pattern("ppp")
+            .define('p', Items.PAPER)
+            .define('b', Tags.Items.DYES_BLACK)
+            .unlockedBy("has_paper", has(Items.PAPER))
+            .save(out);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCBuildersBlocks.BLUEPRINT.get())
+            .pattern("ppp")
+            .pattern("plp")
+            .pattern("ppp")
+            .define('p', Items.PAPER)
+            .define('l', Tags.Items.GEMS_LAPIS)
+            .unlockedBy("has_paper", has(Items.PAPER))
+            .save(out);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCBuildersBlocks.ARCHITECT.get())
+            .pattern("bmb")
+            .pattern("ycy")
+            .pattern("dsd")
+            .define('b', Tags.Items.DYES_BLACK)
+            .define('m', BCCoreBlocks.MARKER_VOLUME.get())
+            .define('y', Tags.Items.DYES_YELLOW)
+            .define('c', Items.CRAFTING_TABLE)
+            .define('d', BCTags.Items.GEARS_DIAMOND)
+            .define('s', BCBuildersBlocks.BLUEPRINT.get())
+            .unlockedBy("has_marker", has(BCCoreBlocks.MARKER_VOLUME.get()))
+            .save(out);
+        // Not craftable in 1.12 (it was creative only): like the filler, but with diamond gears
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCBuildersBlocks.BUILDER.get())
+            .pattern("bmb")
+            .pattern("ycy")
+            .pattern("dCd")
+            .define('b', Tags.Items.DYES_BLACK)
+            .define('m', BCCoreBlocks.MARKER_VOLUME.get())
+            .define('y', Tags.Items.DYES_YELLOW)
+            .define('c', Items.CRAFTING_TABLE)
+            .define('d', BCTags.Items.GEARS_DIAMOND)
+            .define('C', Tags.Items.CHESTS_WOODEN)
+            .unlockedBy("has_marker", has(BCCoreBlocks.MARKER_VOLUME.get()))
+            .save(out);
         // Not craftable in 1.12 (it was creative only): this is the recipe of BuildCraft 7
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCBuildersBlocks.FILLER.get())
             .pattern("bmb")

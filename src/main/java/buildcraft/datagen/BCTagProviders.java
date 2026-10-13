@@ -47,7 +47,8 @@ public final class BCTagProviders {
                 .add(BCSiliconBlocks.LASER.get()).add(BCSiliconBlocks.ASSEMBLY_TABLE.get())
                 .add(BCSiliconBlocks.ADVANCED_CRAFTING_TABLE.get())
                 .add(BCBuildersBlocks.QUARRY.get()).add(BCBuildersBlocks.FRAME.get())
-                .add(BCBuildersBlocks.FILLER.get());
+                .add(BCBuildersBlocks.FILLER.get()).add(BCBuildersBlocks.BUILDER.get())
+                .add(BCBuildersBlocks.ARCHITECT.get());
             if (BCCoreBlocks.POWER_TESTER != null) {
                 // Optional: the tester only exists in development, and a missing entry would break the whole tag
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).addOptional(BCCoreBlocks.POWER_TESTER.getId());

@@ -26,6 +26,7 @@ import buildcraft.lib.fluid.BCFluid;
 
 import buildcraft.BuildCraft;
 import buildcraft.builders.BCBuildersBlocks;
+import buildcraft.builders.block.BlockArchitectTable;
 import buildcraft.builders.block.BlockFrame;
 import buildcraft.builders.block.BlockQuarry;
 import buildcraft.core.BCCoreBlocks;
@@ -89,6 +90,11 @@ public class BCBlockStateProvider extends BlockStateProvider {
         chute();
         markerVolume();
         quarry();
+        horizontalBlock(BCBuildersBlocks.BUILDER.get(), models().cube(
+            "block/builder", modLoc("block/builder/bottom"), modLoc("block/builder/top"), modLoc("block/builder/front"),
+            modLoc("block/builder/back"), modLoc("block/builder/side"), modLoc("block/builder/side")
+        ).texture("particle", modLoc("block/builder/side")));
+        architectTable();
         // The front faces north in the model, and is turned to face where the block faces
         horizontalBlock(BCBuildersBlocks.FILLER.get(), models().cube(
             "block/filler", modLoc("block/filler/bottom"), modLoc("block/filler/top"), modLoc("block/filler/front"),
@@ -159,6 +165,22 @@ public class BCBlockStateProvider extends BlockStateProvider {
 
     /** One model for each set of sides with an item hatch (where pipes and inventories are), turned to face the
      * right way. The model faces north. */
+    /** The front lights up when the table has a box to scan. */
+    private void architectTable() {
+        for (boolean valid : new boolean[] { false, true }) {
+            String name = "block/architect_table_" + (valid ? "on" : "off");
+            models().cube(name, modLoc("block/architect/bottom"), modLoc("block/architect/top"),
+                modLoc("block/architect/front_" + (valid ? "on" : "off")), modLoc("block/architect/back"),
+                modLoc("block/architect/right"), modLoc("block/architect/left"))
+                .texture("particle", modLoc("block/architect/back"));
+        }
+        getVariantBuilder(BCBuildersBlocks.ARCHITECT.get()).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(models().getExistingFile(modLoc("block/architect_table_"
+                + (state.getValue(BlockArchitectTable.VALID) ? "on" : "off"))))
+            .rotationY(((int) state.getValue(BlockArchitectTable.FACING).toYRot() + 180) % 360)
+            .build());
+    }
+
     private void quarry() {
         getVariantBuilder(BCBuildersBlocks.QUARRY.get()).forAllStates(state -> {
             StringBuilder name = new StringBuilder("block/quarry/quarry");
