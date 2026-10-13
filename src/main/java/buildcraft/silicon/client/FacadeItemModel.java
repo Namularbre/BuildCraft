@@ -16,6 +16,8 @@ import javax.annotation.Nullable;
 
 import org.joml.Vector3f;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -27,6 +29,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -99,6 +102,20 @@ public class FacadeItemModel extends BakedModelWrapper<BakedModel> {
             @Override
             public boolean useAmbientOcclusion() {
                 return false;
+            }
+
+            // The wrapped model would otherwise give itself (instead of this model) for these two, and be drawn
+            // instead of the facade
+
+            @Override
+            public BakedModel applyTransform(ItemDisplayContext context, PoseStack poseStack, boolean leftHand) {
+                originalModel.applyTransform(context, poseStack, leftHand);
+                return this;
+            }
+
+            @Override
+            public List<BakedModel> getRenderPasses(ItemStack stack, boolean fabulous) {
+                return List.of(this);
             }
         };
     }
