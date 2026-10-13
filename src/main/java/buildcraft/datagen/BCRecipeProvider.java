@@ -125,6 +125,19 @@ public class BCRecipeProvider extends RecipeProvider {
             .unlockedBy("has_lapis", has(Tags.Items.GEMS_LAPIS))
             .save(out);
 
+        // Not craftable in 1.12 (it was creative only): this is the recipe of BuildCraft 7
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCBuildersBlocks.FILLER.get())
+            .pattern("bmb")
+            .pattern("ycy")
+            .pattern("gCg")
+            .define('b', Tags.Items.DYES_BLACK)
+            .define('m', BCCoreBlocks.MARKER_VOLUME.get())
+            .define('y', Tags.Items.DYES_YELLOW)
+            .define('c', Items.CRAFTING_TABLE)
+            .define('g', BCTags.Items.GEARS_GOLD)
+            .define('C', Tags.Items.CHESTS_WOODEN)
+            .unlockedBy("has_marker", has(BCCoreBlocks.MARKER_VOLUME.get()))
+            .save(out);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BCBuildersBlocks.QUARRY.get())
             .pattern("iri")
             .pattern("gig")

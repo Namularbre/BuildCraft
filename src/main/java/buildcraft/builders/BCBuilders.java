@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import buildcraft.BuildCraft;
+import buildcraft.builders.filler.BCBuildersStatements;
 import buildcraft.builders.tile.TileQuarry;
 
 /** The builders module: the quarry (and later the builder, filler and architect table). */
@@ -25,6 +26,8 @@ public final class BCBuilders {
             ModConfig.Type.COMMON, BCBuildersConfig.SPEC, BuildCraft.MODID + "-builders-common.toml"
         );
         BCBuildersBlocks.init();
+        BCBuildersMenus.init();
+        BCBuildersStatements.init();
         context.getModEventBus().addListener(BCBuilders::commonSetup);
     }
 

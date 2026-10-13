@@ -89,6 +89,11 @@ public class BCBlockStateProvider extends BlockStateProvider {
         chute();
         markerVolume();
         quarry();
+        // The front faces north in the model, and is turned to face where the block faces
+        horizontalBlock(BCBuildersBlocks.FILLER.get(), models().cube(
+            "block/filler", modLoc("block/filler/bottom"), modLoc("block/filler/top"), modLoc("block/filler/front"),
+            modLoc("block/filler/side"), modLoc("block/filler/side"), modLoc("block/filler/side")
+        ).texture("particle", modLoc("block/filler/side")));
         frame();
         laser();
         simpleBlock(BCSiliconBlocks.ASSEMBLY_TABLE.get(), models().getExistingFile(modLoc("block/assembly_table")));

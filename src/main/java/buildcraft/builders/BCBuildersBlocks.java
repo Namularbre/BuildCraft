@@ -17,8 +17,10 @@ import net.minecraftforge.registries.RegistryObject;
 
 import buildcraft.lib.registry.BCRegistries;
 
+import buildcraft.builders.block.BlockFiller;
 import buildcraft.builders.block.BlockFrame;
 import buildcraft.builders.block.BlockQuarry;
+import buildcraft.builders.tile.TileFiller;
 import buildcraft.builders.tile.TileQuarry;
 
 public final class BCBuildersBlocks {
@@ -42,8 +44,21 @@ public final class BCBuildersBlocks {
         )
     );
 
+    public static final RegistryObject<BlockFiller> FILLER = BCRegistries.BLOCKS.register(
+        "filler", () -> new BlockFiller(
+            BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0f, 10.0f).sound(SoundType.METAL)
+        )
+    );
+
+    @SuppressWarnings("ConstantConditions")
+    public static final RegistryObject<BlockEntityType<TileFiller>> FILLER_TILE =
+        BCRegistries.BLOCK_ENTITY_TYPES.register(
+            "filler", () -> BlockEntityType.Builder.of(TileFiller::new, FILLER.get()).build(null)
+        );
+
     static {
         BCRegistries.ITEMS.register("quarry", () -> new BlockItem(QUARRY.get(), new Item.Properties()));
+        BCRegistries.ITEMS.register("filler", () -> new BlockItem(FILLER.get(), new Item.Properties()));
     }
 
     private BCBuildersBlocks() {}

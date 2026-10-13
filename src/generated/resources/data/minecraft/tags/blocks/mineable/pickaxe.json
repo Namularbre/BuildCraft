@@ -13,6 +13,7 @@
     "buildcraft:advanced_crafting_table",
     "buildcraft:quarry",
     "buildcraft:frame",
+    "buildcraft:filler",
     {
       "id": "buildcraft:power_tester",
       "required": false

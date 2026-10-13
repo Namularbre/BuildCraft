@@ -45,6 +45,7 @@ public class BCItemModelProvider extends ItemModelProvider {
         withExistingParent("tank", modLoc("block/tank"));
         withExistingParent("pump", modLoc("block/pump"));
         withExistingParent("mining_well", modLoc("block/mining_well"));
+        withExistingParent("filler", modLoc("block/filler"));
         withExistingParent("chute", modLoc("block/chute"));
         withExistingParent("water_gel_spawn", mcLoc("item/generated")).texture("layer0", modLoc("item/water_gel"));
         basicItem(BCFactoryItems.GEL.get());
