@@ -77,14 +77,14 @@ public final class BoxRenderer {
         vertex(dir, corners[3], su1, vStart);
     }
 
-    /** Like {@link #face}, for a side face (not up or down) whose texture is turned a quarter turn: u goes down the
-     * face, and v across it. */
-    public void sideFaceRotated(Direction dir, float x0, float y0, float z0, float x1, float y1, float z1,
+    /** Like {@link #face}, for a face whose texture is turned a quarter turn: u goes down the face (or along z, for up
+     * and down faces), and v across it. */
+    public void faceRotated(Direction dir, float x0, float y0, float z0, float x1, float y1, float z1,
         TextureAtlasSprite sprite, float u0, float v0, float u1, float v1) {
-        if (dir.getAxis() == Direction.Axis.Y) {
-            throw new IllegalArgumentException("Not a side face: " + dir);
-        }
         float[][] corners = switch (dir) {
+            // Same corner order as in face(), so that the faces are wound the same way
+            case DOWN -> new float[][] { { x0, y0, z1 }, { x0, y0, z0 }, { x1, y0, z0 }, { x1, y0, z1 } };
+            case UP -> new float[][] { { x0, y1, z0 }, { x0, y1, z1 }, { x1, y1, z1 }, { x1, y1, z0 } };
             case NORTH -> new float[][] { { x1, y1, z0 }, { x1, y0, z0 }, { x0, y0, z0 }, { x0, y1, z0 } };
             case SOUTH -> new float[][] { { x0, y1, z1 }, { x0, y0, z1 }, { x1, y0, z1 }, { x1, y1, z1 } };
             case WEST -> new float[][] { { x0, y1, z0 }, { x0, y0, z0 }, { x0, y0, z1 }, { x0, y1, z1 } };

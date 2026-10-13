@@ -35,7 +35,7 @@ import buildcraft.builders.tile.TileQuarry.TaskAddFrame;
 import buildcraft.builders.tile.TileQuarry.TaskBreakBlock;
 
 /** Draws the quarry's arms along the top of the frame, and its drill going up and down as it breaks blocks. While it
- * builds the frame, a laser goes from the quarry to where it works. */
+ * builds the frame, a striped outline shows the frame's area, and a laser goes from the quarry to where it works. */
 public class RenderQuarry implements BlockEntityRenderer<TileQuarry> {
     private static final ResourceLocation FRAME = ResourceLocation.fromNamespaceAndPath(
         BuildCraft.MODID, "block/frame/default"
@@ -58,6 +58,8 @@ public class RenderQuarry implements BlockEntityRenderer<TileQuarry> {
         Vec3 origin = Vec3.atLowerCornerOf(tile.getBlockPos());
         Vec3 drill = tile.getDrillPos(partialTick);
         if (drill == null) {
+            // Until the frame is built, a striped outline shows where it will be
+            LaserBeamRenderer.renderBoxEdges(poseStack, buffers, frameBox, origin, LaserBeamRenderer.STRIPES_WRITE);
             renderBuildLaser(tile, poseStack, buffers, origin);
             return;
         }

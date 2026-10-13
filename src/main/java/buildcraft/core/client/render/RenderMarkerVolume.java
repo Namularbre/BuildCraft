@@ -44,7 +44,7 @@ public class RenderMarkerVolume implements BlockEntityRenderer<TileMarkerVolume>
         Box box = tile.getBox();
         List<BlockPos> connection = tile.getConnection();
         if (box != null && tile.getBlockPos().equals(connection.stream().min(BlockPos::compareTo).orElse(null))) {
-            renderBoxEdges(poseStack, buffers, box, origin);
+            LaserBeamRenderer.renderBoxEdges(poseStack, buffers, box, origin, CONNECTED);
         }
         if (tile.isShowingSignals()) {
             Set<Direction.Axis> connected = tile.getConnectedAxes();
@@ -55,32 +55,6 @@ public class RenderMarkerVolume implements BlockEntityRenderer<TileMarkerVolume>
                     LaserBeamRenderer.render(poseStack, buffers, center, end, SIGNAL);
                 }
             }
-        }
-    }
-
-    /** The 12 edges of the box, through the middle of the markers on its corners. */
-    private static void renderBoxEdges(PoseStack poseStack, MultiBufferSource buffers, Box box, Vec3 origin) {
-        Vec3 min = Vec3.atCenterOf(box.min()).subtract(origin);
-        Vec3 max = Vec3.atCenterOf(box.max()).subtract(origin);
-        double[] xs = { min.x, max.x }, ys = { min.y, max.y }, zs = { min.z, max.z };
-        for (double y : ys) {
-            for (double z : zs) {
-                edge(poseStack, buffers, new Vec3(min.x, y, z), new Vec3(max.x, y, z));
-            }
-        }
-        for (double x : xs) {
-            for (double z : zs) {
-                edge(poseStack, buffers, new Vec3(x, min.y, z), new Vec3(x, max.y, z));
-            }
-            for (double y : ys) {
-                edge(poseStack, buffers, new Vec3(x, y, min.z), new Vec3(x, y, max.z));
-            }
-        }
-    }
-
-    private static void edge(PoseStack poseStack, MultiBufferSource buffers, Vec3 from, Vec3 to) {
-        if (from.distanceToSqr(to) > 1e-6) {
-            LaserBeamRenderer.render(poseStack, buffers, from, to, CONNECTED);
         }
     }
 

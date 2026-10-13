@@ -140,7 +140,7 @@ public class RenderMiner implements BlockEntityRenderer<TileMiner> {
             BoxRenderer box = new BoxRenderer(buffer, poseStack, light, OverlayTexture.NO_OVERLAY);
             for (Direction side : Direction.Plane.HORIZONTAL) {
                 // The texture is drawn sideways: along the tube, then across its 8 pixels
-                box.sideFaceRotated(side, TUBE_MIN, y0, TUBE_MIN, TUBE_MAX, y1, TUBE_MAX, sprite, 0, 0, y1 - y0, 8);
+                box.faceRotated(side, TUBE_MIN, y0, TUBE_MIN, TUBE_MAX, y1, TUBE_MAX, sprite, 0, 0, y1 - y0, 8);
             }
             if (i + 1 >= length) {
                 box.face(Direction.DOWN, TUBE_MIN, y0, TUBE_MIN, TUBE_MAX, y1, TUBE_MAX, sprite, 0, 8, 8, 16);
