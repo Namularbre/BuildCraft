@@ -55,6 +55,16 @@ public class RenderPipeHolder implements BlockEntityRenderer<TilePipeHolder> {
     private static final ResourceLocation POWER_FLOW = ResourceLocation.fromNamespaceAndPath(
         BuildCraft.MODID, "block/pipe/power_flow"
     );
+    private static final ResourceLocation COLOUR_ITEM_BOX = ResourceLocation.fromNamespaceAndPath(
+        BuildCraft.MODID, "block/pipe/colour_item_box"
+    );
+    /** How far the box around coloured items goes from their centre, in pixels. */
+    private static final float COLOUR_BOX_RADIUS = 0.2f * 16;
+    /** The colours of the boxes around coloured items (brighter than the dye colours), by {@link DyeColor#getId()}. */
+    private static final int[] LIGHT_HEX = {
+        0xe4e4e4, 0xEA7835, 0xD943C6, 0x66AAFF, 0xFFD91C, 0x39D52E, 0xD97199, 0x7A7A7A,
+        0xa0a7a7, 0x299799, 0x7e34bf, 0x253193, 0x89502D, 0x007F0E, 0xBE2B27, 0x181414
+    };
 
     private final ItemRenderer itemRenderer;
 
@@ -99,6 +109,24 @@ public class RenderPipeHolder implements BlockEntityRenderer<TilePipeHolder> {
                 stack, ItemDisplayContext.GROUND, light, overlay, poseStack, buffers, tile.getLevel(), 0
             );
             poseStack.popPose();
+            if (item.colour != null) {
+                Vec3 local = at.subtract(pos.getX(), pos.getY(), pos.getZ());
+                renderColourBox(item.colour, local, poseStack, buffers, light);
+            }
+        }
+    }
+
+    /** Draws a box of the colour of an item (given by a lens or a gate) around it. */
+    private static void renderColourBox(DyeColor colour, Vec3 at, PoseStack poseStack, MultiBufferSource buffers,
+        int light) {
+        TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+            .apply(COLOUR_ITEM_BOX);
+        BoxRenderer box = new BoxRenderer(buffers.getBuffer(Sheets.translucentCullBlockSheet()), poseStack, light,
+            OverlayTexture.NO_OVERLAY, 0xFF_00_00_00 | LIGHT_HEX[colour.getId()]);
+        float r = COLOUR_BOX_RADIUS;
+        float x = (float) at.x * 16, y = (float) at.y * 16, z = (float) at.z * 16;
+        for (Direction face : Direction.values()) {
+            box.face(face, x - r, y - r, z - r, x + r, y + r, z + r, sprite, 0, 0, 16, 16);
         }
     }
 
