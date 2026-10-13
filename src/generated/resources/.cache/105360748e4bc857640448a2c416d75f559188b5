@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-14T00:08:54.5504237	Item Models: buildcraft
+// 1.20.1	2026-10-14T00:25:38.1190546	Item Models: buildcraft
 599b6003dbe28c528cebe2d3ebf097f5c54f2e42 assets/buildcraft/models/item/advanced_crafting_table.json
 d2069c3f75ced0d1af479d1df57851ae6b44b5dd assets/buildcraft/models/item/architect_table.json
 efd3bf6432cd66ca8f8f91950c9ae9cfaf2e737d assets/buildcraft/models/item/assembly_table.json
@@ -14,6 +14,9 @@ b894dca152d28b5f294144c189f6ff7f56081fa2 assets/buildcraft/models/item/daizuli_i
 707bc52c7a26fc0be396dbbd67a6591cea844a98 assets/buildcraft/models/item/diamond_fluid_pipe.json
 41335712397375917a9add5a1582bc85e7292b6b assets/buildcraft/models/item/diamond_gear.json
 8226f531db61465d0faf61ff46182a4a2f926638 assets/buildcraft/models/item/diamond_item_pipe.json
+7afa508f23296f4c344a8c26122957b4135cfdba assets/buildcraft/models/item/diamond_wood_fluid_pipe.json
+7e9f6533cc5cb2b1b94ce7e4dfa74cb5830f4639 assets/buildcraft/models/item/diamond_wood_item_pipe.json
+47743a3a5581bcba17bf5cf6ecb4751c227eb5ae assets/buildcraft/models/item/emzuli_item_pipe.json
 ae9ca2e296d8097194bdb10095f1bd0a2e7b82be assets/buildcraft/models/item/filler.json
 ec20d41eb51e0bf8dbf2a94c7390d7b9918f8567 assets/buildcraft/models/item/flood_gate.json
 87624ad8b708ac2bff04e016b73dc121baaf7039 assets/buildcraft/models/item/fuel_dense_bucket.json

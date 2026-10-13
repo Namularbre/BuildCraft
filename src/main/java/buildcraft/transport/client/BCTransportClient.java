@@ -30,6 +30,8 @@ import buildcraft.BuildCraft;
 import buildcraft.transport.BCTransportBlocks;
 import buildcraft.transport.BCTransportMenus;
 import buildcraft.transport.client.gui.GuiDiamondPipe;
+import buildcraft.transport.client.gui.GuiDiamondWoodPipe;
+import buildcraft.transport.client.gui.GuiEmzuliPipe;
 import buildcraft.transport.client.model.PipeBakedModel;
 import buildcraft.transport.client.model.PlugModels;
 import buildcraft.transport.client.render.RenderPipeHolder;
@@ -55,7 +57,11 @@ public final class BCTransportClient {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> MenuScreens.register(BCTransportMenus.DIAMOND_PIPE.get(), GuiDiamondPipe::new));
+        event.enqueueWork(() -> {
+            MenuScreens.register(BCTransportMenus.DIAMOND_PIPE.get(), GuiDiamondPipe::new);
+            MenuScreens.register(BCTransportMenus.DIAMOND_WOOD_PIPE.get(), GuiDiamondWoodPipe::new);
+            MenuScreens.register(BCTransportMenus.EMZULI_PIPE.get(), GuiEmzuliPipe::new);
+        });
     }
 
     /** Tints the quads of plugs that look like blocks (like a facade of grass) like the block would be. */

@@ -319,6 +319,10 @@ public class BCRecipeProvider extends RecipeProvider {
         pipe(out, BCTransportItems.PIPE_IRON_ITEM.get(), Ingredient.of(Tags.Items.INGOTS_IRON));
         pipe(out, BCTransportItems.PIPE_DIAMOND_ITEM.get(), Ingredient.of(Tags.Items.GEMS_DIAMOND));
         pipe(out, BCTransportItems.PIPE_LAPIS_ITEM.get(), Ingredient.of(Tags.Items.STORAGE_BLOCKS_LAPIS));
+        pipe(out, BCTransportItems.PIPE_DIAMOND_WOOD_ITEM.get(), Ingredient.of(ItemTags.PLANKS),
+            Ingredient.of(Tags.Items.GEMS_DIAMOND));
+        pipeUpgrade(out, BCTransportItems.PIPE_DIAMOND_WOOD_ITEM.get(), BCTransportItems.PIPE_EMZULI_ITEM.get(),
+            Ingredient.of(Tags.Items.STORAGE_BLOCKS_LAPIS));
         pipe(out, BCTransportItems.PIPE_DAIZULI_ITEM.get(), Ingredient.of(Tags.Items.STORAGE_BLOCKS_LAPIS),
             Ingredient.of(Tags.Items.GEMS_DIAMOND));
 
@@ -380,6 +384,8 @@ public class BCRecipeProvider extends RecipeProvider {
             out, BCTransportItems.PIPE_DIAMOND_ITEM.get(), BCTransportItems.PIPE_DIAMOND_FLUID.get(), sealant
         );
         pipeUpgrade(out, BCTransportItems.PIPE_VOID_ITEM.get(), BCTransportItems.PIPE_VOID_FLUID.get(), sealant);
+        pipeUpgrade(out, BCTransportItems.PIPE_DIAMOND_WOOD_ITEM.get(), BCTransportItems.PIPE_DIAMOND_WOOD_FLUID.get(),
+            sealant);
 
         // Some of the basic gates can be made in a crafting table (the others need an assembly table)
         Ingredient plug = Ingredient.of(BCTransportItems.PLUG_BLOCKER.get(), Items.COBBLESTONE);

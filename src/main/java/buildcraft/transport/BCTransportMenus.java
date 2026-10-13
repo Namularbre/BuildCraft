@@ -14,10 +14,18 @@ import net.minecraftforge.registries.RegistryObject;
 import buildcraft.lib.registry.BCRegistries;
 
 import buildcraft.transport.container.ContainerDiamondPipe;
+import buildcraft.transport.container.ContainerDiamondWoodPipe;
+import buildcraft.transport.container.ContainerEmzuliPipe;
 
 public final class BCTransportMenus {
     public static final RegistryObject<MenuType<ContainerDiamondPipe>> DIAMOND_PIPE =
         BCRegistries.MENU_TYPES.register("diamond_pipe", () -> IForgeMenuType.create(ContainerDiamondPipe::new));
+
+    public static final RegistryObject<MenuType<ContainerDiamondWoodPipe>> DIAMOND_WOOD_PIPE =
+        BCRegistries.MENU_TYPES.register("diamond_wood_pipe",
+            () -> IForgeMenuType.create(ContainerDiamondWoodPipe::new));
+    public static final RegistryObject<MenuType<ContainerEmzuliPipe>> EMZULI_PIPE =
+        BCRegistries.MENU_TYPES.register("emzuli_pipe", () -> IForgeMenuType.create(ContainerEmzuliPipe::new));
 
     private BCTransportMenus() {}
 

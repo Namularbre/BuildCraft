@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "buildcraft:diamond_wood_fluid_pipe"
+    }
+  ],
+  "result": {
+    "item": "buildcraft:diamond_wood_item_pipe"
+  }
+}

@@ -25,6 +25,7 @@ import buildcraft.transport.pipe.behaviour.PipeBehaviourCobble;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourDaizuli;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourDiamondFluid;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourDiamondItem;
+import buildcraft.transport.pipe.behaviour.PipeBehaviourEmzuli;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourGold;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourIron;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourLapis;
@@ -34,6 +35,7 @@ import buildcraft.transport.pipe.behaviour.PipeBehaviourStone;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourStructure;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourVoid;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourWood;
+import buildcraft.transport.pipe.behaviour.PipeBehaviourWoodDiamond;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourWoodPower;
 import buildcraft.transport.pipe.flow.PipeFlowFluids;
 import buildcraft.transport.pipe.flow.PipeFlowItems;
@@ -91,6 +93,12 @@ public final class BCTransportPipes {
     public static final PipeDefinition LAPIS_ITEM = itemPipe(
         "lapis_item", PipeBehaviourLapis::new, PipeBehaviourLapis::new, COLOUR_SUFFIXES
     );
+    public static final PipeDefinition DIAMOND_WOOD_ITEM = itemPipe(
+        "diamond_wood_item", PipeBehaviourWoodDiamond::new, PipeBehaviourWoodDiamond::new, "_clear", "_filled"
+    );
+    public static final PipeDefinition EMZULI_ITEM = itemPipe(
+        "emzuli_item", PipeBehaviourEmzuli::new, PipeBehaviourEmzuli::new, "_clear", "_filled"
+    );
     public static final PipeDefinition DAIZULI_ITEM = itemPipe(
         "daizuli_item", PipeBehaviourDaizuli::new, PipeBehaviourDaizuli::new, withFilled(COLOUR_SUFFIXES)
     );
@@ -131,6 +139,9 @@ public final class BCTransportPipes {
     );
     public static final PipeDefinition SANDSTONE_FLUID = fluidPipe(
         "sandstone_fluid", PipeBehaviourSandstone::new, PipeBehaviourSandstone::new, 2, 10
+    );
+    public static final PipeDefinition DIAMOND_WOOD_FLUID = fluidPipe(
+        "diamond_wood_fluid", PipeBehaviourWoodDiamond::new, PipeBehaviourWoodDiamond::new, 1, 10, "_clear", "_filled"
     );
     public static final PipeDefinition IRON_FLUID = fluidPipe(
         "iron_fluid", PipeBehaviourIron::new, PipeBehaviourIron::new, 4, 10, "_clear", "_filled"
