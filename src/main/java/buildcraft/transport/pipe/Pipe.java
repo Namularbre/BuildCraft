@@ -39,6 +39,8 @@ import buildcraft.api.transport.pipe.PipeFaceTex;
 import buildcraft.api.transport.pipe.PipeFlow;
 import buildcraft.api.transport.pluggable.PipePluggable;
 
+import buildcraft.transport.wire.WireSystems;
+
 /** A pipe inside a {@link IPipeHolder}: its definition, plus the behaviour and flow that the definition created. */
 public final class Pipe implements IPipe {
     private static final float DEFAULT_CONNECTION_DISTANCE = 0.25f;
@@ -280,6 +282,7 @@ public final class Pipe implements IPipe {
             }
         }
         if (!old.equals(connected)) {
+            WireSystems.invalidate(holder.getPipeWorld());
             for (Direction face : Direction.values()) {
                 boolean o = old.containsKey(face);
                 boolean n = connected.containsKey(face);

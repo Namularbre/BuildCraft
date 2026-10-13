@@ -39,6 +39,8 @@ import net.minecraftforge.fml.LogicalSide;
 
 import buildcraft.api.core.BCLog;
 import buildcraft.api.core.EnumPipePart;
+import buildcraft.api.transport.EnumWirePart;
+import buildcraft.api.transport.IWireManager;
 import buildcraft.api.transport.pipe.IItemPipe;
 import buildcraft.api.transport.pipe.IPipe;
 import buildcraft.api.transport.pipe.IPipeHolder;
@@ -55,9 +57,12 @@ import buildcraft.lib.tile.ITickable;
 import buildcraft.lib.tile.TileBC;
 
 import buildcraft.transport.BCTransportBlocks;
+import buildcraft.transport.BCTransportItems;
 import buildcraft.transport.pipe.Pipe;
 import buildcraft.transport.pipe.PipeEventBus;
 import buildcraft.transport.pipe.PipeModelKey;
+import buildcraft.transport.wire.WireManager;
+import buildcraft.transport.wire.WireSystems;
 
 /** The block entity of every pipe. Holds the {@link Pipe} itself, and connects it to the world. */
 public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
@@ -106,6 +111,9 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
     /** The redstone signal emitted on each side. Reset every tick: gates have to set it again to keep it on. */
     private int[] redstoneValues = new int[6];
     private int[] oldRedstoneValues = new int[6];
+    public final WireManager wireManager = new WireManager(this);
+    /** The powered wires, as they were last sent to the clients. */
+    private Set<EnumWirePart> poweredSent = EnumSet.noneOf(EnumWirePart.class);
 
     public TilePipeHolder(BlockPos pos, BlockState state) {
         super(BCTransportBlocks.PIPE_HOLDER_TILE.get(), pos, state);
@@ -153,6 +161,7 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
             }
         }
         nbt.put("plugs", plugs);
+        nbt.put("wires", wireManager.writeToNbt());
     }
 
     @Override
@@ -186,6 +195,7 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
             }
             setPluggable(side, plug);
         }
+        wireManager.readFromNbt(nbt.getCompound("wires"));
     }
 
     // Pluggables
@@ -205,6 +215,7 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
             if (pipe != null) {
                 pipe.markForUpdate();
             }
+            WireSystems.invalidate(level);
             // The pipe next to this one may connect differently now
             level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
             setChanged();
@@ -282,6 +293,19 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
         if (pipe != null) {
             pipe.onLoad();
         }
+        WireSystems.invalidate(level);
+    }
+
+    @Override
+    public void setRemoved() {
+        super.setRemoved();
+        WireSystems.invalidate(level);
+    }
+
+    @Override
+    public void onChunkUnloaded() {
+        super.onChunkUnloaded();
+        WireSystems.invalidate(level);
     }
 
     @Override
@@ -305,6 +329,9 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
         if (pipe != null) {
             pipe.addDrops(toDrop);
         }
+        for (DyeColor colour : wireManager.parts.values()) {
+            toDrop.add(new ItemStack(BCTransportItems.wire(colour)));
+        }
     }
 
     // ITickable
@@ -318,6 +345,17 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
         for (PipePluggable plug : pluggables) {
             if (plug != null) {
                 plug.onTick();
+            }
+        }
+        if (!wireManager.parts.isEmpty()) {
+            // Cheap enough to do every tick, and the pipes next to this one may have changed
+            wireManager.updateBetweens(false);
+        }
+        if (!level.isClientSide && (!wireManager.parts.isEmpty() || !poweredSent.isEmpty())) {
+            Set<EnumWirePart> powered = wireManager.getPoweredParts();
+            if (!powered.equals(poweredSent)) {
+                poweredSent = powered;
+                scheduleNetworkUpdate(PipeMessageReceiver.WIRES);
             }
         }
 
@@ -380,6 +418,9 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
                 for (PipePluggable plug : pluggables) {
                     writePlugCreation(buffer, plug);
                 }
+                wireManager.writePayload(buffer, poweredSent);
+            } else if (id == getReceiverId(PipeMessageReceiver.WIRES)) {
+                wireManager.writePayload(buffer, poweredSent);
             } else if (getPlugSide(id) != null) {
                 PipePluggable plug = pluggables[getPlugSide(id).ordinal()];
                 if (plug == null) {
@@ -421,7 +462,10 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
                 for (Direction face : Direction.values()) {
                     readPlugMessage(face, buffer, side);
                 }
+                wireManager.readPayload(buffer);
                 scheduleRenderUpdate();
+            } else if (id == getReceiverId(PipeMessageReceiver.WIRES)) {
+                wireManager.readPayload(buffer);
             } else if (getPlugSide(id) != null) {
                 readPlugMessage(getPlugSide(id), buffer, side);
             } else if (id == NET_UPDATE_PIPE_BEHAVIOUR) {
@@ -466,6 +510,11 @@ public class TilePipeHolder extends TileBC implements IPipeHolder, ITickable {
     @Override
     public Pipe getPipe() {
         return pipe;
+    }
+
+    @Override
+    public IWireManager getWireManager() {
+        return wireManager;
     }
 
     @Override

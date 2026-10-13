@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-13T17:09:08.1753457	Item Models: buildcraft
+// 1.20.1	2026-10-13T18:01:57.5875282	Item Models: buildcraft
 599b6003dbe28c528cebe2d3ebf097f5c54f2e42 assets/buildcraft/models/item/advanced_crafting_table.json
 d2069c3f75ced0d1af479d1df57851ae6b44b5dd assets/buildcraft/models/item/architect_table.json
 efd3bf6432cd66ca8f8f91950c9ae9cfaf2e737d assets/buildcraft/models/item/assembly_table.json
@@ -81,6 +81,22 @@ e6170371b69ae361ada4e8757506bcddc77842c4 assets/buildcraft/models/item/structure
 d32a677c25880aa5f8ff38c9d4dcd1376a7bad34 assets/buildcraft/models/item/void_fluid_pipe.json
 f6b2246e24da5e27272a5b49d22a0fa8977fcbf0 assets/buildcraft/models/item/void_item_pipe.json
 8098ac3e66f3ba2abc737cc70741159cf4ea0fec assets/buildcraft/models/item/water_gel_spawn.json
+83de430600232098745b4c9caf999c24b1c226eb assets/buildcraft/models/item/wire_black.json
+e4b6aa339f018ae6c94d70dce8a9a83d6a95ec32 assets/buildcraft/models/item/wire_blue.json
+aa02c778629b8c1f2ac64d296dd431848a5666d1 assets/buildcraft/models/item/wire_brown.json
+deb2ab95787a3141f3ef6ff98963ab2b189635cb assets/buildcraft/models/item/wire_cyan.json
+a39f435a64bf248fdaed29bf331e2436a1151282 assets/buildcraft/models/item/wire_gray.json
+996b32223c46202154d18e53424aa2264562fb9e assets/buildcraft/models/item/wire_green.json
+6722bc4e45d9b5f6ddf86a0d7bb12e5e5c87c0bc assets/buildcraft/models/item/wire_light_blue.json
+06665a2f6efe2e6e2c6a4929b982b9b3ee99980a assets/buildcraft/models/item/wire_light_gray.json
+13fb4818a450781a6ee2f76eaad12806d9585ec7 assets/buildcraft/models/item/wire_lime.json
+5eedf992f94d8deb9404f91fc873dd0789ebc37f assets/buildcraft/models/item/wire_magenta.json
+367eddb1b3562af7b7d9abbc1b914665d44be372 assets/buildcraft/models/item/wire_orange.json
+d3ce73ac48624b00151b9129d275705ab63b5e21 assets/buildcraft/models/item/wire_pink.json
+773f7f72bb7a3a159541bbb8949c1e9387a8d31f assets/buildcraft/models/item/wire_purple.json
+801450b4fca0d7eb73d80fd46de3289b0a3d60a0 assets/buildcraft/models/item/wire_red.json
+4959f3a6e3f61adf2582e15ade31f38264c6bbaf assets/buildcraft/models/item/wire_white.json
+b8a1c10dc87988f46fb71290e5360343dc6e0863 assets/buildcraft/models/item/wire_yellow.json
 1e1aa869ccb1a4b0eb0d1c3224b51261bebb3e35 assets/buildcraft/models/item/wood_fluid_pipe.json
 3dc543c9e60d352cf5528b50c94650391e8b88f0 assets/buildcraft/models/item/wood_gear.json
 7d9428518cca8b7e6a860753a16c52f022387c2d assets/buildcraft/models/item/wood_item_pipe.json

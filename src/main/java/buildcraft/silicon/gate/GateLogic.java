@@ -8,6 +8,7 @@ package buildcraft.silicon.gate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -17,6 +18,7 @@ import javax.annotation.Nullable;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import net.minecraftforge.fml.LogicalSide;
@@ -34,6 +36,7 @@ import buildcraft.api.statements.ITriggerInternalSided;
 import buildcraft.api.statements.StatementManager;
 import buildcraft.api.statements.StatementSlot;
 import buildcraft.api.statements.containers.IRedstoneStatementContainer;
+import buildcraft.api.transport.IWireEmitter;
 import buildcraft.api.transport.pipe.IPipeHolder;
 import buildcraft.api.transport.pipe.PipeEventActionActivate;
 
@@ -51,7 +54,7 @@ import buildcraft.lib.statement.TriggerWrapper.TriggerWrapperInternalSided;
 import buildcraft.silicon.plug.PluggableGate;
 
 /** The logic of a gate: its trigger/action pairs, how they are grouped, and which ones are on. */
-public class GateLogic implements IGate, IRedstoneStatementContainer {
+public class GateLogic implements IGate, IWireEmitter, IRedstoneStatementContainer {
     protected static final IdAllocator ID_ALLOC = new IdAllocator("GateLogic");
     /** Sent when any of {@link #triggerOn}, {@link #actionOn}, or {@link #connections} change. */
     public static final int NET_ID_RESOLVE = ID_ALLOC.allocId("RESOLVE");
@@ -73,6 +76,11 @@ public class GateLogic implements IGate, IRedstoneStatementContainer {
     public final boolean[] triggerOn, actionOn;
     /** Used on the client to determine if this gate should glow or not. */
     public boolean isOn;
+    /** The wire colours that this gate emitted during the last tick. */
+    private EnumSet<DyeColor> wireBroadcasts = EnumSet.noneOf(DyeColor.class);
+    /** The wire colours that the actions emit while the gate resolves them (so that the triggers of this gate still
+     * see the wires as they were during the last tick). */
+    private EnumSet<DyeColor> nextWireBroadcasts = EnumSet.noneOf(DyeColor.class);
 
     public GateLogic(PluggableGate pluggable, GateVariant variant) {
         this.pluggable = pluggable;
@@ -301,6 +309,7 @@ public class GateLogic implements IGate, IRedstoneStatementContainer {
         Arrays.fill(triggerOn, false);
         Arrays.fill(actionOn, false);
         activeActions.clear();
+        nextWireBroadcasts = EnumSet.noneOf(DyeColor.class);
 
         for (int triggerIndex = 0; triggerIndex < statements.length; triggerIndex++) {
             StatementPair pair = statements[triggerIndex];
@@ -343,12 +352,26 @@ public class GateLogic implements IGate, IRedstoneStatementContainer {
             }
         }
 
+        wireBroadcasts = nextWireBroadcasts;
+
         if (isOn != prevIsOn) {
             sendIsOn();
         }
         if (!Arrays.equals(prevTriggers, triggerOn) || !Arrays.equals(prevActions, actionOn)) {
             sendResolveData();
         }
+    }
+
+    // IWireEmitter
+
+    @Override
+    public boolean isEmitting(DyeColor colour) {
+        return wireBroadcasts.contains(colour);
+    }
+
+    @Override
+    public void emitWire(DyeColor colour) {
+        nextWireBroadcasts.add(colour);
     }
 
     public void onTick() {

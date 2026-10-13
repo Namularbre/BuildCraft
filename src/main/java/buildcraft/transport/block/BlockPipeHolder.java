@@ -17,6 +17,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -35,15 +37,19 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import buildcraft.api.core.EnumPipePart;
+import buildcraft.api.transport.EnumWirePart;
 import buildcraft.api.transport.IItemPluggable;
+import buildcraft.api.transport.WireNode;
 import buildcraft.api.transport.pipe.PipeApi;
 import buildcraft.api.transport.pluggable.PipePluggable;
 
 import buildcraft.lib.block.BlockBCTile;
 import buildcraft.lib.tile.TileBC;
 
+import buildcraft.transport.BCTransportItems;
 import buildcraft.transport.pipe.Pipe;
 import buildcraft.transport.tile.TilePipeHolder;
+import buildcraft.transport.wire.EnumWireBetween;
 
 /** The single block used by every pipe. The pipe itself lives in the {@link TilePipeHolder}. */
 public class BlockPipeHolder extends BlockBCTile {
@@ -116,6 +122,12 @@ public class BlockPipeHolder extends BlockBCTile {
                     shape = Shapes.or(shape, Shapes.create(plug.getBoundingBox()));
                 }
             }
+            for (EnumWirePart part : tile.wireManager.parts.keySet()) {
+                shape = Shapes.or(shape, Shapes.create(part.boundingBox));
+            }
+            for (EnumWireBetween between : tile.wireManager.betweens.keySet()) {
+                shape = Shapes.or(shape, Shapes.create(between.boundingBox));
+            }
         }
         return shape;
     }
@@ -133,34 +145,70 @@ public class BlockPipeHolder extends BlockBCTile {
         return null;
     }
 
-    /** @return The side of the pluggable that the player is looking at, if it is closer than the pipe itself. */
+    /** Something in a pipe that the player can look at, other than the pipe itself: a pluggable or a wire. */
+    private record Target(@Nullable Direction plug, @Nullable EnumWirePart part, @Nullable EnumWireBetween between) {}
+
+    /** @return What the player is looking at in the pipe, if it is closer than the pipe itself (or null). */
     @Nullable
-    private static Direction getPluggableLookedAt(TilePipeHolder tile, BlockPos pos, Player player) {
+    private static Target getTargetLookedAt(TilePipeHolder tile, BlockPos pos, Player player) {
         Vec3 eye = player.getEyePosition();
         Vec3 end = eye.add(player.getViewVector(1).scale(player.getBlockReach() + 1));
-        Direction best = null;
+        Target best = null;
         double bestDist = Double.MAX_VALUE;
         for (Direction dir : Direction.values()) {
             PipePluggable plug = tile.getPluggable(dir);
             if (plug != null) {
-                var hit = plug.getBoundingBox().move(pos).clip(eye, end);
-                if (hit.isPresent() && hit.get().distanceToSqr(eye) < bestDist) {
-                    bestDist = hit.get().distanceToSqr(eye);
-                    best = dir;
+                double dist = distance(plug.getBoundingBox(), pos, eye, end);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    best = new Target(dir, null, null);
                 }
+            }
+        }
+        for (EnumWirePart part : tile.wireManager.parts.keySet()) {
+            double dist = distance(part.boundingBox, pos, eye, end);
+            if (dist < bestDist) {
+                bestDist = dist;
+                best = new Target(null, part, null);
+            }
+        }
+        for (EnumWireBetween between : tile.wireManager.betweens.keySet()) {
+            double dist = distance(between.boundingBox, pos, eye, end);
+            if (dist < bestDist) {
+                bestDist = dist;
+                best = new Target(null, null, between);
             }
         }
         if (best == null) {
             return null;
         }
         Pipe pipe = tile.getPipe();
-        if (pipe != null) {
-            var pipeHit = SHAPES[0].bounds().move(pos).clip(eye, end);
-            if (pipeHit.isPresent() && pipeHit.get().distanceToSqr(eye) < bestDist) {
-                return null;
-            }
+        if (pipe != null && distance(SHAPES[0].bounds(), pos, eye, end) < bestDist) {
+            return null;
         }
         return best;
+    }
+
+    /** @return The square distance from the eye to where it sees the given box, or infinity if it doesn't. */
+    private static double distance(AABB box, BlockPos pos, Vec3 eye, Vec3 end) {
+        return box.move(pos).clip(eye, end).map(hit -> hit.distanceToSqr(eye)).orElse(Double.POSITIVE_INFINITY);
+    }
+
+    /** @return The wire part that the given (world) position is on, or null if it isn't on one. */
+    @Nullable
+    private static EnumWirePart getWirePartAt(TilePipeHolder tile, BlockPos pos, Vec3 location) {
+        Vec3 local = location.subtract(pos.getX(), pos.getY(), pos.getZ());
+        for (EnumWirePart part : tile.wireManager.parts.keySet()) {
+            if (part.boundingBox.inflate(1e-4).contains(local)) {
+                return part;
+            }
+        }
+        for (EnumWireBetween between : tile.wireManager.betweens.keySet()) {
+            if (between.boundingBox.inflate(1e-4).contains(local)) {
+                return between.parts[0];
+            }
+        }
+        return null;
     }
 
     /** @return The part of the pipe that the given hit is on: the center, or one of the connections. */
@@ -201,6 +249,13 @@ public class BlockPipeHolder extends BlockBCTile {
                     ? InteractionResult.CONSUME : InteractionResult.PASS;
             }
             ItemStack held = player.getItemInHand(hand);
+            DyeColor wireColour = BCTransportItems.getWireColour(held.getItem());
+            if (wireColour != null && placeWire(level, tile, pos, hit, wireColour)) {
+                if (!player.getAbilities().instabuild) {
+                    held.shrink(1);
+                }
+                return InteractionResult.CONSUME;
+            }
             if (held.getItem() instanceof IItemPluggable itemPlug) {
                 Direction side = part.face != null ? part.face : hit.getDirection();
                 if (tile.getPluggable(side) == null) {
@@ -222,6 +277,33 @@ public class BlockPipeHolder extends BlockBCTile {
             return InteractionResult.CONSUME;
         }
         return InteractionResult.PASS;
+    }
+
+    /** Adds a wire where the player clicked: in the corner of the pipe that was clicked, or next to the wire that was
+     * clicked (which may be in the next pipe).
+     *
+     * @return True if a wire was added. */
+    private static boolean placeWire(Level level, TilePipeHolder tile, BlockPos pos, BlockHitResult hit,
+        DyeColor colour) {
+        Vec3 local = hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
+        EnumWirePart hitPart = null;
+        for (EnumWirePart part : tile.wireManager.parts.keySet()) {
+            if (part.boundingBox.inflate(1e-4).contains(local)) {
+                hitPart = part;
+            }
+        }
+        TilePipeHolder attach = tile;
+        EnumWirePart wirePart;
+        if (hitPart != null) {
+            WireNode node = new WireNode(pos, hitPart).offset(hit.getDirection());
+            wirePart = node.part();
+            if (!node.pos().equals(pos)) {
+                attach = level.getBlockEntity(node.pos()) instanceof TilePipeHolder other ? other : null;
+            }
+        } else {
+            wirePart = EnumWirePart.get(local.x > 0.5, local.y > 0.5, local.z > 0.5);
+        }
+        return attach != null && attach.getPipe() != null && attach.wireManager.addPart(wirePart, colour);
     }
 
     @Override
@@ -251,7 +333,25 @@ public class BlockPipeHolder extends BlockBCTile {
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest,
         FluidState fluid) {
         if (level.getBlockEntity(pos) instanceof TilePipeHolder tile) {
-            Direction plugSide = getPluggableLookedAt(tile, pos, player);
+            Target target = getTargetLookedAt(tile, pos, player);
+            if (target != null && target.part() != null) {
+                if (!level.isClientSide) {
+                    removeWires(tile, pos, player, 1, target.part());
+                }
+                return false;
+            }
+            if (target != null && target.between() != null) {
+                if (!level.isClientSide) {
+                    EnumWireBetween between = target.between();
+                    if (between.to == null) {
+                        removeWires(tile, pos, player, 2, between.parts);
+                    } else {
+                        removeWires(tile, pos, player, 1, between.parts[0]);
+                    }
+                }
+                return false;
+            }
+            Direction plugSide = target == null ? null : target.plug();
             if (plugSide != null) {
                 if (!level.isClientSide) {
                     PipePluggable removed = tile.replacePluggable(plugSide, null);
@@ -270,6 +370,19 @@ public class BlockPipeHolder extends BlockBCTile {
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
+    /** Removes the given wires (all of the same colour), and drops them. */
+    private static void removeWires(TilePipeHolder tile, BlockPos pos, Player player, int count,
+        EnumWirePart... parts) {
+        DyeColor colour = tile.wireManager.getColorOfPart(parts[0]);
+        if (colour == null) {
+            return;
+        }
+        tile.wireManager.removeParts(List.of(parts));
+        if (!player.getAbilities().instabuild) {
+            Block.popResource(tile.getLevel(), pos, new ItemStack(BCTransportItems.wire(colour), count));
+        }
+    }
+
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos,
         Player player) {
@@ -277,6 +390,11 @@ public class BlockPipeHolder extends BlockBCTile {
             Direction plugSide = getPluggableAt(tile, pos, target.getLocation());
             if (plugSide != null) {
                 return tile.getPluggable(plugSide).getPickStack();
+            }
+            EnumWirePart wirePart = getWirePartAt(tile, pos, target.getLocation());
+            DyeColor wireColour = wirePart == null ? null : tile.wireManager.getColorOfPart(wirePart);
+            if (wireColour != null) {
+                return new ItemStack(BCTransportItems.wire(wireColour));
             }
         }
         Pipe pipe = getPipe(level, pos);

@@ -6,6 +6,8 @@
 
 package buildcraft.transport.client.render;
 
+import java.util.Map;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 
@@ -23,6 +25,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
@@ -31,6 +34,7 @@ import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 
 import buildcraft.api.mj.MjAPI;
+import buildcraft.api.transport.EnumWirePart;
 
 import buildcraft.lib.client.render.BoxRenderer;
 
@@ -41,8 +45,11 @@ import buildcraft.transport.pipe.flow.PipeFlowItems;
 import buildcraft.transport.pipe.flow.PipeFlowPower;
 import buildcraft.transport.pipe.flow.TravellingItem;
 import buildcraft.transport.tile.TilePipeHolder;
+import buildcraft.transport.wire.EnumWireBetween;
+import buildcraft.transport.wire.WireManager;
 
-/** Renders what moves through pipes: travelling items, fluids, and the flow of power in kinesis pipes. */
+/** Renders what moves through pipes (travelling items, fluids, and the flow of power in kinesis pipes), and the
+ * wires. */
 public class RenderPipeHolder implements BlockEntityRenderer<TilePipeHolder> {
     private static final float ITEM_SCALE = 0.4f;
     private static final ResourceLocation POWER_FLOW = ResourceLocation.fromNamespaceAndPath(
@@ -61,6 +68,9 @@ public class RenderPipeHolder implements BlockEntityRenderer<TilePipeHolder> {
         Pipe pipe = tile.getPipe();
         if (pipe == null) {
             return;
+        }
+        if (!tile.wireManager.parts.isEmpty()) {
+            renderWires(tile.wireManager, poseStack, buffers, light);
         }
         if (pipe.getFlow() instanceof PipeFlowItems flow) {
             renderItems(tile, flow, partialTick, poseStack, buffers, light, overlay);
@@ -145,6 +155,64 @@ public class RenderPipeHolder implements BlockEntityRenderer<TilePipeHolder> {
             scroll[axis] = (float) flow.clientDisplayFlowCentre[axis] / 2;
         }
         drawBox(box, sprite, from, to, scroll, null, 0.5f);
+    }
+
+    /** Draws the wires: each corner, and what joins them. Powered wires are lit, and use the bottom row of their
+     * texture (the top row is the unpowered one). */
+    private static void renderWires(WireManager wires, PoseStack poseStack, MultiBufferSource buffers, int light) {
+        var buffer = buffers.getBuffer(Sheets.solidBlockSheet());
+        var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
+        BoxRenderer off = new BoxRenderer(buffer, poseStack, light, OverlayTexture.NO_OVERLAY);
+        BoxRenderer on = new BoxRenderer(buffer, poseStack, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY);
+        // Slightly bigger than the boxes that are hit, so that they don't flicker where they meet
+        final float grow = 0.01f;
+        for (Map.Entry<EnumWirePart, DyeColor> entry : wires.parts.entrySet()) {
+            EnumWirePart part = entry.getKey();
+            boolean powered = wires.isPowered(part);
+            TextureAtlasSprite sprite = atlas.apply(getWireTexture(entry.getValue()));
+            int index = (part.x.getStep() > 0 ? 4 : 0) + (part.y.getStep() > 0 ? 2 : 0)
+                + (part.z.getStep() > 0 ? 1 : 0);
+            float v = powered ? 15 : 0;
+            var bb = part.boundingBox;
+            float x0 = (float) bb.minX * 16 - grow, y0 = (float) bb.minY * 16 - grow, z0 = (float) bb.minZ * 16 - grow;
+            float x1 = (float) bb.maxX * 16 + grow, y1 = (float) bb.maxY * 16 + grow, z1 = (float) bb.maxZ * 16 + grow;
+            for (Direction face : Direction.values()) {
+                (powered ? on : off).face(face, x0, y0, z0, x1, y1, z1, sprite, index, v, index + 1, v + 1);
+            }
+        }
+        for (Map.Entry<EnumWireBetween, DyeColor> entry : wires.betweens.entrySet()) {
+            EnumWireBetween between = entry.getKey();
+            boolean powered = wires.isPowered(between.parts[0]);
+            TextureAtlasSprite sprite = atlas.apply(getWireTexture(entry.getValue()));
+            float v = powered ? 15 : 0;
+            var bb = between.boundingBox;
+            Direction.Axis axis = between.mainAxis;
+            float gx = axis == Direction.Axis.X ? 0 : grow;
+            float gy = axis == Direction.Axis.Y ? 0 : grow;
+            float gz = axis == Direction.Axis.Z ? 0 : grow;
+            float x0 = (float) bb.minX * 16 - gx, y0 = (float) bb.minY * 16 - gy, z0 = (float) bb.minZ * 16 - gz;
+            float x1 = (float) bb.maxX * 16 + gx, y1 = (float) bb.maxY * 16 + gy, z1 = (float) bb.maxZ * 16 + gz;
+            float u0 = (float) bb.min(axis) * 16, u1 = (float) bb.max(axis) * 16;
+            BoxRenderer box = powered ? on : off;
+            for (Direction face : Direction.values()) {
+                if (face.getAxis() == axis) {
+                    // The ends are hidden in the corners
+                    continue;
+                }
+                // The texture goes along the wire
+                boolean rotated = axis == Direction.Axis.Y
+                    || (axis == Direction.Axis.Z && face.getAxis() == Direction.Axis.Y);
+                if (rotated) {
+                    box.faceRotated(face, x0, y0, z0, x1, y1, z1, sprite, u0, v, u1, v + 1);
+                } else {
+                    box.face(face, x0, y0, z0, x1, y1, z1, sprite, u0, v, u1, v + 1);
+                }
+            }
+        }
+    }
+
+    public static ResourceLocation getWireTexture(DyeColor colour) {
+        return ResourceLocation.fromNamespaceAndPath(BuildCraft.MODID, "block/wire/" + colour.getName());
     }
 
     /** Draws the fluid in each section of the pipe: horizontal sections fill up from the bottom (or from the top, for

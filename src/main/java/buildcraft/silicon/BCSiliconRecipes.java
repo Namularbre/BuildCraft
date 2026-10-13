@@ -36,6 +36,7 @@ import buildcraft.silicon.gate.EnumGateModifier;
 import buildcraft.silicon.gate.GateVariant;
 import buildcraft.silicon.item.ItemPluggableLens;
 import buildcraft.silicon.recipe.FacadeAssemblyRecipe;
+import buildcraft.transport.BCTransportItems;
 
 /** The assembly table recipes, with the values of 1.12. */
 public final class BCSiliconRecipes {
@@ -81,6 +82,11 @@ public final class BCSiliconRecipes {
             lens(colour, IngredientStack.of(glass), bars);
         }
         lens(null, IngredientStack.of(Items.GLASS), bars);
+
+        for (DyeColor colour : DyeColor.values()) {
+            ItemStack wires = new ItemStack(BCTransportItems.wire(colour), 8);
+            register("wire_" + colour.getName(), 10_000, wires, Set.of(redstone, IngredientStack.of(colour.getTag())));
+        }
 
         AssemblyRecipeRegistry.register(FacadeAssemblyRecipe.INSTANCE);
     }

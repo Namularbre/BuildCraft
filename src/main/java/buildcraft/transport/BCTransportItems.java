@@ -6,9 +6,13 @@
 
 package buildcraft.transport;
 
+import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 
 import net.minecraftforge.registries.RegistryObject;
@@ -67,7 +71,33 @@ public final class BCTransportItems {
     public static final RegistryObject<Item> PIPE_SEALANT =
         BCRegistries.ITEMS.register("pipe_sealant", () -> new Item(new Item.Properties()));
 
+    /** The pipe wires, by colour. */
+    public static final Map<DyeColor, RegistryObject<Item>> WIRES = new EnumMap<>(DyeColor.class);
+
+    static {
+        for (DyeColor colour : DyeColor.values()) {
+            WIRES.put(colour, BCRegistries.ITEMS.register(
+                "wire_" + colour.getName(), () -> new Item(new Item.Properties())
+            ));
+        }
+    }
+
     private BCTransportItems() {}
+
+    public static Item wire(DyeColor colour) {
+        return WIRES.get(colour).get();
+    }
+
+    /** @return The colour of the given wire item, or null if it isn't one. */
+    @Nullable
+    public static DyeColor getWireColour(Item item) {
+        for (Map.Entry<DyeColor, RegistryObject<Item>> entry : WIRES.entrySet()) {
+            if (entry.getValue().get() == item) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
 
     /** Registers the item of a pipe, named after its definition (for example "wood_item_pipe"). */
     private static RegistryObject<ItemPipeHolder> pipe(PipeDefinition definition) {

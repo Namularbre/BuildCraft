@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
@@ -22,6 +23,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.network.NetworkHooks;
 
+import buildcraft.api.transport.IWireEmitter;
 import buildcraft.api.transport.pipe.IPipeHolder;
 import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.api.transport.pluggable.PluggableDefinition;
@@ -34,7 +36,7 @@ import buildcraft.silicon.gate.GateVariant;
 import buildcraft.transport.tile.TilePipeHolder;
 
 /** A gate on the side of a pipe. */
-public class PluggableGate extends PipePluggable {
+public class PluggableGate extends PipePluggable implements IWireEmitter {
     private static final AABB[] BOXES = boxes();
 
     /** @return The box of a gate (or of a plug of the same size) on each side. */
@@ -135,6 +137,18 @@ public class PluggableGate extends PipePluggable {
     @Override
     public boolean canConnectToRedstone() {
         return true;
+    }
+
+    // IWireEmitter
+
+    @Override
+    public boolean isEmitting(DyeColor colour) {
+        return logic.isEmitting(colour);
+    }
+
+    @Override
+    public void emitWire(DyeColor colour) {
+        logic.emitWire(colour);
     }
 
     /** The model of a gate: it depends on the variant, and on whether the gate is on. */

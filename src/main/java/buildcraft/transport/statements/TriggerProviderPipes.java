@@ -11,6 +11,7 @@ import java.util.Collection;
 import javax.annotation.Nonnull;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import buildcraft.api.gates.IGate;
@@ -33,6 +34,12 @@ public enum TriggerProviderPipes implements ITriggerProvider {
         if (container instanceof IGate gate) {
             IPipeHolder holder = gate.getPipeHolder();
             holder.fireEvent(new PipeEventStatement.AddTriggerInternal(holder, triggers));
+            for (DyeColor colour : DyeColor.values()) {
+                if (TriggerPipeSignal.doesGateHaveColour(gate, colour)) {
+                    triggers.add(BCTransportStatements.TRIGGER_PIPE_SIGNAL[colour.ordinal() * 2]);
+                    triggers.add(BCTransportStatements.TRIGGER_PIPE_SIGNAL[colour.ordinal() * 2 + 1]);
+                }
+            }
             if (holder.getPipe() != null && holder.getPipe().getFlow() instanceof PipeFlowPower) {
                 triggers.add(BCTransportStatements.TRIGGER_POWER_REQUESTED);
             }

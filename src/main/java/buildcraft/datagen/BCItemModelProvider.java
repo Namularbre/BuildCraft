@@ -8,6 +8,7 @@ package buildcraft.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
 
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
@@ -38,6 +39,10 @@ public class BCItemModelProvider extends ItemModelProvider {
         basicItem(BCCoreItems.GEAR_GOLD.get());
         basicItem(BCCoreItems.GEAR_DIAMOND.get());
         basicItem(BCTransportItems.PIPE_SEALANT.get());
+        for (DyeColor colour : DyeColor.values()) {
+            withExistingParent("wire_" + colour.getName(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/wire/" + colour.getName()));
+        }
 
         engine(BCCoreBlocks.ENGINE_REDSTONE.getId(), "redstone");
         engine(BCEnergyBlocks.ENGINE_STONE.getId(), "stone");

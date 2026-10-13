@@ -11,6 +11,7 @@ import java.util.Collection;
 import javax.annotation.Nonnull;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import buildcraft.api.gates.IGate;
@@ -19,6 +20,7 @@ import buildcraft.api.statements.IActionInternal;
 import buildcraft.api.statements.IActionInternalSided;
 import buildcraft.api.statements.IActionProvider;
 import buildcraft.api.statements.IStatementContainer;
+import buildcraft.api.transport.IWireEmitter;
 import buildcraft.api.transport.pipe.IPipeHolder;
 import buildcraft.api.transport.pipe.PipeEventStatement;
 
@@ -31,6 +33,13 @@ public enum ActionProviderPipes implements IActionProvider {
         if (container instanceof IGate gate) {
             IPipeHolder holder = gate.getPipeHolder();
             holder.fireEvent(new PipeEventStatement.AddActionInternal(holder, actions));
+            if (container instanceof IWireEmitter) {
+                for (DyeColor colour : DyeColor.values()) {
+                    if (TriggerPipeSignal.doesGateHaveColour(gate, colour)) {
+                        actions.add(BCTransportStatements.ACTION_PIPE_SIGNAL[colour.ordinal()]);
+                    }
+                }
+            }
         }
     }
 

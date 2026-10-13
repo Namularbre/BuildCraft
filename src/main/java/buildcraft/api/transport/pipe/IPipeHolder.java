@@ -14,10 +14,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import net.minecraftforge.common.capabilities.Capability;
 
+import buildcraft.api.transport.IWireManager;
 import buildcraft.api.transport.pluggable.PipePluggable;
 
 
-/** Designates a tile that can contain a pipe. (Wires are not ported yet.) */
+/** Designates a tile that can contain a pipe, and the wires that go through it. */
 public interface IPipeHolder {
     Level getPipeWorld();
 
@@ -52,6 +53,8 @@ public interface IPipeHolder {
     @Nullable
     <T> T getCapabilityFromPipe(Direction side, @Nonnull Capability<T> capability);
 
+
+    IWireManager getWireManager();
 
     GameProfile getOwner();
 
