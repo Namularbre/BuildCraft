@@ -1,0 +1,46 @@
+# Builds the mod and publishes it as a GitHub release when a version tag (like v8.0.0-alpha.1) is pushed.
+# The version of the jar comes from the tag (without its "v"). Tags with a "-" (like alpha or beta versions) are
+# published as pre-releases.
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Read the version from the tag
+        run: echo "MOD_VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+
+      - name: Build
+        run: ./gradlew build -Pmod_version="$MOD_VERSION" --no-daemon
+
+      - name: Run the game tests
+        run: ./gradlew runGameTestServer -Pmod_version="$MOD_VERSION" --no-daemon
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: BuildCraft ${{ env.MOD_VERSION }} for Minecraft 1.20.1
+          files: build/libs/buildcraft-${{ env.MOD_VERSION }}.jar
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
