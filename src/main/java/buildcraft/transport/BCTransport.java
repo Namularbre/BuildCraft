@@ -6,11 +6,15 @@
 
 package buildcraft.transport;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 import buildcraft.api.transport.pipe.PipeApi;
 
 import buildcraft.transport.statements.BCTransportStatements;
+import buildcraft.transport.stripes.PipeExtensionManager;
+import buildcraft.transport.stripes.StripesHandlers;
+import buildcraft.transport.stripes.StripesRegistry;
 
 /** The transport module: pipes. */
 public final class BCTransport {
@@ -23,6 +27,11 @@ public final class BCTransport {
         BCTransportBlocks.init();
         BCTransportItems.init();
         BCTransportMenus.init();
+        PipeApi.stripeRegistry = StripesRegistry.INSTANCE;
+        PipeApi.extensionManager = PipeExtensionManager.INSTANCE;
+        StripesHandlers.register(PipeApi.stripeRegistry);
+        PipeApi.extensionManager.registerRetractionPipe(BCTransportPipes.VOID_ITEM);
+        MinecraftForge.EVENT_BUS.register(PipeExtensionManager.INSTANCE);
         modBus.addListener(PipeApi::registerCapabilities);
     }
 }

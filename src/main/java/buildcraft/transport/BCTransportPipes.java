@@ -34,6 +34,7 @@ import buildcraft.transport.pipe.behaviour.PipeBehaviourObsidian;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourQuartz;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourSandstone;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourStone;
+import buildcraft.transport.pipe.behaviour.PipeBehaviourStripes;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourStructure;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourVoid;
 import buildcraft.transport.pipe.behaviour.PipeBehaviourWood;
@@ -106,6 +107,9 @@ public final class BCTransportPipes {
     );
     public static final PipeDefinition EMZULI_ITEM = itemPipe(
         "emzuli_item", PipeBehaviourEmzuli::new, PipeBehaviourEmzuli::new, "_clear", "_filled"
+    );
+    public static final PipeDefinition STRIPES_ITEM = itemPipe(
+        "stripes_item", PipeBehaviourStripes::new, PipeBehaviourStripes::new
     );
     public static final PipeDefinition DAIZULI_ITEM = itemPipe(
         "daizuli_item", PipeBehaviourDaizuli::new, PipeBehaviourDaizuli::new, withFilled(COLOUR_SUFFIXES)

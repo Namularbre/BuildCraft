@@ -92,6 +92,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_DIAMOND_ITEM.get(), "Diamond Transport Pipe");
             add(BCTransportItems.PIPE_LAPIS_ITEM.get(), "Lapis Transport Pipe");
             add(BCTransportItems.PIPE_CLAY_ITEM.get(), "Clay Transport Pipe");
+            add(BCTransportItems.PIPE_STRIPES_ITEM.get(), "Stripes Transport Pipe");
             add(BCTransportItems.PIPE_CLAY_FLUID.get(), "Clay Fluid Pipe");
             add(BCTransportItems.PIPE_OBSIDIAN_ITEM.get(), "Obsidian Transport Pipe");
             add(BCTransportItems.PIPE_DIAMOND_WOOD_ITEM.get(), "Diamond Wooden Transport Pipe");
@@ -376,6 +377,7 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add(BCTransportItems.PIPE_DIAMOND_ITEM.get(), "Tuyau de transport en diamant");
             add(BCTransportItems.PIPE_LAPIS_ITEM.get(), "Tuyau de transport en lapis");
             add(BCTransportItems.PIPE_CLAY_ITEM.get(), "Tuyau de transport en argile");
+            add(BCTransportItems.PIPE_STRIPES_ITEM.get(), "Tuyau de transport à rayures");
             add(BCTransportItems.PIPE_CLAY_FLUID.get(), "Tuyau à fluides en argile");
             add(BCTransportItems.PIPE_OBSIDIAN_ITEM.get(), "Tuyau de transport en obsidienne");
             add(BCTransportItems.PIPE_DIAMOND_WOOD_ITEM.get(), "Tuyau de transport en bois de diamant");

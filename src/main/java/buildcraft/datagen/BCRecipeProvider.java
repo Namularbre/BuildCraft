@@ -320,6 +320,7 @@ public class BCRecipeProvider extends RecipeProvider {
         pipe(out, BCTransportItems.PIPE_DIAMOND_ITEM.get(), Ingredient.of(Tags.Items.GEMS_DIAMOND));
         pipe(out, BCTransportItems.PIPE_LAPIS_ITEM.get(), Ingredient.of(Tags.Items.STORAGE_BLOCKS_LAPIS));
         pipe(out, BCTransportItems.PIPE_CLAY_ITEM.get(), Ingredient.of(Items.CLAY));
+        pipe(out, BCTransportItems.PIPE_STRIPES_ITEM.get(), Ingredient.of(BCCoreItems.GEAR_GOLD.get()));
         pipe(out, BCTransportItems.PIPE_OBSIDIAN_ITEM.get(), Ingredient.of(Tags.Items.OBSIDIAN));
         pipe(out, BCTransportItems.PIPE_DIAMOND_WOOD_ITEM.get(), Ingredient.of(ItemTags.PLANKS),
             Ingredient.of(Tags.Items.GEMS_DIAMOND));

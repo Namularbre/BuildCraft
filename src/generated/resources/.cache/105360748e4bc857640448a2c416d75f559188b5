@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-14T00:39:45.0425541	Item Models: buildcraft
+// 1.20.1	2026-10-14T10:26:36.8779179	Item Models: buildcraft
 599b6003dbe28c528cebe2d3ebf097f5c54f2e42 assets/buildcraft/models/item/advanced_crafting_table.json
 d2069c3f75ced0d1af479d1df57851ae6b44b5dd assets/buildcraft/models/item/architect_table.json
 efd3bf6432cd66ca8f8f91950c9ae9cfaf2e737d assets/buildcraft/models/item/assembly_table.json
@@ -86,6 +86,7 @@ d6766dee5702cd5db85d03f61307317d3ec45774 assets/buildcraft/models/item/stirling_
 7864562555f2c5e98e07bb16156ada0b9634cdf5 assets/buildcraft/models/item/stone_gear.json
 6ec0fc78f64572d553168d32d04d9304fc37c64e assets/buildcraft/models/item/stone_item_pipe.json
 9bccbf1fa71643634a1e3adec117986cb04c3539 assets/buildcraft/models/item/stone_power_pipe.json
+7e2b9fe2bcd7b5924240fb152014a358112cf31d assets/buildcraft/models/item/stripes_item_pipe.json
 e6170371b69ae361ada4e8757506bcddc77842c4 assets/buildcraft/models/item/structure_pipe.json
 1f50500bfb3a00f66e9f331eee7363fd425a9efb assets/buildcraft/models/item/tank.json
 d32a677c25880aa5f8ff38c9d4dcd1376a7bad34 assets/buildcraft/models/item/void_fluid_pipe.json

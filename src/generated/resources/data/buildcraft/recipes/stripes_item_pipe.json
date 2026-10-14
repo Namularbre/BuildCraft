@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "buildcraft:pipes",
+  "key": {
+    "g": {
+      "tag": "forge:glass/colorless"
+    },
+    "l": {
+      "item": "buildcraft:gold_gear"
+    },
+    "r": {
+      "item": "buildcraft:gold_gear"
+    }
+  },
+  "pattern": [
+    "lgr"
+  ],
+  "result": {
+    "count": 8,
+    "item": "buildcraft:stripes_item_pipe"
+  },
+  "show_notification": true
+}

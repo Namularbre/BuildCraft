@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-14T00:39:45.0456527	Recipes
+// 1.20.1	2026-10-14T10:26:36.8819169	Recipes
 426815b71078e7b84841207a01647f34ec5d28d7 data/buildcraft/advancements/recipes/building_blocks/structure_pipe.json
 4b98a241bbf735254a8a8a160cabb08b0980f83b data/buildcraft/advancements/recipes/misc/advanced_crafting_table.json
 b851caf8323b961383a8b6ea5386858db3d07750 data/buildcraft/advancements/recipes/misc/architect_table.json
@@ -103,6 +103,7 @@ d8ff11175fa19eb909453817d61805872901860e data/buildcraft/advancements/recipes/tr
 19facff909c5fcc49b5d8299300336f3f394b60b data/buildcraft/advancements/recipes/transportation/stone_item_pipe.json
 afd5a35acc3f35d14ea210642facbae93aa2c8c0 data/buildcraft/advancements/recipes/transportation/stone_power_pipe.json
 03b9faf034995416c592ac399e029eb316a66dea data/buildcraft/advancements/recipes/transportation/stone_power_pipe_undo.json
+c8f780d5e3a03a1ae84eeb407c7691d96df81256 data/buildcraft/advancements/recipes/transportation/stripes_item_pipe.json
 3e1fd56a062b9268465e2c5edcfdba181cdcd297 data/buildcraft/advancements/recipes/transportation/void_fluid_pipe.json
 a3fdcb7ffb0bf92996fcf04a54fcced051562d80 data/buildcraft/advancements/recipes/transportation/void_fluid_pipe_undo.json
 d9fb997115866c1372c137f0075f047b5a636260 data/buildcraft/advancements/recipes/transportation/void_item_pipe.json
@@ -210,6 +211,7 @@ c000d163eb265f2d4e4bf15a6e1ec8d2ff44bd8d data/buildcraft/recipes/stone_fluid_pip
 a87d895b6d357fa89b3c69e7d220560c0bc66675 data/buildcraft/recipes/stone_item_pipe.json
 9623c1b391192178e8bb91b7fbe7c47588af4bdb data/buildcraft/recipes/stone_power_pipe.json
 87d08d9cfb5eab611ecbbd4c628bf45309347e5c data/buildcraft/recipes/stone_power_pipe_undo.json
+c91f491983a7564801b7038d2693ac0e8ceceb12 data/buildcraft/recipes/stripes_item_pipe.json
 383c00fc647ce36daa886ce7538741670d88af67 data/buildcraft/recipes/structure_pipe.json
 37387f0429feb943b44886a8ef522a786145ae00 data/buildcraft/recipes/tank.json
 db0cbe30f94d78c218b7e473eb5b2f1ab129c6d0 data/buildcraft/recipes/template.json
