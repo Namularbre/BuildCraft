@@ -8,6 +8,8 @@ package buildcraft.builders.filler;
 
 import java.util.BitSet;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.core.BlockPos;
 
 import buildcraft.api.filler.IFilledTemplate;
@@ -17,8 +19,17 @@ public class Template implements IFilledTemplate {
     private final BlockPos size;
     private final BlockPos max;
     public final BitSet data;
+    /** Where the template starts in the world, or null if it starts at the bottom corner of the box of the filler
+     * (only patterns that go outside of the box set it). */
+    @Nullable
+    public final BlockPos min;
 
     public Template(BlockPos size) {
+        this(null, size);
+    }
+
+    public Template(@Nullable BlockPos min, BlockPos size) {
+        this.min = min;
         this.size = size;
         this.max = size.offset(-1, -1, -1);
         this.data = new BitSet(getDataSize(size));

@@ -237,7 +237,8 @@ public class TileFiller extends TileBC
             }
         }
         builder.setTarget(template == null ? null
-            : new TemplateTarget(template.data, template.getSize(), box.min(), Rotation.NONE));
+            : new TemplateTarget(template.data, template.getSize(), template.min != null ? template.min : box.min(),
+                Rotation.NONE));
     }
 
     // ITickable

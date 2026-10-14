@@ -145,6 +145,9 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add("buildcraft.fillerpattern.2d_square", "Square");
             add("buildcraft.fillerpattern.2d_pentagon", "Pentagon");
             add("buildcraft.fillerpattern.2d_hexagon", "Hexagon");
+            add("buildcraft.fillerpattern.2d_octagon", "Octagon");
+            add("buildcraft.fillerpattern.horizon", "Horizon");
+            add("buildcraft.fillerpattern.flatten", "Flatten");
             add("buildcraft.fillerpattern.2d_arc", "Arc");
             add("buildcraft.fillerpattern.2d_semi_circle", "Semi-Circle");
             add("buildcraft.fillerpattern.2d_circle", "Circle");
@@ -431,6 +434,9 @@ public abstract class BCLanguageProvider extends LanguageProvider {
             add("buildcraft.fillerpattern.2d_square", "Carré");
             add("buildcraft.fillerpattern.2d_pentagon", "Pentagone");
             add("buildcraft.fillerpattern.2d_hexagon", "Hexagone");
+            add("buildcraft.fillerpattern.2d_octagon", "Octogone");
+            add("buildcraft.fillerpattern.horizon", "Horizon");
+            add("buildcraft.fillerpattern.flatten", "Aplanir");
             add("buildcraft.fillerpattern.2d_arc", "Arc");
             add("buildcraft.fillerpattern.2d_semi_circle", "Demi-cercle");
             add("buildcraft.fillerpattern.2d_circle", "Cercle");

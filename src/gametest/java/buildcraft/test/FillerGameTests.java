@@ -90,6 +90,55 @@ public class FillerGameTests {
         });
     }
 
+    /** An octagon is a square with its corners cut off. */
+    @GameTest(template = EMPTY)
+    public static void octagonsCutCorners(GameTestHelper helper) {
+        Template octagon = template(BCBuildersStatements.PATTERN_OCTAGON, 7, 1, 7);
+        helper.assertTrue(octagon.get(3, 0, 0) && octagon.get(0, 0, 3), "The sides are drawn");
+        helper.assertTrue(!octagon.get(0, 0, 0) && !octagon.get(6, 0, 6), "The corners are cut");
+        for (int x = 0; x < 7; x++) {
+            for (int z = 0; z < 7; z++) {
+                helper.assertTrue(octagon.get(x, 0, z) == octagon.get(6 - x, 0, 6 - z), "An octagon is symmetric");
+            }
+        }
+        helper.succeed();
+    }
+
+    /** "Horizon" clears everything above the bottom of the box (up to the sky, so outside of the box too), and fills
+     * the layer under it. (Only the template is checked, as there is a lot of ground above the test.) */
+    @GameTest(template = EMPTY)
+    public static void horizonsGoUpToTheSky(GameTestHelper helper) {
+        TileFiller filler = placeFiller(helper, new BlockPos(1, 1, 1), new BlockPos(2, 2, 2));
+        Template horizon = (Template) BCBuildersStatements.PATTERN_HORIZON.createTemplate(filler, NO_PARAMS);
+        BlockPos boxMin = helper.absolutePos(new BlockPos(1, 1, 1));
+        helper.assertTrue(horizon != null && horizon.min != null && horizon.min.getY() == boxMin.getY() - 1,
+            "The template should start under the box");
+        int height = horizon.getSize().getY();
+        helper.assertTrue(horizon.min.getY() + height == helper.getLevel().getMaxBuildHeight(),
+            "The template should go up to the sky");
+        helper.assertTrue(horizon.get(0, 0, 0) && horizon.get(1, 0, 1), "The layer under the box is filled");
+        helper.assertTrue(!horizon.get(0, 1, 0) && !horizon.get(1, height - 1, 1), "Everything above is cleared");
+        helper.succeed();
+    }
+
+    /** "Flatten" clears the box, and fills the holes under it down to the ground. */
+    @GameTest(template = BIG, timeoutTicks = 400)
+    public static void flattenFillsHolesUnderTheBox(GameTestHelper helper) {
+        helper.setBlock(new BlockPos(3, 3, 3), Blocks.DIRT);
+        TileFiller filler = placeFiller(helper, new BlockPos(2, 3, 2), new BlockPos(4, 3, 4));
+        filler.invResources.insertItem(0, new ItemStack(Items.COBBLESTONE, 32), false);
+        filler.setPattern(BCBuildersStatements.PATTERN_FLATTEN, NO_PARAMS);
+        helper.succeedWhen(() -> {
+            helper.assertBlockPresent(Blocks.AIR, new BlockPos(3, 3, 3));
+            for (int x = 2; x <= 4; x++) {
+                for (int z = 2; z <= 4; z++) {
+                    helper.assertBlockPresent(Blocks.COBBLESTONE, new BlockPos(x, 1, z));
+                    helper.assertBlockPresent(Blocks.COBBLESTONE, new BlockPos(x, 2, z));
+                }
+            }
+        });
+    }
+
     /** A gate next to the filler can set its pattern. */
     @GameTest(template = EMPTY)
     public static void gatesSetFillerPatterns(GameTestHelper helper) {
