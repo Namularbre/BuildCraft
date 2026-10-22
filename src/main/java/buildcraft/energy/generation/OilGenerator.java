@@ -57,12 +57,12 @@ public final class OilGenerator {
 
     /** @return The type of deposit centred in the given chunk, without working out its shape. */
     public static GenType getType(long worldSeed, int cx, int cz, BiomeLookup biomes) {
-        return roll(createRandomForChunk(worldSeed, cx, cz), cx, cz, biomes).type;
+        return roll(worldSeed, createRandomForChunk(worldSeed, cx, cz), cx, cz, biomes).type;
     }
 
     private record Roll(GenType type, int x, int z) {}
 
-    private static Roll roll(Random rand, int cx, int cz, BiomeLookup biomes) {
+    private static Roll roll(long worldSeed, Random rand, int cx, int cz, BiomeLookup biomes) {
         int x = cx * 16 + 8 + rand.nextInt(16);
         int z = cz * 16 + 8 + rand.nextInt(16);
 
@@ -77,19 +77,23 @@ public final class OilGenerator {
         }
 
         boolean oilBiome = BCEnergyConfig.surfaceDepositBiomes().contains(biome.toString());
+        // Oil fields take the place of the 1.12 oil biomes, which were "excessive" biomes
+        boolean inField = OilFields.isInField(worldSeed, x, z, biome);
 
         double bonus = oilBiome ? 3.0 : 1.0;
         bonus *= BCEnergyConfig.oilWellGenerationRate();
-        if (BCEnergyConfig.excessiveBiomes().contains(biome.toString())) {
+        if (inField || BCEnergyConfig.excessiveBiomes().contains(biome.toString())) {
             bonus *= 30.0;
         }
+        // Lakes are only a little more common in fields (multiplying them by 30 would cover the fields with them)
+        double lakeBonus = oilBiome ? bonus : BCEnergyConfig.oilWellGenerationRate();
 
         final GenType type;
         if (rand.nextDouble() <= BCEnergyConfig.largeOilGenProb() * bonus) {
             type = GenType.LARGE;
         } else if (rand.nextDouble() <= BCEnergyConfig.mediumOilGenProb() * bonus) {
             type = GenType.MEDIUM;
-        } else if (oilBiome && rand.nextDouble() <= BCEnergyConfig.smallOilGenProb() * bonus) {
+        } else if ((oilBiome || inField) && rand.nextDouble() <= BCEnergyConfig.smallOilGenProb() * lakeBonus) {
             type = GenType.LAKE;
         } else {
             type = GenType.NONE;
@@ -101,7 +105,7 @@ public final class OilGenerator {
     public static List<OilGenStructure> getStructures(long worldSeed, int cx, int cz, BiomeLookup biomes, int minY,
         int maxY) {
         Random rand = createRandomForChunk(worldSeed, cx, cz);
-        Roll roll = roll(rand, cx, cz, biomes);
+        Roll roll = roll(worldSeed, rand, cx, cz, biomes);
         if (roll.type == GenType.NONE) {
             return List.of();
         }

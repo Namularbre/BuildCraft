@@ -27,6 +27,7 @@ import buildcraft.BuildCraft;
 import buildcraft.energy.BCEnergyFluids;
 import buildcraft.energy.BCEnergyWorldGen;
 import buildcraft.energy.generation.OilGenerator;
+import buildcraft.energy.generation.OilFields;
 import buildcraft.energy.generation.OilGenerator.GenType;
 
 @GameTestHolder(BuildCraft.MODID)
@@ -53,6 +54,34 @@ public class OilWorldGenGameTests {
         }
         // 0.04% large + ~0.1% medium of 10,000 chunks: around 14
         helper.assertTrue(deposits > 2 && deposits < 50, "Expected around 14 deposits, found " + deposits);
+        helper.succeed();
+    }
+
+    /** Like the 1.12 oil biomes, a few parts of oceans are oil fields, with many more deposits (and some lakes). */
+    @GameTest(template = EMPTY)
+    public static void oceansHaveRareOilFields(GameTestHelper helper) {
+        ResourceLocation ocean = ResourceLocation.parse("minecraft:ocean");
+        ResourceLocation plains = ResourceLocation.parse("minecraft:plains");
+        int fieldChunks = 0;
+        int fieldDeposits = 0;
+        int chunks = 0;
+        for (int cx = -300; cx < 300; cx += 2) {
+            for (int cz = -300; cz < 300; cz += 2) {
+                chunks++;
+                int x = cx * 16 + 8;
+                int z = cz * 16 + 8;
+                helper.assertTrue(!OilFields.isInField(1234L, x, z, plains), "Only oceans and deserts have fields");
+                if (OilFields.isInField(1234L, x, z, ocean)) {
+                    fieldChunks++;
+                    if (OilGenerator.getType(1234L, cx, cz, (bx, bz) -> ocean) != GenType.NONE) {
+                        fieldDeposits++;
+                    }
+                }
+            }
+        }
+        double fraction = fieldChunks / (double) chunks;
+        helper.assertTrue(fieldChunks > 0 && fraction < 0.2, "Oil fields should be rare, found " + fraction);
+        helper.assertTrue(fieldDeposits > 0, "Oil fields should have deposits");
         helper.succeed();
     }
 

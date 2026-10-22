@@ -30,14 +30,22 @@ public final class BCEnergyConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> EXCESSIVE_BIOMES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SURFACE_DEPOSIT_BIOMES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> EXCLUDED_BIOMES;
+    public static final ForgeConfigSpec.BooleanValue ENABLE_OIL_FIELDS;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> OIL_OCEAN_BIOMES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> OIL_DESERT_BIOMES;
     public static final ForgeConfigSpec.BooleanValue EXCLUDED_BIOMES_IS_BLACKLIST;
 
-    /** 1.12 had dedicated oil desert and oil ocean biomes, which aren't ported: oil is more common in deserts and
-     * oceans instead. */
-    private static final List<String> DEFAULT_SURFACE_DEPOSIT_BIOMES = List.of(
-        "minecraft:desert", "minecraft:ocean", "minecraft:deep_ocean", "minecraft:warm_ocean",
-        "minecraft:lukewarm_ocean", "minecraft:deep_lukewarm_ocean"
+    /** Like in 1.12, no biome has surface deposits by default (1.12 only boosted its own oil desert and oil ocean
+     * biomes, which aren't ported). Making every desert and ocean one gave far too much oil. */
+    private static final List<String> DEFAULT_SURFACE_DEPOSIT_BIOMES = List.of();
+    /** The biomes that 1.12 could turn into its oil ocean biome (every ocean). */
+    private static final List<String> DEFAULT_OIL_OCEAN_BIOMES = List.of(
+        "minecraft:ocean", "minecraft:deep_ocean", "minecraft:warm_ocean", "minecraft:lukewarm_ocean",
+        "minecraft:deep_lukewarm_ocean", "minecraft:cold_ocean", "minecraft:deep_cold_ocean", "minecraft:frozen_ocean",
+        "minecraft:deep_frozen_ocean"
     );
+    /** The biomes that 1.12 could turn into its oil desert biome (hot, dry and sandy ones). */
+    private static final List<String> DEFAULT_OIL_DESERT_BIOMES = List.of("minecraft:desert");
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -85,6 +93,16 @@ public final class BCEnergyConfig {
         EXCLUDED_BIOMES = builder
             .comment("Biome registry names of biomes that should never generate oil.")
             .defineListAllowEmpty("excludedBiomes", List.of(), o -> o instanceof String);
+        ENABLE_OIL_FIELDS = builder
+            .comment("Should some parts of oceans and deserts be oil fields, like the oil ocean and oil desert biomes "
+                + "of 1.12? Oil wells are much more common in them, and they can have oil lakes.")
+            .define("enableOilFields", true);
+        OIL_OCEAN_BIOMES = builder
+            .comment("The biomes that can have ocean oil fields.")
+            .defineListAllowEmpty("oilOceanBiomes", DEFAULT_OIL_OCEAN_BIOMES, o -> o instanceof String);
+        OIL_DESERT_BIOMES = builder
+            .comment("The biomes that can have desert oil fields.")
+            .defineListAllowEmpty("oilDesertBiomes", DEFAULT_OIL_DESERT_BIOMES, o -> o instanceof String);
         EXCLUDED_BIOMES_IS_BLACKLIST = builder
             .comment("If true then the excluded biomes list is a blacklist, otherwise it is a whitelist.")
             .define("excludedBiomesIsBlacklist", true);
@@ -126,6 +144,18 @@ public final class BCEnergyConfig {
 
     public static double largeOilGenProb() {
         return get(LARGE_OIL_GEN_PROB) / 100;
+    }
+
+    public static boolean enableOilFields() {
+        return get(ENABLE_OIL_FIELDS);
+    }
+
+    public static List<? extends String> oilOceanBiomes() {
+        return get(OIL_OCEAN_BIOMES);
+    }
+
+    public static List<? extends String> oilDesertBiomes() {
+        return get(OIL_DESERT_BIOMES);
     }
 
     public static boolean enableOilSpouts() {
